@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.dao.EmployeeMapper">
+<!--
+命名空间和接口名称绑定，SQL标签与接口方法名绑定
+namespace:名称空间；指定为接口的全类名
+id：唯一标识
+resultType：返回值类型
+#{id}: 从传递过来的参数中取出ID值
+-->
+    <select id="getEmpByID" resultType="mybatis.bean.Employee">
+      select id, last_name as lastName, gender, email from tbl_employee where id = #{id}
+    </select>
+</mapper>
