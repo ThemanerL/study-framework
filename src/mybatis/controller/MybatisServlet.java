@@ -13,11 +13,8 @@ public class MybatisServlet extends javax.servlet.http.HttpServlet {
     response.setContentType("text/html;charset=GBK");
     EmployeeTest test = new EmployeeTest();
     try {
-      request.setAttribute("username", test.printEmpByInterfaceXml(1));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    try {
+      request.setAttribute("emp1", test.printEmpByInterfaceXml(1));
+      request.setAttribute("emp2", test.printEmpByInterfaceXml(2));
       request.getRequestDispatcher("/index.jsp").forward(request, response);
     } catch (Exception e) {
       e.printStackTrace();
