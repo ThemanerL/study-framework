@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- *.dtd 是XML的约束文件，规定XML标签的语法规则，只有约束文件引用正确，敲XML应该有提示 -->
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--
+      1、Mybatis可以使用properties来引入外部properties配置文件的内容
+        resource:来引入类路径下的资源
+        url:引入网络路径或者磁盘路径下的资源
+      -->
+    <properties resource="mybatis/db-config.properties"> </properties>
+    <!--
+        Settings包含很多的重要的设置项
+        setting:用来设置每一个设置项
+    -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="True"/>
+    </settings>
+    <!--
+        别名处理器，可以为Java类型起别名
+        别名不区分大小写
+        如果在某个包的子包中有某个类的名字重复，Mybatis起得别名相同就会报错，此时可以通过在类前添加@Alias()注解来指定别名
+        -->
+    <typeAliases>
+        <!-- 为某个Java类型取别名 -->
+            <!-- <typeAlias type="mybatis.dao.Employee" alias="Employee"/> -->
+        <!--批量取别名,为当前包和下面的所有的后代包都起一个默认别名 -->
+            <package name="mybatis.bean"/>
+    </typeAliases>
+
+    <!--
+        myBatis可以配置多种环境
+        environments: default指定使用某种环境，可以达到快速切换
+        environment:配置一个具体的环境信息;
+            ID:代表当前环境的唯一标示
+            transactionManager:事务管理器
+                type:JDBC(JdbcTransactionFactory)|Managed(ManagedTransactionFactory)|自定义:实现TransactionFactory接口
+            dataSource:数据源;
+                type:数据源类型;UnPOOLED:不使用连接池(UnpooledDataSourceFactory)|POOLED(PooledDataSourceFactory)|JNDI(JndiDataSourceFactory)
+    -->
+    <environments default="development">
+        <environment id="test">
+            <transactionManager type=""/>
+            <dataSource type="">
+            </dataSource>
+        </environment>
+
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--
+        DatabaseIDProvider:支持多数据库厂商
+            type="DB_VENDOR" :VendorDatabaseIdProvider得到数据库厂商的标识(标识驱动自带getDatabaseProductName()),Mybatis就可以根据数据库厂商标识来执行不同的sql
+     -->
+    <databaseIdProvider type="DB_VENDOR">
+        <!-- 为不同的数据库厂商起别名 -->
+        <property name="MySQL" value="mysql"/>
+        <property name="Oracle" value="oracle"/>
+        <property name="SQL Server" value="sqlserver"/>
+    </databaseIdProvider>
+
+    <!--
+        将sql映射注册到全局配置文件
+            注册配置文件：
+                resource:类路径下的sql映射文件
+                ULR:引用网络路径或者磁盘路径下的sql映射文件
+            注册接口：
+                Class:引用接口
+                1、有sql映射文件，映射文件名必须与接口名一样，且处于同一目录下。
+                2、没有sql映射文件，所有的sql都是利用注解写在接口上
+            批量注册：
+                如果采用批量注册，sql语句写在注解中的不受影响，但是如果sql语句是分离在xml文件中的，需要将xml文件和接口放在同一目录下
+            推荐:比较重要的Dao接口我们来写sql映射文件
+                 不重要的Dao接口为了快速开发，可以采用注解;
+    -->
+    <mappers>
+        <!--<mapper resource="mybatis/dao/EmployeeMapper.xml"/>-->
+        <!--<dao class="mybatis.dao.EmployeeMapperAnnotation"/>-->
+        <package name="mybatis.dao"/>
+    </mappers>
+</configuration>

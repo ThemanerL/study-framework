@@ -13,4 +13,25 @@ public interface EmployeeMapper {
    * @return emp对象
    */
   Employee getEmpByID(Integer id);
+
+  /**
+   * 增加一个employee对象
+   * @param employee /
+   * @return int 返回sql影响的数据条数
+   */
+  int addEmp(Employee employee);
+
+  /**
+   * 修改一个employee对象
+   * @param employee/
+   * @return int 返回sql影响的数据条数
+   */
+  int updateEmp(Employee employee);
+
+  /**
+   * 根据ID删除一个employee对象
+   * @param id 要删除的对象的Employee的ID
+   * @return int 返回sql影响的数据条数
+   */
+  int deleteEmpById(Integer id);
 }

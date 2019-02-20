@@ -1,5 +1,4 @@
 package mybatis.controller;
-import mybatis.test.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +13,7 @@ public class MybatisServlet extends javax.servlet.http.HttpServlet {
     response.setContentType("text/html;charset=GBK");
     EmployeeTest test = new EmployeeTest();
     try {
-      request.setAttribute("username", test.printEmpByInterface(1));
+      request.setAttribute("username", test.printEmpByInterfaceXml(1));
     } catch (Exception e) {
       e.printStackTrace();
     }

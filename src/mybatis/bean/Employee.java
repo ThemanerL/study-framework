@@ -14,10 +14,6 @@ public class Employee {
     return id;
   }
 
-  public void setId(int id) {
-    this.id = id;
-  }
-
   public String getLastName() {
     return lastName;
   }
@@ -39,6 +35,19 @@ public class Employee {
   }
 
   public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public Employee( String lastName, String gender, String email) {
+    this.lastName = lastName;
+    this.gender = gender;
+    this.email = email;
+  }
+
+  public Employee(Integer id, String lastName, String gender, String email) {
+    this.id = id;
+    this.lastName = lastName;
+    this.gender = gender;
     this.email = email;
   }
 
