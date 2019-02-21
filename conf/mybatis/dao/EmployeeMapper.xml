@@ -14,11 +14,31 @@ databaseId:表示这条语句在mysql情况下使用
           from tbl_employee
           where id = #{id}
     </select>
-
-    <!-- parameterType可以省略 -->
-    <insert id="addEmp" parameterType="mybatis.bean.Employee">
+    <!--
+        parameterType可以省略;
+        mysql支持自增主键，自增主键值的获取，mybatis也是利用statement.getGeneratedKeys();
+        useGeneratedKeys="true" 使用自增主键获取主键值策略
+        keyProperty="id"将获得的自增主键的值,赋给javaBean中的ID属性
+     -->
+    <insert id="addEmp" parameterType="mybatis.bean.Employee" useGeneratedKeys="true" keyProperty="id" databaseId="mysql">
         insert into tbl_employee(last_name, gender, email)
           values (#{lastName}, #{gender}, #{email})
+    </insert>
+    <!--
+        Oracle不支持自增：Oracle使用序列来模拟自增；
+        每次插入的数据的主键是从序列中拿到的值
+    -->
+    <insert id="addEmp" databaseId="oracle">
+#     插入时的主键是从序列中拿到的
+#     keyProperty:查出的主键封装给JavaBean的哪个属性
+#     order="BEFORE" 当前SQL在插入SQL执行前运行
+#     resultType 查出的返回值的类型
+      <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
+#       编写查询主键的sql语句
+        select EMPLOYEE_SEQ.nextval fromdual
+      </selectKey>
+      insert into tbl_employee(EMPLOYEE_ID, last_name, email)
+        VALUES (#{id}, #{lastName}, #{email})
     </insert>
 
     <update id="updateEmp">
@@ -26,9 +46,11 @@ databaseId:表示这条语句在mysql情况下使用
           set last_name = #{lastName}, email = #{email}, gender = #{gender}
           where id = #{id}
     </update>
-
     <delete id="deleteEmpById">
         delete from tbl_employee where id = #{id}
+    </delete>
+    <delete id="deleteEmpEmail">
+        delete from tbl_employee where email = #{email}
     </delete>
     <select id="getEmpByID" resultType="mybatis.bean.Employee" databaseId="oracle">
         select * from tbl_employee where id = #{id}

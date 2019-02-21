@@ -25,17 +25,18 @@ import static org.junit.Assert.*;
  *  原生：   Dao     ==》 DaoImpl
  *  MyBatis：Mapper  ==》 xxMapper.xml
  * 2、SqlSession代表与数据库的一次会话：用完必须释放资源
- * 3、SqlSession与Connection一样，都是非线程安全的。每次使用都应该获取新的对象。
- * 4、mapper接口没有实现类。但是myBatis会为这个接口生成一个代理对象。
+ * 3、SqlSessionFactory.openSession()获取到的session不自动提交
+ * 4、SqlSession与Connection一样，都是非线程安全的。每次使用都应该获取新的对象。
+ * 5、mapper接口没有实现类。但是myBatis会为这个接口生成一个代理对象。
  *    (将接口与XML进行绑定)
  *    EmployeeMapper employeeMapper = SqlSession.getMapper(EmployeeMapper.class)
- * 5、myBatis的全局配置文件：包含数据库连接池信息，事务管理器信息，系统运行环境信息等等。
+ * 6、myBatis的全局配置文件：包含数据库连接池信息，事务管理器信息，系统运行环境信息等等。
  *    sql映射文件：保存了每一个sql语句的映射信息。通过该文件抽取sql语句。
  * @author 李重辰
  * @date 2019/2/19 11:01
  */
 public class EmployeeMapperTest {
-
+  boolean result ;
   private SqlSessionFactory getSqlSessionFactory(){
     String resource = "mybatis/mybatis-config.xml";
     InputStream inputStream = null;
@@ -121,21 +122,20 @@ public class EmployeeMapperTest {
   @Test
   public void addEmp() {
     SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    Employee employee = new Employee("小头3", "1", "add3");
-    int result = 0;
+    Employee employee = new Employee("UTF-8编码", "1", String.valueOf(System.currentTimeMillis()));
     try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.addEmp(employee);
+      System.out.print(employee);
+      sqlSession.commit();
     } catch (Exception e) {
       e.printStackTrace();
     }
-    System.out.println(result);
   }
 
   @Test
   public void updateEmp() {
     SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    int result = 0;
     try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.updateEmp(new Employee(1,"updateT","0", "updater@qw"));
@@ -148,10 +148,22 @@ public class EmployeeMapperTest {
   @Test
   public void deleteEmpById() {
     SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    int result = 0;
     try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.deleteEmpById(5);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    System.out.println(result);
+  }
+
+  @Test
+  public void deleteEmpEmail() {
+    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+    int result = 0;
+    try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
+      result = employeeMapper.deleteEmpEmail("add3");
     } catch (Exception e) {
       e.printStackTrace();
     }

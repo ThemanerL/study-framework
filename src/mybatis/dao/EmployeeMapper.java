@@ -17,21 +17,28 @@ public interface EmployeeMapper {
   /**
    * 增加一个employee对象
    * @param employee /
-   * @return int 返回sql影响的数据条数
+   * @return boolean 返回sql影响的数据条数
    */
-  int addEmp(Employee employee);
+  boolean addEmp(Employee employee);
 
   /**
    * 修改一个employee对象
    * @param employee/
-   * @return int 返回sql影响的数据条数
+   * @return boolean 返回sql影响的数据条数
    */
-  int updateEmp(Employee employee);
+  boolean updateEmp(Employee employee);
 
   /**
    * 根据ID删除一个employee对象
    * @param id 要删除的对象的Employee的ID
-   * @return int 返回sql影响的数据条数
+   * @return boolean 返回sql影响的数据条数
    */
-  int deleteEmpById(Integer id);
+  boolean deleteEmpById(Integer id);
+
+  /**
+   * 根据email删除一批employee对象
+   * @param email 要删除的对象的email
+   * @return int 影响的记录条数
+   */
+  int deleteEmpEmail(String email);
 }

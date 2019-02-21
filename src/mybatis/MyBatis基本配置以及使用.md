@@ -16,4 +16,4 @@
 (将接口与XML进行绑定)
 EmployeeMapper employeeMapper = SqlSession.getMapper(EmployeeMapper.class)
 - myBatis的全局配置文件：包含数据库连接池信息，事务管理器信息，系统运行环境信息等等。
-- sql映射文件：保存了每一个sql语句的映射信息。通过该文件抽取sql语句。
+- <a href = "https://github.com/ThemanerL/Study_framework/blob/master/conf/mybatis/dao/EmployeeMapper.xml">sql映射文件</a>：保存了每一个sql语句的映射信息。通过该文件抽取sql语句。
