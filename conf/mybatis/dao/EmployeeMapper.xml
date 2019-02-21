@@ -12,8 +12,19 @@ databaseId:表示这条语句在mysql情况下使用
     <select id="getEmpByID" resultType="mybatis.bean.Employee" databaseId="mysql">
         select id, last_name, gender, email
           from tbl_employee
-          where id = #{id}
+          where id = #{list[0]}
     </select>
+    <select id="getEmpByIdXLastName" resultType="mybatis.bean.Employee">
+        select * from tbl_employee
+        where id = #{id}
+          and last_name = #{lastName}
+    </select>
+    <select id="getEmpByMap" resultType="mybatis.bean.Employee">
+        select * from tbl_employee
+        where id = #{id}
+          and last_name = #{lastName}
+    </select>
+
     <!--
         parameterType可以省略;
         mysql支持自增主键，自增主键值的获取，mybatis也是利用statement.getGeneratedKeys();
@@ -24,6 +35,7 @@ databaseId:表示这条语句在mysql情况下使用
         insert into tbl_employee(last_name, gender, email)
           values (#{lastName}, #{gender}, #{email})
     </insert>
+
     <!--
         Oracle不支持自增：Oracle使用序列来模拟自增；
         每次插入的数据的主键是从序列中拿到的值

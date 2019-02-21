@@ -1,6 +1,11 @@
 package mybatis.dao;
 
 import mybatis.bean.Employee;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 李重辰
@@ -12,7 +17,29 @@ public interface EmployeeMapper {
    * @param id 员工ID
    * @return emp对象
    */
-  Employee getEmpByID(Integer id);
+  Employee getEmpByID(List id);
+
+ /**
+  * 根据ID获取员工信息
+  * @param id 员工ID
+  * @return emp对象
+  */
+ Employee getEmpByID(Integer id);
+
+  /**
+   * 根据ID和名字 获取员工
+   * @param id /
+   * @param lastName /
+   * @return /
+   */
+  Employee getEmpByIdXLastName(@Param("id") Integer id, @Param("lastName") String lastName);
+
+  /**
+  * 根据ID和名字 获取员工
+  * @param map /
+  * @return /
+  */
+  Employee getEmpByMap(Map<String, Object> map);
 
   /**
    * 增加一个employee对象

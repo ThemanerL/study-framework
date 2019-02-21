@@ -7,18 +7,14 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 1、接口式编程
@@ -36,7 +32,7 @@ import static org.junit.Assert.*;
  * @date 2019/2/19 11:01
  */
 public class EmployeeMapperTest {
-  boolean result ;
+  private boolean result ;
   private SqlSessionFactory getSqlSessionFactory(){
     String resource = "mybatis/mybatis-config.xml";
     InputStream inputStream = null;
@@ -56,18 +52,12 @@ public class EmployeeMapperTest {
    */
   @Test
   public void getEmpByID() {
-    // 1、根据XML文件配置文件（全局配置文件），创建一个SqlSessionFactory对象
-    String resource = "mybatis/mybatis-config.xml";
-    InputStream inputStream = null;
-    try {
-      inputStream = Resources.getResourceAsStream(resource);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-    // 2.获取一个SqlSession实例，能够执行一个已经映射的Sql语句
+    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
     try(SqlSession session = sqlSessionFactory.openSession()) {
-      Employee employee = session.selectOne("mybatis.dao.EmployeeMapper.getEmpByID",1);
+      List<Integer> list = new ArrayList<>();
+      list.add(1);
+      list.add(2);
+      Employee employee =  session.getMapper(EmployeeMapper.class).getEmpByID(list);
       System.out.println(employee);
     } catch (Exception e) {
       e.printStackTrace();
@@ -117,6 +107,32 @@ public class EmployeeMapperTest {
       e.printStackTrace();
     }
     System.out.println(str);
+  }
+
+  @Test
+  public void getEmpByIdXLastName(){
+    SqlSessionFactory sessionFactory = getSqlSessionFactory();
+    String str = null;
+    try(SqlSession sqlSession = sessionFactory.openSession()){
+      EmployeeMapper empMapper = sqlSession.getMapper(EmployeeMapper.class);
+      Employee employee = empMapper.getEmpByIdXLastName(1,"UpdateT");
+      str = String.valueOf(employee);
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+    System.out.println(str);
+  }
+
+  @Test
+  public void getEmpByMap(){
+    SqlSessionFactory sessionFactory = getSqlSessionFactory();
+    try(SqlSession sqlSession = sessionFactory.openSession(true)){
+      EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+      Map<String, Object> map = new HashMap<>();
+      map.put("id", 1);
+      map.put("lastName", "updateT");
+      System.out.println( mapper.getEmpByMap(map));
+    }
   }
 
   @Test
