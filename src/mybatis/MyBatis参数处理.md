@@ -39,7 +39,7 @@ Key也可以为参数的索引
 
 1. 如果是Collection(List、Set)类型或者是数组，也会特殊处理。也是把传入的list或者数组封装在map中
 Key:Collection(collection),如果是List还可以使用 Key(list)、数组(array)  
-![List在mybatis处理后的结构](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/List%E5%9C%A8mybatis%E5%A4%84%E7%90%86%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%84.png?q-sign-algorithm=sha1&q-ak=AKID6ASqQObo2DbLPGdBi85CuwIL5ZBKcV6v&q-sign-time=1550751351;1550753151&q-key-time=1550751351;1550753151&q-header-list=&q-url-param-list=&q-signature=d4536fb5021632c1894801d81b22ee9599995a26&x-cos-security-token=15634342977efbdfe40f629599b85ba1137aac9e10001)
+![List在mybatis处理后的结构](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/listInMybatis.png)
     ```
     public Employee getEmpById(List<Integer> ids)
     取值:取出第一个id的值#{list[0]}
