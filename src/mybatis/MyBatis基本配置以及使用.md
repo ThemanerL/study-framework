@@ -5,7 +5,7 @@
 - 根据全局配置文件得到一个SqlSessionFactory对象
 - 使用SqlSessionFactory，获取到sqlSession对象，使用该对象来执行sql语句
 - 一个sqlSession就是代表与数据库的一次会话. 使用sql的唯一标示来告诉Mybatis执行哪个sql，sql都是保存在sql映射文件中
-<hr>
+<hr/>
 #### 注意事项
 1. 接口式编程
     原生：   Dao     --> DaoImpl
