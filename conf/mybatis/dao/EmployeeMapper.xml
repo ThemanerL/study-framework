@@ -5,7 +5,8 @@
 命名空间和接口名称绑定，SQL标签与接口方法名绑定
 namespace:名称空间；指定为接口的全类名
 id：唯一标识
-resultType：返回值类型
+resultType：返回值类型、如果返回的是一个集合，要写集合中元素的类型
+    永远是每一次记录封装为什么类型就写什么类型。
 #{id}: 从传递过来的参数中取出ID值
 databaseId:表示这条语句在mysql情况下使用
 -->
@@ -20,9 +21,24 @@ databaseId:表示这条语句在mysql情况下使用
           and last_name = #{lastName}
     </select>
     <select id="getEmpByMap" resultType="mybatis.bean.Employee">
-        select * from tbl_employee
-        where id = #{id}
-          and last_name = #{lastName}
+        select * from ${tableName}
+        where id = ${id}
+          and last_name = ${lastName}
+    </select>
+
+    <select id="getEmpByIDReturnMap" resultType="map">
+        select * from tbl_employee where id = #{id}
+    </select>
+
+    <select id="getEmpByLastNameReturnMap" resultType="Employee">
+        select * from tbl_employee where last_name like #{lastName}
+    </select>
+    <!--
+        用$传递传递参数的时候需要有对应的GET方法，在MyBatis的映射文件中如果用某个变量传递传递参数
+        ，这个变量必须存在于对应的模型中，并且有对应的GET方法
+     -->
+    <select id="getEmpsByLastNameLike" resultType="mybatis.bean.Employee">
+        select * from tbl_employee where last_name like #{lastName}
     </select>
 
     <!--

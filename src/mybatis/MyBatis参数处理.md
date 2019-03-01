@@ -61,3 +61,21 @@ Key:Collection(collection),如果是List还可以使用 Key(list)、数组(array
         return object;
       }
     ```
+<hr>
+
+#### #{ }与${ }取值的区别：
+1. \#{}是以预编译的形式将参数设置到sql中:PreparedStatement防止sql注入;**大多情况下使用#{}**
+本质就是占位符  
+    1. 规定参数的规则:
+    javaType、jdbcType、mode(用于存储过程)、numericScale(规定保留小数位数)、resultMap、typeHandler(类型处理器)、jdbcTypeName、expression  
+    jdbcType通常在某种特定的条件下被设置:在数据为null的时候，有些数据库不能识别mybatis对于null的默认处理，  
+    比如Oracle(报错):JdbcType OTHER 无效类型;(mybatis对所有的null都映射的是原生jdbc OTHER,oracle不能正确处理)
+    由于全局配置中，jdbcTypeForNull = OTHER;oracle不支持:  
+        - 在oracle的sql映射文件中写sql语句时，针对可能为null的字段:\#{email, jdbcType = NULL};
+        - 在mybatis的全局配置文件中添加\<setting name="jdbcTypeForNull" value="null"/\>;
+2. ${}取出的值直接拼装在sql语句中;  
+    1. 原生sql不支持占位符的地方，我们就可以使用${}进行取值, 比如分表、排序;按照年份分表拆分  
+    select * from ${year}_salary where ***;  
+    select * from tbl_employee order by ${f_name} ${desc/asc}
+    
+    

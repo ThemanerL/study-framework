@@ -35,4 +35,20 @@ public class Employee {
         ", email='" + email + '\'' +
         '}';
   }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public String getGender() {
+    return gender;
+  }
+
+  public String getEmail() {
+    return email;
+  }
 }
