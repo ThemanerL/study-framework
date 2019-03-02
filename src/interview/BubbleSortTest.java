@@ -8,12 +8,12 @@ import java.util.Arrays;
  * @author 李重辰
  * @date 2019/3/1 13:33
  */
-public class BubbleSort {
+public class BubbleSortTest {
 
   @Test
   public void sort1() {
     int[] arr = new int[10000];
-    for (int i = 1; i < 9999; i++) {
+    for (int i = 1; i < arr.length-1; i++) {
       arr[i] = i;
     }
     for (int ignored : arr) {
@@ -30,7 +30,7 @@ public class BubbleSort {
   @Test
   public void sort2() {
     int[] arr = new int[10000];
-    for (int i = 1; i < 9999; i++) {
+    for (int i = 1; i < arr.length-1; i++) {
       arr[i] = i;
     }
     for (int j = 0; j < arr.length; j++) {

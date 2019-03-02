@@ -38,6 +38,7 @@ public interface EmployeeMapper {
   /**
    * 多条记录封装为一个Map<Integer, Employee>.Key为该条记录的主键，值为封装后的javabean对象
    * 该注解告诉myBatis封装这个Map时使用哪个属性作为Map的Key
+   * @param lastName /
    * @return /
    */
   @MapKey("lastName")
@@ -45,6 +46,7 @@ public interface EmployeeMapper {
 
   /**
    * 返回一条记录的Map：key就是列名，值为查出来的值
+   * @param id /
    * @return /
    */
  Map<String, Object> getEmpByIDReturnMap(Integer id);

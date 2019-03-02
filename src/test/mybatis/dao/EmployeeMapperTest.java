@@ -33,7 +33,7 @@ import java.util.*;
 public class EmployeeMapperTest {
   private boolean result;
 
-  private SqlSessionFactory getSqlSessionFactory() {
+  SqlSessionFactory getSqlSessionFactory() {
     String resource = "mybatis/mybatis-config.xml";
     InputStream inputStream = null;
     try {
@@ -47,8 +47,11 @@ public class EmployeeMapperTest {
   private String getRandEmail() {
     long currentTime = System.currentTimeMillis();
     Random random = new Random(currentTime);
-    String emailSuffix = "";
+    String emailSuffix;
     switch (random.nextInt(5)) {
+      case 0:
+        emailSuffix = "@foxmail.com";
+        break;
       case 1:
         emailSuffix = "@qq.com";
         break;
@@ -61,9 +64,8 @@ public class EmployeeMapperTest {
       case 4:
         emailSuffix = "@sina.com.cn";
         break;
-      case 5:
-        emailSuffix = "@foxmail.com";
-        break;
+      default:
+        emailSuffix = "@169.com";
     }
     return String.valueOf(currentTime + emailSuffix);
   }
@@ -71,10 +73,10 @@ public class EmployeeMapperTest {
   /**
    * @return 获得一个中文名字
    */
-  public String getName() {
+  private String getName() {
     Random random = new Random(System.currentTimeMillis());
     // 598 百家姓
-    String[] Surname = {"赵", "钱", "孙", "李", "周", "吴", "郑", "王", "冯", "陈", "褚", "卫", "蒋", "沈", "韩", "杨", "朱", "秦", "尤", "许",
+    String[] surName = {"赵", "钱", "孙", "李", "周", "吴", "郑", "王", "冯", "陈", "褚", "卫", "蒋", "沈", "韩", "杨", "朱", "秦", "尤", "许",
         "何", "吕", "施", "张", "孔", "曹", "严", "华", "金", "魏", "陶", "姜", "戚", "谢", "邹", "喻", "柏", "水", "窦", "章", "云", "苏", "潘", "葛", "奚", "范", "彭", "郎",
         "鲁", "韦", "昌", "马", "苗", "凤", "花", "方", "俞", "任", "袁", "柳", "酆", "鲍", "史", "唐", "费", "廉", "岑", "薛", "雷", "贺", "倪", "汤", "滕", "殷",
         "罗", "毕", "郝", "邬", "安", "常", "乐", "于", "时", "傅", "皮", "卞", "齐", "康", "伍", "余", "元", "卜", "顾", "孟", "平", "黄", "和",
@@ -100,9 +102,9 @@ public class EmployeeMapperTest {
         "梁丘", "左丘", "东门", "西门", "南宫", "第五", "公仪", "公乘", "太史", "仲长", "叔孙", "屈突", "尔朱", "东乡", "相里", "胡母", "司城", "张廖", "雍门",
         "毋丘", "贺兰", "綦毋", "屋庐", "独孤", "南郭", "北宫", "王孙"};
 
-    int index = random.nextInt(Surname.length - 1);
+    int index = random.nextInt(surName.length - 1);
     // 获得一个随机的姓氏
-    String name = Surname[index];
+    String name = surName[index];
 
     // 从常用字中选取一个或两个字作为名
     if (random.nextBoolean()) {
@@ -120,15 +122,18 @@ public class EmployeeMapperTest {
     String str = null;
     int highPos, lowPos;
     Random random = new Random();
-    highPos = (176 + Math.abs(random.nextInt(71)));//区码，0xA0打头，从第16区开始，即0xB0=11*16=176,16~55一级汉字，56~87二级汉字
+    // 区码，0xA0打头，从第16区开始，即0xB0=11*16=176,16~55一级汉字，56~87二级汉字
+    highPos = (176 + Math.abs(random.nextInt(71)));
     random = new Random();
-    lowPos = 161 + Math.abs(random.nextInt(94));//位码，0xA0打头，范围第1~94列
+    // 位码，0xA0打头，范围第1~94列
+    lowPos = 161 + Math.abs(random.nextInt(94));
 
     byte[] bArr = new byte[2];
     bArr[0] = (new Integer(highPos)).byteValue();
     bArr[1] = (new Integer(lowPos)).byteValue();
     try {
-      str = new String(bArr, "GB2312");  //区位码组合成汉字
+      // 区位码组合成汉字
+      str = new String(bArr, "GB2312");
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
     }
@@ -256,7 +261,7 @@ public class EmployeeMapperTest {
     SqlSessionFactory sessionFactory = getSqlSessionFactory();
     try (SqlSession sqlSession = sessionFactory.openSession(true)) {
       EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
-      Map<String, Object> map = new HashMap<>();
+      Map<String, Object> map = new HashMap<>(16);
       map.put("id", 1);
       map.put("lastName", "'updateT'");
       map.put("tableName", "tbl_employee");
@@ -267,14 +272,12 @@ public class EmployeeMapperTest {
   @Test
   public void addEmp() {
     SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    Employee employee = new Employee(getName(), String.valueOf(new Random(System.currentTimeMillis()).nextInt(2)), getRandEmail());
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      Employee employee = new Employee(getName(), String.valueOf(new Random(System.currentTimeMillis()).nextInt(2)), getRandEmail());
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.addEmp(employee);
       System.out.print(employee);
       sqlSession.commit();
-    } catch (Exception e) {
-      e.printStackTrace();
     }
   }
 
