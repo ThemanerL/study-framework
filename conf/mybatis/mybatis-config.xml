@@ -9,16 +9,23 @@
         resource:来引入类路径下的资源
         url:引入网络路径或者磁盘路径下的资源
       -->
-    <properties resource="mybatis/db-config.properties"> </properties>
+    <properties resource="mybatis/db-config.properties"/>
     <!--
         Settings包含很多的重要的设置项
         setting:用来设置每一个设置项
+        显式的指定每个我们需要更改的配置的值.防止版本更替改变默认设置
     -->
     <settings>
-        <!-- 显式的指定每个我们需要更改的配置的值. -->
+
         <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- When enabled, an object with lazy loaded properties will be loaded entirely upon a call to any of the lazy
+        properties. Otherwise, each property is loaded on demand. -->
         <setting name="aggressiveLazyLoading" value="false"/>
+        <!-- Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property
+         names aColumn -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- 开启二级缓存 -->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
     <!--
         别名处理器，可以为Java类型起别名
@@ -27,9 +34,9 @@
         -->
     <typeAliases>
         <!-- 为某个Java类型取别名 -->
-            <!-- <typeAlias type="mybatis.dao.Employee" alias="Employee"/> -->
+        <!-- <typeAlias type="mybatis.dao.Employee" alias="Employee"/> -->
         <!--批量取别名,为当前包和下面的所有的后代包都起一个默认别名 -->
-            <package name="mybatis.bean"/>
+        <package name="mybatis.bean"/>
     </typeAliases>
 
     <!--

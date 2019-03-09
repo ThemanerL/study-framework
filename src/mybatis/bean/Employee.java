@@ -1,10 +1,14 @@
 package mybatis.bean;
 
+import java.io.Serializable;
+
 /**
  * @author 李重辰
  * @date 2019/2/18 15:32
  */
-public class Employee {
+public class Employee implements Serializable {
+
+  private static final long serialVersionUID = -2101711165167738656L;
   private Integer id;
   private String lastName;
   private String gender;
@@ -29,6 +33,46 @@ public class Employee {
     this.department = department;
   }
 
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getGender() {
+    return gender;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
   @Override
   public String toString() {
     return "Employee{" +
@@ -38,46 +82,4 @@ public class Employee {
         ", email='" + email + '\'' +
         '}';
   }
-
-  public Integer getId() {
-    return id;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public String getGender() {
-    return gender;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public Department getDepartment() {
-    return department;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  public void setGender(String gender) {
-    this.gender = gender;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public void setDepartment(Department department) {
-    this.department = department;
-  }
-
-
 }

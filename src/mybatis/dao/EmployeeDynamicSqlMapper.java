@@ -12,6 +12,7 @@ import java.util.List;
 public interface EmployeeDynamicSqlMapper {
   /**
    * eg1:查询员工 携带了哪个字段,查询条件就带上这个字段的值
+   *
    * @param employee /
    * @return /
    */
@@ -19,6 +20,7 @@ public interface EmployeeDynamicSqlMapper {
 
   /**
    * eg1:查询员工 携带了哪个字段,查询条件就带上这个字段的值
+   *
    * @param employee /
    * @return /
    */
@@ -26,6 +28,7 @@ public interface EmployeeDynamicSqlMapper {
 
   /**
    * eg1:如果带了id就用id查,如果带了lastname就用lastname查
+   *
    * @param employee /
    * @return /
    */
@@ -33,6 +36,7 @@ public interface EmployeeDynamicSqlMapper {
 
   /**
    * 测试Mybatis内部参数
+   *
    * @param employee /
    * @return /
    */
@@ -40,13 +44,15 @@ public interface EmployeeDynamicSqlMapper {
 
   /**
    * 查询id在给定集合中的员工
+   *
    * @param ids 员工id集合
    * @return /
    */
-  List<Employee> getEmpsByForeach(@Param("ids")List<Integer> ids);
+  List<Employee> getEmpsByForeach(@Param("ids") List<Integer> ids);
 
   /**
    * Employee中有封装的对象有什么属性就更新什么属性
+   *
    * @param employee /
    * @return /
    */
@@ -54,6 +60,7 @@ public interface EmployeeDynamicSqlMapper {
 
   /**
    * 使用foreach批量保存
+   *
    * @param emps /
    * @return /
    */

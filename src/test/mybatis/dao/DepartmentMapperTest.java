@@ -5,7 +5,6 @@ import mybatis.bean.Employee;
 import mybatis.dao.DepartmentMapper;
 import mybatis.dao.MyUtil;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
 import java.util.List;
@@ -17,8 +16,8 @@ import java.util.List;
 public class DepartmentMapperTest {
 
   @Test
-  public void addDept(){
-    try(SqlSession sqlSession = MyUtil.getSession()){
+  public void addDept() {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
       boolean result = departmentMapper.addDept(new Department(null, "售后服务部"));
       System.out.println(result);
@@ -26,16 +25,16 @@ public class DepartmentMapperTest {
   }
 
   @Test
-  public void getDeptById(){
-    try(SqlSession sqlSession = MyUtil.getSession()){
+  public void getDeptById() {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       Department department = sqlSession.getMapper(DepartmentMapper.class).getDeptById(1);
       System.out.println(department);
     }
   }
 
   @Test
-  public void getDepts(){
-    try(SqlSession sqlSession = MyUtil.getSession()){
+  public void getDepts() {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
       List<Department> depts = departmentMapper.getDepts();
       System.out.println(depts);
@@ -43,8 +42,8 @@ public class DepartmentMapperTest {
   }
 
   @Test
-  public void getDeptEmpsById(){
-    try(SqlSession sqlSession = MyUtil.getSession()){
+  public void getDeptEmpsById() {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
       Department department = departmentMapper.getDeptEmpsById("开发部");
       System.out.println(department.getName());

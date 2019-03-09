@@ -87,7 +87,7 @@
         </foreach>
     </select>
 
-    <select id="getEmpsInnerParameter" resultType="mybatis.bean.Employee" >
+    <select id="getEmpsInnerParameter" resultType="mybatis.bean.Employee">
         select * from tbl_employee
         <if test="_parameter!=null">
             <where>
@@ -140,6 +140,6 @@
 
     <!-- 抽取可重用的sql片段 -->
     <sql id="insertColumn">
-        last_name, gender,email,dept_id
+        last_name, gender, email, dept_id
     </sql>
 </mapper>

@@ -6,12 +6,14 @@
         <result column="dept_name" property="name"/>
     </resultMap>
 
-    <insert id="addDept" useGeneratedKeys="true" keyProperty="id" >
-        insert INTO tbl_dept(dept_name) VALUE (#{name})
+    <insert id="addDept" useGeneratedKeys="true" keyProperty="id">
+        insert INTO tbl_dept (dept_name)
+        VALUE (#{name})
     </insert>
 
     <select id="getDepts" resultMap="Department">
-        select * from tbl_dept
+        select *
+        from tbl_dept
     </select>
 
 
@@ -29,10 +31,14 @@
                     column="{deptId=id}"/>
     </resultMap>
     <select id="getDeptEmpsById" resultMap="Emps">
-        select * from tbl_dept where dept_name = #{deptName}
+        select *
+        from tbl_dept
+        where dept_name = #{deptName}
     </select>
 
     <select id="getDeptById" resultMap="Department">
-        select * from tbl_dept where id = #{id}
+        select *
+        from tbl_dept
+        where id = #{id}
     </select>
 </mapper>

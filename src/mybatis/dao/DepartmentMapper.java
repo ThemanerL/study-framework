@@ -1,9 +1,9 @@
 package mybatis.dao;
 
 import mybatis.bean.Department;
-import mybatis.bean.Employee;
 
 import java.util.List;
+
 /**
  * @author 李重辰
  * @date 2019/3/2 18:02
@@ -19,6 +19,7 @@ public interface DepartmentMapper {
 
   /**
    * 根据部门id 查出所有的部门员工
+   *
    * @param deptName /
    * @return /
    */
@@ -26,6 +27,7 @@ public interface DepartmentMapper {
 
   /**
    * 根据id查部门
+   *
    * @param id /
    * @return /
    */

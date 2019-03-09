@@ -1,6 +1,6 @@
 package mybatis.dao;
 
-import mybatis.bean.*;
+import mybatis.bean.Employee;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 public interface EmployeeMapperAnnotation {
   /**
    * 把sql语句写在注解中，省去了通过sql映射
+   *
    * @param id /
    * @return /
    */

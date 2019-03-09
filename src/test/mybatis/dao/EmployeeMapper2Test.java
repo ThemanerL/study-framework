@@ -4,11 +4,11 @@ import mybatis.bean.Employee;
 import mybatis.dao.EmployeeMapper2;
 import mybatis.dao.MyUtil;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 
 import java.util.List;
 import java.util.Random;
+
 /**
  * @author 李重辰
  * @date 2019/3/2 17:52
@@ -25,7 +25,7 @@ public class EmployeeMapper2Test {
   }
 
   @Test
-  public void getEmpsByDeptId(){
+  public void getEmpsByDeptId() {
     try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper2 employeeMapper2 = sqlSession.getMapper(EmployeeMapper2.class);
       List<Employee> empsByDeptId = employeeMapper2.getEmpsByDeptId(1);
@@ -34,7 +34,7 @@ public class EmployeeMapper2Test {
   }
 
   @Test
-  public void getEmpAndDept(){
+  public void getEmpAndDept() {
     try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper2 employeeMapper2 = sqlSession.getMapper(EmployeeMapper2.class);
       Employee employee = employeeMapper2.getEmpAndDept(1);
@@ -44,7 +44,7 @@ public class EmployeeMapper2Test {
   }
 
   @Test
-  public void getEmpByIdStep(){
+  public void getEmpByIdStep() {
     try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper2 employeeMapper2 = sqlSession.getMapper(EmployeeMapper2.class);
       Employee employee = employeeMapper2.getEmpByIdStep(6787);

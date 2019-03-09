@@ -10,10 +10,24 @@ import java.util.Arrays;
  */
 public class BubbleSortTest {
 
+  /**
+   * 比较交换数组arr[i]和arr[i+1]
+   *
+   * @param arr /
+   * @param i   /
+   */
+  private static void swapTwo(int[] arr, int i) {
+    if (arr[i] > arr[i + 1]) {
+      int temp = arr[i + 1];
+      arr[i + 1] = arr[i];
+      arr[i] = temp;
+    }
+  }
+
   @Test
   public void sort1() {
     int[] arr = new int[10000];
-    for (int i = 1; i < arr.length-1; i++) {
+    for (int i = 1; i < arr.length - 1; i++) {
       arr[i] = i;
     }
     for (int ignored : arr) {
@@ -30,7 +44,7 @@ public class BubbleSortTest {
   @Test
   public void sort2() {
     int[] arr = new int[10000];
-    for (int i = 1; i < arr.length-1; i++) {
+    for (int i = 1; i < arr.length - 1; i++) {
       arr[i] = i;
     }
     for (int j = 0; j < arr.length; j++) {
@@ -59,24 +73,10 @@ public class BubbleSortTest {
           sorted = false;
         }
       }
-      if (sorted){
+      if (sorted) {
         break;
       }
     }
     System.out.println(Arrays.toString(arr));
-  }
-
-
-  /**
-   * 比较交换数组arr[i]和arr[i+1]
-   * @param arr /
-   * @param i /
-   */
-  private static void swapTwo(int[] arr, int i){
-    if (arr[i] > arr[i + 1]) {
-      int temp = arr[i + 1];
-      arr[i + 1] = arr[i];
-      arr[i] = temp;
-    }
   }
 }
