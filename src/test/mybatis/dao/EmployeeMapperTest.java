@@ -3,6 +3,7 @@ package test.mybatis.dao;
 import mybatis.bean.Employee;
 import mybatis.dao.EmployeeMapper;
 import mybatis.dao.EmployeeMapperAnnotation;
+import mybatis.dao.MyUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -151,8 +152,7 @@ public class EmployeeMapperTest {
    */
   @Test
   public void getEmpByID() {
-    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    try (SqlSession session = sqlSessionFactory.openSession()) {
+    try (SqlSession session = MyUtil.getSession()) {
       List<Integer> list = new ArrayList<>();
       list.add(1);
       list.add(2);
@@ -174,10 +174,9 @@ public class EmployeeMapperTest {
   @Test
   public void printEmpByInterfaceXml() {
     // 1、获取sqlSessionFactory对象
-    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
     // 2、获取sqlSession对象
     Employee employee = null;
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       // 3、获取接口的实现类对象
       // MyBatis会为接口自动的创建一个代理对象，代理对象去执行数据库操作
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
@@ -210,9 +209,8 @@ public class EmployeeMapperTest {
 
   @Test
   public void getEmpByIdXLastName() {
-    SqlSessionFactory sessionFactory = getSqlSessionFactory();
     String str = null;
-    try (SqlSession sqlSession = sessionFactory.openSession()) {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper empMapper = sqlSession.getMapper(EmployeeMapper.class);
       Employee employee = empMapper.getEmpByIdXLastName(1, "UpdateT");
       str = String.valueOf(employee);
@@ -224,8 +222,7 @@ public class EmployeeMapperTest {
 
   @Test
   public void getEmpsByLastNameLike() {
-    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       List<Employee> emps = employeeMapper.getEmpsByLastNameLike("码");
       for (Employee emp : emps) {
@@ -247,8 +244,7 @@ public class EmployeeMapperTest {
 
   @Test
   public void getEmpByLastNameReturnMap() {
-    SqlSessionFactory sessionFactory = getSqlSessionFactory();
-    try (SqlSession sqlSession = sessionFactory.openSession()) {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       Map<String, Employee> map = sqlSession.getMapper(EmployeeMapper.class).getEmpByLastNameReturnMap("%码");
       for (Map.Entry<String, Employee> set : map.entrySet()) {
         System.out.println("Key: " + set.getKey() + "\tValue: " + set.getValue());
@@ -271,9 +267,8 @@ public class EmployeeMapperTest {
 
   @Test
   public void addEmp() {
-    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-      Employee employee = new Employee(getName(), String.valueOf(new Random(System.currentTimeMillis()).nextInt(2)), getRandEmail());
+    try (SqlSession sqlSession = MyUtil.getSession()) {
+      Employee employee = new Employee(null, getName(), String.valueOf(new Random(System.currentTimeMillis()).nextInt(2)), getRandEmail());
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.addEmp(employee);
       System.out.print(employee);
@@ -283,8 +278,7 @@ public class EmployeeMapperTest {
 
   @Test
   public void updateEmp() {
-    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.updateEmp(new Employee(1, "updateT", "0", "updater@qw"));
     } catch (Exception e) {
@@ -295,8 +289,7 @@ public class EmployeeMapperTest {
 
   @Test
   public void deleteEmpById() {
-    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.deleteEmpById(5);
     } catch (Exception e) {
@@ -307,9 +300,8 @@ public class EmployeeMapperTest {
 
   @Test
   public void deleteEmpEmail() {
-    SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
     int result = 0;
-    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.deleteEmpEmail("add3");
     } catch (Exception e) {

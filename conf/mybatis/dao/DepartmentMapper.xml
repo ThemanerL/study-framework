@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mybatis.dao.DepartmentMapper">
+    <resultMap id="Department" type="mybatis.bean.Department">
+        <id column="id" property="id"/>
+        <result column="dept_name" property="name"/>
+    </resultMap>
+
     <insert id="addDept" useGeneratedKeys="true" keyProperty="id" >
         insert INTO tbl_dept(dept_name) VALUE (#{name})
     </insert>
 
-    <select id="getDepts" resultType="Department">
+    <select id="getDepts" resultMap="Department">
         select * from tbl_dept
+    </select>
+
+
+    <resultMap id="Emps" type="mybatis.bean.Department">
+        <id column="id" property="id"/>
+        <result column="dept_name" property="name"/>
+        <!--
+            collection定义集合类型的属性封装规则
+            ofType:指定集合内元素的类型
+            fetchType="lazy(延迟加载)/eager(立即查询)"
+        扩展→传递多列的值:column = "{key=column1,key2=column2}"
+         -->
+        <collection property="employees" ofType="mybatis.bean.Employee"
+                    select="mybatis.dao.EmployeeMapper2.getEmpsByDeptId"
+                    column="{deptId=id}"/>
+    </resultMap>
+    <select id="getDeptEmpsById" resultMap="Emps">
+        select * from tbl_dept where dept_name = #{deptName}
+    </select>
+
+    <select id="getDeptById" resultMap="Department">
+        select * from tbl_dept where id = #{id}
     </select>
 </mapper>

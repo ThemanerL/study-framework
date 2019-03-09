@@ -5,19 +5,13 @@ package mybatis.bean;
  * @date 2019/2/18 15:32
  */
 public class Employee {
-  private int id;
+  private Integer id;
   private String lastName;
   private String gender;
   private String email;
-  private Department deptId;
+  private Department department;
 
   public Employee() {
-  }
-
-  public Employee(String lastName, String gender, String email) {
-    this.lastName = lastName;
-    this.gender = gender;
-    this.email = email;
   }
 
   public Employee(Integer id, String lastName, String gender, String email) {
@@ -25,6 +19,14 @@ public class Employee {
     this.lastName = lastName;
     this.gender = gender;
     this.email = email;
+  }
+
+  public Employee(Integer id, String lastName, String gender, String email, Department department) {
+    this.id = id;
+    this.lastName = lastName;
+    this.gender = gender;
+    this.email = email;
+    this.department = department;
   }
 
   @Override
@@ -37,7 +39,7 @@ public class Employee {
         '}';
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 
@@ -53,8 +55,8 @@ public class Employee {
     return email;
   }
 
-  public Department getDeptId() {
-    return deptId;
+  public Department getDepartment() {
+    return department;
   }
 
   public void setId(int id) {
@@ -73,7 +75,9 @@ public class Employee {
     this.email = email;
   }
 
-  public void setDeptId(Department deptId) {
-    this.deptId = deptId;
+  public void setDepartment(Department department) {
+    this.department = department;
   }
+
+
 }

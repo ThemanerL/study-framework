@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.dao.EmployeeDynamicSqlMapper">
+    <!--
+        eg1:查询员工 携带了哪个字段,查询条件就带上这个字段的值  且
+    -->
+    <!--  使用Where标签拼接(有缺陷) -->
+    <select id="getEmpsByIfWhere" resultType="mybatis.bean.Employee">
+        select *
+        from tbl_employee
+        <!--
+        使用Myabtis的where标签包裹所有的查询条件,mybatis会自动的将拼装的sql语句中多的and(&amp;) 和 or 去掉
+        where标签只能去掉第一个多余的and 或者 or
+        -->
+        <where>
+            <!--test 判断表达式(OGNL),从参数中取值进行判断(特殊字符要写转义字符)-->
+            <if test="id!=null &amp;&amp; id!=0">
+                id = #{id}
+            </if>
+            <if test="lastName!=null &amp;&amp; lastName!=&quot;&quot;">
+                and last_name like #{lastName}
+            </if>
+            <if test="email!=null &amp;&amp; email.trim()!=&quot;&quot;">
+                and email = #{email}
+            </if>
+            <!--OGNL会进行字符串与数字的转换判断-->
+            <if test="gender==0 or gender==1">
+                and gender = #{gender}
+            </if>
+        </where>
+    </select>
+
+    <!--  使用trim标签拼接 -->
+    <select id="getEmpsByIfTrim" resultType="mybatis.bean.Employee">
+        select *
+        from tbl_employee
+        <!--
+            trim标签是整个字符串拼串后的结果
+            prefix:给sql语句拼接的前缀
+            prefixOverrides:去掉整个字符串前面多余的字符
+            suffix:给sql语句拼接的后缀
+            suffixOverrides:去掉整个字符串后面多余的字符
+        -->
+        <trim prefix="where" suffixOverrides="and">
+            <if test="id!=null &amp;&amp; id!=0">
+                id = #{id} and
+            </if>
+            <if test="lastName!=null &amp;&amp; lastName!=&quot;&quot;">
+                last_name like #{lastName} and
+            </if>
+            <if test="email!=null &amp;&amp; email.trim()!=&quot;&quot;">
+                email = #{email}and
+            </if>
+            <if test="gender==0 or gender==1">
+                gender = #{gender}
+            </if>
+        </trim>
+    </select>
+
+    <!--
+        eg2:如果带了id就用id查,如果带了lastname就用lastname查,    或
+    -->
+    <select id="getEmpsByChoose" resultType="mybatis.bean.Employee">
+        select * from tbl_employee
+        <where>
+            <choose>
+                <when test="id!=0 &amp;&amp;id!=null">
+                    id = #{id}
+                </when>
+                <when test="lastName!=null">
+                    last_Name like #{lastName}
+                </when>
+                <otherwise>
+                    1=1
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!-- foreach批量保存 -->
+    <!-- 批量保存 -->
+    <select id="getEmpsByForeach" resultType="mybatis.bean.Employee">
+        select * from tbl_employee
+        where id in
+        <foreach collection="ids" item="emp.id" open="(" close=")" separator=",">
+            #{emp.id}
+        </foreach>
+    </select>
+
+    <select id="getEmpsInnerParameter" resultType="mybatis.bean.Employee" >
+        select * from tbl_employee
+        <if test="_parameter!=null">
+            <where>
+                <if test="lastName!= null">
+                    last_Name = #{lastName} and
+                </if>
+                <if test="email!= null">
+                    email = #{email} and
+                </if>
+                <if test="gender!= null">
+                    gender = #{gender} and
+                </if>
+                <if test="id!= null">
+                    id = #{id}
+                </if>
+            </where>
+        </if>
+        limit 16;
+    </select>
+
+    <update id="updateEmpBySet" parameterType="mybatis.bean.Employee">
+        update tbl_employee
+        <set>
+            <if test="lastName!=null">
+                last_Name = #{lastName} ,
+            </if>
+            <if test="email!=null">
+                email = #{email} ,
+            </if>
+            <if test="gender!=null">
+                gender = #{gender}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!--MySQL下批量保存：可以foreach遍历   mysql支持values(),(),()语法-->
+    <insert id="addEmpsByForeach" parameterType="mybatis.bean.Employee">
+        insert into tbl_employee(
+        <!-- include还可以自定义property,sql标签内部就可以使用自定义的属性使用${pram}取值.不能使用#{} -->
+        <include refid="insertColumn"/>
+        )
+        values
+        <foreach collection="emps" item="temp" separator=",">
+            (#{temp.lastName},#{temp.gender},#{temp.email},#{temp.department.id})
+        </foreach>
+    </insert>
+
+    <!-- 抽取可重用的sql片段 -->
+    <sql id="insertColumn">
+        last_name, gender,email,dept_id
+    </sql>
+</mapper>

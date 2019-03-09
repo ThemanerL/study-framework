@@ -15,31 +15,56 @@
     <schema id="6" parent="1" name="mysql"/>
     <schema id="7" parent="1" name="test"/>
     <schema id="8" parent="1" name="wordpress"/>
-    <table id="9" parent="5" name="tbl_employee"/>
-    <column id="10" parent="9" name="id">
+    <table id="9" parent="5" name="tbl_dept"/>
+    <table id="10" parent="5" name="tbl_employee"/>
+    <column id="11" parent="9" name="id">
       <Position>1</Position>
       <DataType>INT(10)|4s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="11" parent="9" name="last_name">
+    <column id="12" parent="9" name="dept_name">
       <Position>2</Position>
       <DataType>VARCHAR(255)|12s</DataType>
     </column>
-    <column id="12" parent="9" name="gender">
-      <Position>3</Position>
-      <DataType>CHAR(1)|1s</DataType>
-    </column>
-    <column id="13" parent="9" name="email">
-      <Position>4</Position>
-      <DataType>VARCHAR(255)|12s</DataType>
-    </column>
-    <index id="14" parent="9" name="PRIMARY">
+    <index id="13" parent="9" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="15" parent="9" name="PRIMARY">
+    <key id="14" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="15" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>INT(10)|4s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="16" parent="10" name="last_name">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="17" parent="10" name="gender">
+      <Position>3</Position>
+      <DataType>CHAR(1)|1s</DataType>
+    </column>
+    <column id="18" parent="10" name="email">
+      <Position>4</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="19" parent="10" name="dept_id">
+      <Position>5</Position>
+      <DataType>INT(10)|4s</DataType>
+    </column>
+    <index id="20" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="21" parent="10" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

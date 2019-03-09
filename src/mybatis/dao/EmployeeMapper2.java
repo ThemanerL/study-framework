@@ -21,6 +21,27 @@ public interface EmployeeMapper2 {
   Employee getEmpById(Integer id );
 
   /**
+   * 分步查询
+   * @param id /
+   * @return /
+   */
+  Employee getEmpByIdStep(Integer id );
+
+  /**
+   * 员工ID
+   * @param id /
+   * @return /
+   */
+  Employee getEmpAndDept(Integer id);
+
+  /**
+   * 根据 部门ID 查员工
+   * @param deptId /
+   * @return /
+   */
+  List<Employee> getEmpsByDeptId(Integer deptId);
+
+  /**
    * 建立员工与部门的关系
    * @param id 员工id
    * @param deptId 员工分属哪个部门

@@ -1,6 +1,7 @@
 package mybatis.dao;
 
 import mybatis.bean.Department;
+import mybatis.bean.Employee;
 
 import java.util.List;
 /**
@@ -15,6 +16,20 @@ public interface DepartmentMapper {
    * @return /
    */
   boolean addDept(Department department);
+
+  /**
+   * 根据部门id 查出所有的部门员工
+   * @param deptName /
+   * @return /
+   */
+  Department getDeptEmpsById(String deptName);
+
+  /**
+   * 根据id查部门
+   * @param id /
+   * @return /
+   */
+  Department getDeptById(Integer id);
 
   /**
    * 查获所有部门
