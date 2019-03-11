@@ -1,9 +1,3 @@
- <style>
- table th:first-of-type {
-    width: 100px;
- }
- </style>
-
 1. #### MyBatis的基本运作流程
 	1. 根据XML文件配置文件（全局配置文件），创建一个SqlSessionFactory对象
 	2. 全局配置文件中链接到Sql映射文件，此处为EmployeeSQL.xml。该文件中配置了每一个sql以及sql的封装规则
@@ -119,8 +113,8 @@
 
          Session|NameSpace|Bean|
          |:---:|:---|:---|
-         |\|EmployeeMapper  |Employee |
-         |\|DepartmentMapper|Department|
+         |&nbsp;|EmployeeMapper  |Employee |
+         |&nbsp;|DepartmentMapper|Department|
               
         EmployeeMapper与DepartmentMapper是不同的namespace,不同的Mapper文件中分别查出两种对象
         不同的namespace查出的数据会放在自己对应的缓存中使用:
