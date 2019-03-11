@@ -17,7 +17,7 @@
       - <a href = "https://github.com/ThemanerL/Study_framework/blob/master/conf/mybatis/mybatis-config.xml">myBatis的全局配置文件</a>：包含数据库连接池信息，事务管理器信息，系统运行环境信息等等。  
       - <a href = "https://github.com/ThemanerL/Study_framework/blob/master/conf/mybatis/dao/EmployeeMapper.xml">sql映射文件</a>：保存了每一个sql语句的映射信息。通过该文件抽取sql语句。  
 
-2. ####Mybatis的参数处理
+2. #### Mybatis的参数处理
     1. 单个参数：Mybatis不会做特殊处理-->
     ```#{参数名}：取出参数值```
     2. 多个参数：Mybatis会做特殊处理。--> 多个参数会被封装为一个Map，#{
@@ -97,7 +97,7 @@
         1. 原生sql不支持占位符的地方，我们就可以使用${}进行取值, 比如分表、排序;按照年份分表拆分  
         select * from ${year}_salary where ***;  
         select * from tbl_employee order by ${f_name} ${desc/asc}
-3. ####Mybatis的缓存机制
+3. #### Mybatis的缓存机制
     Mybatis中设定了两级缓存
     1. 一级缓存 SqlSession级别的缓存,一个Session级别的Map,下次查询先查询Map中有没有,没有的话再操作数据库  
           一级缓存失效情况:
