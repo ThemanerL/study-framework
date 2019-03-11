@@ -111,12 +111,12 @@
         - 一个会话,查询一个数据,这个数据就会被放在当前会话的一次缓存中,
         - 仅且只有会话关闭或者提交之后,一级缓存中的数据会被保存在二级缓存中,此时新的会话执行查询操作时,就可以参照二级缓存中的内容  
 
-         Session|NameSpace|Bean|
-         |:---:|:---|:---|
-         |&nbsp;|EmployeeMapper  |Employee |
-         |&nbsp;|DepartmentMapper|Department|
+             |SqlSession|NameSpace|Bean|
+             |:---:|:---|:---|
+             |&nbsp;|EmployeeMapper  |Employee |
+             |&nbsp;|DepartmentMapper|Department|
               
-        EmployeeMapper与DepartmentMapper是不同的namespace,不同的Mapper文件中分别查出两种对象
+            EmployeeMapper与DepartmentMapper是不同的namespace,不同的Mapper文件中分别查出两种对象
         不同的namespace查出的数据会放在自己对应的缓存中使用:
         1. 开启二级缓存配置(显式配置,防止版本更替)
         2. 去mapper.xml中配置启用二级缓存
@@ -128,11 +128,11 @@
                                   查询时不使用缓存且查询后刷新所有缓存  
          1. SqlSession.clearCache() 只针对一级缓存  
          1. localCacheScope    本地缓存作用域(一级缓存Session和Statement 值STATEMENT:相当于禁用一级缓存)
-    - 第三方缓存整合:
+    - 第三方缓存整合:  
          1).导入第三方jar包  
          2).导入与第三方缓存整合的适配包,(Mybatis官方已经提供)  
          3).mapper.xml中引用何时的缓存类型(通过cache的type属性)  
-    - **注意**!!! 在二级缓存开启的情况下,即使是在同一个SqlSession中进行查询,还是会先去二级缓存中查询,再去一级缓存,再去数据库
+    - **注意!!!** 在二级缓存开启的情况下,即使是在同一个SqlSession中进行查询,还是会先去二级缓存中查询,再去一级缓存,再去数据库
     
         
     
