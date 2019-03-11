@@ -22,7 +22,7 @@ public class MyUtil {
     InputStream inputStream = null;
     try {
       resource = "mybatis/mybatis-config.xml";
-      inputStream = Resources.getResourceAsStream(resource);
+       inputStream = Resources.getResourceAsStream(resource);
     } catch (Exception e) {
       e.printStackTrace();
     }

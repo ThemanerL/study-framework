@@ -63,7 +63,7 @@ Key:Collection(collection),如果是List还可以使用 Key(list)、数组(array
     ```
 <hr>
 
-#### #{ }与${ }取值的区别：
+**#{ }与${ }取值的区别**：
 1. \#{}是以预编译的形式将参数设置到sql中:PreparedStatement防止sql注入;**大多情况下使用#{}**
 本质就是占位符  
     1. 规定参数的规则:
@@ -77,5 +77,6 @@ Key:Collection(collection),如果是List还可以使用 Key(list)、数组(array
     1. 原生sql不支持占位符的地方，我们就可以使用${}进行取值, 比如分表、排序;按照年份分表拆分  
     select * from ${year}_salary where ***;  
     select * from tbl_employee order by ${f_name} ${desc/asc}
+    
     
     

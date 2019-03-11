@@ -20,8 +20,8 @@
         size            The cache will store 1024 references to lists or objects (whatever the query method returns).
         type            指定自定义缓存的全类名
     -->
-    <cache/>
-    <select id="getEmpByID" resultType="mybatis.bean.Employee">
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <select id="getEmpByID" resultType="mybatis.bean.Employee" >
         select id, last_name, gender, email
         from tbl_employee
         where id = #{id}

@@ -8,6 +8,18 @@ import org.junit.Test;
 
 /**
  * Mybatis中设定了两级缓存
+ * mybatis默认缓存设置相关:
+ *        1),cacheEnabled(T/F)  全局二级缓存开关
+ *        2).useCache(T/F)      单独控制某一个sql是否使用缓存
+ *        3).flushCache         每个增删改默认为true,执行后刷新所有缓存(包括一级和二级).对于查询操作,
+ *                              查询时不使用缓存且查询后刷新所有缓存
+ *        4).SqlSession.clearCache() 只针对一级缓存
+ *        5).localCacheScope    本地缓存作用域(一级缓存Session和Statement 值STATEMENT:相当于禁用一级缓存)
+ * 第三方缓存整合:
+ *        1).导入第三方jar包
+ *        2).导入与第三方缓存整合的适配包,(Mybatis官方已经提供)
+ *        3).mapper.xml中引用何时的缓存类型(通过cache的type属性)
+ * 注意!!! 在二级缓存开启的情况下,即使是在同一个SqlSession中进行查询,还是会先去二级缓存中查询,再去一级缓存,再去数据库
  *
  * @author 李重辰
  * @date 2019/3/9 13:46
@@ -27,7 +39,6 @@ public class CacheTest {
     try (SqlSession sqlsession = MyUtil.getSession()) {
       Employee emp = sqlsession.getMapper(EmployeeMapper.class).getEmpByID(1);
       System.out.println(emp);
-      sqlsession.clearCache();
       Employee emp1 = sqlsession.getMapper(EmployeeMapper.class).getEmpByID(1);
       System.out.println(emp1);
       System.out.println(emp.equals(emp1));
@@ -38,7 +49,8 @@ public class CacheTest {
   /**
    * 二级缓存(全局缓存) 基于namespace级别的缓存,一个namespace对应一个二级缓存,有自己的一个map
    * 工作机制:
-   * 一个会话,查询一个数据,这个数据就会被放在当前会话的一次缓存中,如果会话关闭,一级缓存中的数据会被保存在二级缓存中,
+   * 一个会话,查询一个数据,这个数据就会被放在当前会话的一次缓存中,
+   * 只有会话关闭或者提交之后,一级缓存中的数据会被保存在二级缓存中,
    * 新的会话查询信息,就可以参照二级缓存中的内容
    * SqlSession==>EmployeeMapper  ==>Employee
    * ==>DepartmentMapper==>Department
@@ -55,11 +67,13 @@ public class CacheTest {
     try (SqlSession sqlSession1 = MyUtil.getSession()) {
       mapper = sqlSession1.getMapper(EmployeeMapper.class);
       System.out.println(mapper.getEmpByID(1));
+      System.out.println(mapper.getEmpByID(1));
+      System.out.println(mapper.getEmpByID(1));
     }
-
-    try (SqlSession sqlSession2 = MyUtil.getSession()) {
-      EmployeeMapper mapper2 = sqlSession2.getMapper(EmployeeMapper.class);
-      System.out.println(mapper2.getEmpByID(1));
+    try (SqlSession sqlSession1 = MyUtil.getSession()) {
+      mapper = sqlSession1.getMapper(EmployeeMapper.class);
+      System.out.println(mapper.getEmpByID(1));
     }
   }
+
 }
