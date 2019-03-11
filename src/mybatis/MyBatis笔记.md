@@ -1,3 +1,9 @@
+ <style>
+ table th:first-of-type {
+    width: 100px;
+ }
+ </style>
+
 1. #### MyBatis的基本运作流程
 	1. 根据XML文件配置文件（全局配置文件），创建一个SqlSessionFactory对象
 	2. 全局配置文件中链接到Sql映射文件，此处为EmployeeSQL.xml。该文件中配置了每一个sql以及sql的封装规则
@@ -110,15 +116,12 @@
         - 工作机制:
         - 一个会话,查询一个数据,这个数据就会被放在当前会话的一次缓存中,
         - 仅且只有会话关闭或者提交之后,一级缓存中的数据会被保存在二级缓存中,此时新的会话执行查询操作时,就可以参照二级缓存中的内容  
-         <style>
-         table th:first-of-type {
-         	width: 100px;
-         }
-         </style>                
-         Session|NameSpace|Bean
-         :---:|:---|:---|
-         \|EmployeeMapper  |Employee 
-         \|DepartmentMapper|Department     
+
+         Session|NameSpace|Bean|
+         |:---:|:---|:---|
+         |\|EmployeeMapper  |Employee |
+         |\|DepartmentMapper|Department|
+              
         EmployeeMapper与DepartmentMapper是不同的namespace,不同的Mapper文件中分别查出两种对象
         不同的namespace查出的数据会放在自己对应的缓存中使用:
         1. 开启二级缓存配置(显式配置,防止版本更替)
