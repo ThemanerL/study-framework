@@ -243,42 +243,27 @@
         4. 返回处理后的Executor,```return new DefaultSqlSession(configuration, executor, autoCommit);```返回SqlSession,该SqlSession中包括所有的配置信息,和一个生成好的executor  
         ![获得SqlSession](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_CreateSqlSession.png)  
     3. 获得接口代理对象(MapperProxy):MapperProxy中包含了DefaultSqlSession,而SqlSession中包含了Executor对象,Executor是一个执行器,通过它来执行CURD
-        1. 执行
-        ```java
-         SqlSession.getMapper(Class<T> type)
-        ```
-        方法,传入Mapper的类型类(类名.class)
-        2. 调用configuration的getMapper方法(configuration对象存储在SqlSession中)
+        1. 执行```SqlSession.getMapper(Class<T> type)```
+        方法,传入Mapper的类型类(类名.class)  
+        2. 调用configuration的getMapper方法(configuration对象存储在SqlSession中)  
             1. mapperRegistry.getMapper(type, sqlSession)方法,在初始加载配置文件时在该对象的knownMappers属性中存储了接口的类型信息和Mapper的代理工厂对象
-                ```Map<Class<?>, MapperProxyFactory<?>> knownMapper``` 此时根据穿入的类型信息取出对应的MapperProxyFactory
-            2. 创建一个实现了InvocationHandler接口(动态代理接口)的Mapper代理对象```MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);```
+                ```Map<Class<?>, MapperProxyFactory<?>> knownMapper``` 此时根据穿入的类型信息取出对应的MapperProxyFactory  
+            2. 创建一个实现了InvocationHandler接口(动态代理接口)的Mapper代理对象```MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);```  
             3. 调用 ```java
                 return (T) Proxy.newProxyInstance(mapperInterface.getClassLoader(), new Class[] { mapperInterface }, mapperProxy);```
                 返回MapperProxy实例  
         ![获得MapperProxy](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_CreateMapperProxy.png)  
-    4. 执行CRUD方法
-        1. MapperProxy执行invoke方法, MapperProxy是一个InvocationHandler类型, 执行目标真正方法之前会执行InvocationHandler.invoke()
-        2. 先判断要执行的方法是不是Object类的方法如果是则直接执行,先把当前方法method包装成一个MapperMethod,调用
-        ```java
-        mapperMethod.execute(SqlSession sqlSession, Object[] args)
-        ```
-        (该调用发生在MapperProxy内,MapperProxy中拥有成员变量sqlSession)
-        3. 在MapperProxy初始化的时候,有新建一个
-            ```java
-            Map<Method, MapperMethod> methodCache;
-            ```
-            1. 在methodCache中查找是否已经存在当前传入的方法与方法映射,如果有,取出方法映射.如果没有,新建一个
-            ```java
-            mapperMethod = new MapperMethod(mapperInterface, method, sqlSession.getConfiguration());
-            ```
-            put到methodCache中,返回刚刚new好的mapperMethod
-        4. 执行
-            ```java
-            mapperMethod.execute(sqlSession, args)
-            ```
-            传入SqlSession和参数(参数可以是条件,将被拼接至SQL)
-           1. mapperMethod.execute根据方法的类型(CRUD)和返回类型,选择相对应的execute方法
-           对于```employeeMapper.selectByExample(employeeExample);```方法而言,选择执行executeForMany方法对参数进行转化,然后执行DefaultSqlSession.SelectList(statement, parameter);方法
+    4. 执行CRUD方法  
+        1. MapperProxy执行invoke方法, MapperProxy是一个InvocationHandler类型, 执行目标真正方法之前会执行InvocationHandler.invoke()  
+        2. 先判断要执行的方法是不是Object类的方法如果是则直接执行,先把当前方法method包装成一个MapperMethod,调用```mapperMethod.execute(SqlSession sqlSession, Object[] args)```
+        (该调用发生在MapperProxy内,MapperProxy中拥有成员变量sqlSession)  
+        3. 在MapperProxy初始化的时候,有新建一个```Map<Method, MapperMethod> methodCache;```  
+            1. 在methodCache中查找是否已经存在当前传入的方法与方法映射,如果有,取出方法映射.如果没有,新建一个```mapperMethod = new MapperMethod(mapperInterface, method, sqlSession.getConfiguration());```
+            put到methodCache中,返回刚刚new好的mapperMethod  
+        4. 执行```mapperMethod.execute(sqlSession, args) ```
+            传入SqlSession和参数(参数可以是条件,将被拼接至SQL)  
+           1. mapperMethod.execute根据方法的类型(CRUD)和返回类型,选择相对应的execute方法  
+           对于```employeeMapper.selectByExample(employeeExample);```方法而言,选择执行executeForMany方法对参数进行转化,然后执行```DefaultSqlSession.SelectList(statement, parameter);```方法  
            ```java
             private <E> Object executeForMany(SqlSession sqlSession, Object[] args) {
                 List<E> result;
@@ -291,10 +276,9 @@
                 }
                 ……
                 return result;
-            ```
-           此时如果执行的是返回一个对象的select方法,最终也是会执行DefaultSqlSession.SelectList(statement, parameter);方法.不过是只有一个元素的List  
-           statement其实就是command.getName(),也就是方法的全类名.此处为mybatis.generator.dao.EmployeeMapper.selectByExample
-           
+            ```  
+           此时如果执行的是返回一个对象的select方法,最终也是会执行DefaultSqlSession.SelectList(statement, parameter);方法.不过是只有一个元素的List    
+           statement其实就是command.getName(),也就是方法的全类名.此处为mybatis.generator.dao.EmployeeMapper.selectByExample  
             ```java
              public <T> T selectOne(String statement, Object parameter) {
                // Popular vote was to return null on 0 results and throw exception on too many.
@@ -304,10 +288,9 @@
                } 
              ……
              }
-           ```  
-            1. 从 configuration中根据statement取出对应的MapperStatement(存放着SQL语句的详细信息)
-            2. 对传入的parameter进行判断如果参数类型是Collection或者List或者Array,将参数进行包装,key分别为collection、list、array
-                
+           ```    
+            1. 从 configuration中根据statement取出对应的MapperStatement(存放着SQL语句的详细信息)  
+            2. 对传入的parameter进行判断如果参数类型是Collection或者List或者Array,将参数进行包装,key分别为collection、list、array  
             ```java
             private Object wrapCollection(final Object object) {
                 if (object instanceof Collection) {
@@ -324,38 +307,38 @@
                 }
                 return object;
               }
-            ```
-            3. 执行CachingExecutor.query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler)方法
-                1. 调用MaapperStatement.getBoundSql()得到SQL语句以及对应的参数信息,在该方法中调用的DynamicSql.getBoundSql()来将参数拼接到SQL语句中
+            ```  
+            3. 执行```CachingExecutor.query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler)```方法  
+                1. 调用MaapperStatement.getBoundSql()得到SQL语句以及对应的参数信息,在该方法中调用的DynamicSql.getBoundSql()来将参数拼接到SQL语句中  
                 ![获得MapperProxy](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_BoundSql.png)  
-                2. 根据一系列信息生成一个CacheKey
-                3. 执行```CachingExecutor.query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)```方法
-                    - 如果缓存不为空,判断是否刷新缓存在缓存中取数据,在缓存中查数据,查完后加入到缓存
-                    - 如果缓存为空,再去本地缓存取值(**此处验证了先查二级缓存再查一级缓存**).
+                2. 根据一系列信息生成一个CacheKey  
+                3. 执行```CachingExecutor.query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)```方法  
+                    - 如果缓存不为空,判断是否刷新缓存在缓存中取数据,在缓存中查数据,查完后加入到缓存   
+                    - 如果缓存为空,再去本地缓存取值(**此处验证了先查二级缓存再查一级缓存**).  
                     - 如果本地缓存中还是没有值,才真正执行```BaseExecutor.queryFromDatabase(ms, parameter, rowBounds, resultHandler, key, boundSql)```
-                        此时会将缓存的Key加入到本地缓存中```localCache.putObject(key, EXECUTION_PLACEHOLDER);```(这个key会在finally中被删除,然后如果查询成功,会再将Key,Value放入缓存)
-                    - 执行```SimpleExecutor.doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql)`````
+                        此时会将缓存的Key加入到本地缓存中```localCache.putObject(key, EXECUTION_PLACEHOLDER);```(这个key会在finally中被删除,然后如果查询成功,会再将Key,Value放入缓存)  
+                    - 执行```SimpleExecutor.doQuery(MappedStatement ms, Object parameter, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql)```  
                         1. new一个RoutingStatementHandler根据SQL语句的Statement类型,
-                        创建对应的PreparedStatementHandler或者SimpleStatementHandler或者CallableStatementHandler,在创建该StatementHandler时,同时创建了ResultSetHandler和ParameterHandler
-                        2. 使用拦截链对StatementHandler进行处理
-                        3. 调用```RoutingStatementHandler.Statement prepare(Connection connection, Integer transactionTimeout)```转为一个statement对象
-                            1. SimpleExecutor.prepareStatement进行参数预编译
-                            2. 调用```DefaultParameterHandler.setParameters(PreparedStatement ps)```设置参数
-                            3. 调用```PreparedStatement.execute();```执行SQL语句
-                            4. 调用```resultSetHandler.<E> handleResultSets(ps);```对结果进行封装,将数据库中的字段根据对应到Bean中的类型这其中也用到TypeHandle处理类型转化
-                            5. 返回结果.一次查询完成
-        ![操作数据库](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_Execute.png)
+                        创建对应的PreparedStatementHandler或者SimpleStatementHandler或者CallableStatementHandler,在创建该**StatementHandler**时,同时创建了**ResultSetHandler**和**ParameterHandler**  
+                        2. 使用拦截链对StatementHandler进行处理  
+                        3. 调用```RoutingStatementHandler.Statement prepare(Connection connection, Integer transactionTimeout)```转为一个statement对象  
+                            1. SimpleExecutor.prepareStatement进行参数预编译  
+                            2. 调用```DefaultParameterHandler.setParameters(PreparedStatement ps)```设置参数  
+                            3. 调用```PreparedStatement.execute();```执行SQL语句  
+                            4. 调用```resultSetHandler.<E> handleResultSets(ps);```对结果进行封装,将数据库中的字段根据对应到Bean中的类型这其中也用到TypeHandle处理类型转化  
+                            5. 返回结果.一次查询完成  
+        ![操作数据库](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_Execute.png)  
 
 ----
 ### QUESTION:
-1. 当方法重载的时在Mapper.xml文件中的SQL语句怎么写？
+1. 当方法重载的时在Mapper.xml文件中的SQL语句怎么写？  
     ```
     public interface EmployeeMapper {
       Employee getEmpByID(List id);
       Employee getEmpByID(Integer id);
     }
     ```
-    错误示例
+    错误示例  
     ```
     <select id="getEmpByID" resultType="Employee" databaseId="mysql">
                select id, last_name, gender, email
