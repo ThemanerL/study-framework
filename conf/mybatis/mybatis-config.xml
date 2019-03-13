@@ -94,7 +94,7 @@
     -->
     <mappers>
         <!--<mapper resource="mybatis/dao/EmployeeMapper.xml"/>-->
-        <!--<dao class="mybatis.dao.EmployeeMapperAnnotation"/>-->
-        <package name="mybatis.dao"/>
+        <!--<dao class="EmployeeMapperAnnotation"/>-->
+        <package name="mybatis.generator.dao"/>
     </mappers>
 </configuration>
