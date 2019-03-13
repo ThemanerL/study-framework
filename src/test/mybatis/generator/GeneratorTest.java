@@ -1,5 +1,6 @@
 package test.mybatis.generator;
 
+import com.github.pagehelper.PageHelper;
 import mybatis.basic.dao.MyUtil;
 import mybatis.generator.bean.Employee;
 import mybatis.generator.bean.EmployeeExample;
@@ -47,6 +48,7 @@ public class GeneratorTest {
       criteria1.andGenderEqualTo("1");
       criteria1.andLastNameLike("王%");
       employeeExample.or(criteria1);
+      PageHelper.startPage(1,5);
       List<Employee> employees = employeeMapper.selectByExample(employeeExample);
       for (Employee employee : employees) {
         System.out.println(employee);

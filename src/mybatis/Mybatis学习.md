@@ -1,4 +1,4 @@
-#Mybatis学习
+# Mybatis学习
 
 1. #### MyBatis的基本运作流程
 	1. 根据XML文件配置文件（全局配置文件），创建一个SqlSessionFactory对象
@@ -15,57 +15,40 @@
     3. SqlSession与Connection一样，都是非线程安全的。每次使用都应该获取新的对象。  
     4. mapper接口没有实现类。但是myBatis会为这个接口生成一个代理对象。  
     (将接口与XML进行绑定)  
-    EmployeeMapper employeeMapper = SqlSession.getMapper(EmployeeMapper.class)  
+    ```EmployeeMapper employeeMapper = SqlSession.getMapper(EmployeeMapper.class)```
       - <a href = "https://github.com/ThemanerL/Study_framework/blob/master/conf/mybatis/mybatis-config.xml">myBatis的全局配置文件</a>：包含数据库连接池信息，事务管理器信息，系统运行环境信息等等。  
       - <a href = "https://github.com/ThemanerL/Study_framework/blob/master/conf/mybatis/dao/EmployeeMapper.xml">sql映射文件</a>：保存了每一个sql语句的映射信息。通过该文件抽取sql语句。  
 
 2. #### Mybatis的参数处理
     1. 单个参数：Mybatis不会做特殊处理-->
     ```#{参数名}：取出参数值```
-    2. 多个参数：Mybatis会做特殊处理。--> 多个参数会被封装为一个Map，#{
-    }就是从Map中取得指定Key的值  
+    2. 多个参数：Mybatis会做特殊处理。--> 多个参数会被封装为一个Map，#{ }就是从Map中取得指定Key的值  
     Map<Key:param1,param2 ... Value:传入的参数值1, 值2, ...>  
     Key也可以为参数的索引
-    3. 命名参数：在接口声明方法时，对参数添加注解明确指定封装参数时的Map<Key:使用@Param注解指定的值,
-                                                     Value:参数值  >的Key  
-        ```
-         /**
-           * 
-           * 根据ID和名字 获取员工
-           * @param id /
-           * @param lastName /
-           * @return /
-           */
-          Employee getEmpByIdXLastName(@Param("id") Integer id, @Param("lastName") String lastName);
-        ```
-           
-        ```#{指定的Key}即可取出对应的参数值```
+    3. 命名参数：在接口声明方法时，对参数添加注解明确指定封装参数时的Map<Key:使用@Param注解指定的值,Value:参数值>的Key  
+        ```Employee getEmpByIdXLastName(@Param("id") Integer id, @Param("lastName") String lastName);```  
+         \#{指定的Key}即可取出对应的参数值
     4. 多参数传参的具体运用   
         - Pojo  
           如果多个参数正好是我们业务逻辑的数据模型，我们就可以直接传入pojo  
-          ```
-          #{属性名}:取出传入的pojo的值
+          ```#{属性名}:取出传入的pojo的值```  
         - Map  
-          如果多个参数是业务模型的数据，没有对应的pojo，**不经常使用**，可以传入map
-          ```
-          #{key}:取出map中对应的值
+          如果多个参数是业务模型的数据，没有对应的pojo，**不经常使用**，可以传入map  
+          ```#{key}:取出map中对应的值```  
         - TO  
-          如果多个参数不是业务模型中的数据，但是经常要使用，推荐来编写一个TO(Transfer Object)数据输出对象
+          如果多个参数不是业务模型中的数据，但是经常要使用，推荐来编写一个TO(Transfer Object)数据输出对象  
           ```
-            Page{
-                int index;
-                int size;
-            }
-          ```
+          Page{
+          int index;
+          int size;
+          }
+          ```  
         <hr/>
     1. 如果是Collection(List、Set)类型或者是数组，也会特殊处理。也是把传入的list或者数组封装在map中
-    Key:Collection(collection),如果是List还可以使用 Key(list)、数组(array)  
-    ![List在mybatis处理后的结构](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/listInMybatis.png)
-  
+        Collection的Key为(collection),如果是List的Key为list、数组的Key为array  
+        ![List在mybatis处理后的结构](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/listInMybatis.png)  
         public Employee getEmpById(List<Integer> ids)  
         取值:取出第一个id的值#{list[0]}
-        
-        源码：
           ```
           private Object wrapCollection(final Object object) {
             if (object instanceof Collection) {
@@ -86,44 +69,43 @@
     <hr/>
   
     **#{ }与${ }取值的区别**：
-    1. \#{}是以预编译的形式将参数设置到sql中:PreparedStatement防止sql注入;**大多情况下使用#{}**
-    本质就是占位符  
-        1. 规定参数的规则:
+    1. \#{}是以预编译的形式将参数设置到sql中:PreparedStatement防止sql注入;**大多情况下使用#{}** 本质就是占位符  
+        1. 规定参数的规则:  
         javaType、jdbcType、mode(用于存储过程)、numericScale(规定保留小数位数)、resultMap、typeHandler(类型处理器)、jdbcTypeName、expression  
         jdbcType通常在某种特定的条件下被设置:在数据为null的时候，有些数据库不能识别mybatis对于null的默认处理，  
-        比如Oracle(报错):JdbcType OTHER 无效类型;(mybatis对所有的null都映射的是原生jdbc OTHER,oracle不能正确处理)
+        比如Oracle(报错):JdbcType OTHER 无效类型;(mybatis对所有的null都映射的是原生jdbc OTHER,oracle不能正确处理)  
         由于全局配置中，jdbcTypeForNull = OTHER;oracle不支持:  
             - 在oracle的sql映射文件中写sql语句时，针对可能为null的字段:\#{email, jdbcType = NULL};
             - 在mybatis的全局配置文件中添加\<setting name="jdbcTypeForNull" value="null"/\>;
     2. ${}取出的值直接拼装在sql语句中;  
         1. 原生sql不支持占位符的地方，我们就可以使用${}进行取值, 比如分表、排序;按照年份分表拆分  
         select * from ${year}_salary where ***;  
-        select * from tbl_employee order by ${f_name} ${desc/asc}
-3. #### Mybatis的缓存机制
-    Mybatis中设定了两级缓存
+        select * from tbl_employee order by ${f_name} ${desc/asc}  
+3. #### Mybatis的缓存机制  
+    Mybatis中设定了两级缓存  
     1. 一级缓存 SqlSession级别的缓存,一个Session级别的Map,下次查询先查询Map中有没有,没有的话再操作数据库  
-          一级缓存失效情况:
-          1. 没有使用到当前以及缓存的情况下.还需要向数据库发出查询
-          2. SqlSession不同,缓存失效
-          3. SqlSession相同,sql语句不同(当前一级缓存还未被缓存)
-          4. SqlSession相同,两次查询之间进行了增删改操作
-          5. SqlSession相同,手动清空缓存
+          一级缓存失效情况:  
+          1. 没有使用到当前以及缓存的情况下.还需要向数据库发出查询  
+          2. SqlSession不同,缓存失效  
+          3. SqlSession相同,sql语句不同(当前一级缓存还未被缓存)  
+          4. SqlSession相同,两次查询之间进行了增删改操作  
+          5. SqlSession相同,手动清空缓存  
     2. 二级缓存(全局缓存) 基于namespace级别,一个namespace对应一个二级缓存,有自己的一个map  
-        - 工作机制:
-        - 一个会话,查询一个数据,这个数据就会被放在当前会话的一次缓存中,
-        - 仅且只有会话关闭或者提交之后,一级缓存中的数据会被保存在二级缓存中,此时新的会话执行查询操作时,就可以参照二级缓存中的内容  
+        - 工作机制:  
+            - 一个会话,查询一个数据,这个数据就会被放在当前会话的一次缓存中,  
+            - 仅且只有会话关闭或者提交之后,一级缓存中的数据会被保存在二级缓存中,此时新的会话执行查询操作时,就可以参照二级缓存中的内容   
 
              |SqlSession|NameSpace|Bean|
              |:---:|:---|:---|
              |&nbsp;|EmployeeMapper  |Employee |
              |&nbsp;|DepartmentMapper|Department|
               
-            EmployeeMapper与DepartmentMapper是不同的namespace,不同的Mapper文件中分别查出两种对象
-        不同的namespace查出的数据会放在自己对应的缓存中使用:
-        1. 开启二级缓存配置(显式配置,防止版本更替)
-        2. 去mapper.xml中配置启用二级缓存
-        3. 我们的POJO需要实现序列化接口
-    - mybatis默认缓存设置相关:  
+            EmployeeMapper与DepartmentMapper是不同的namespace,不同的Mapper文件中分别查出两种对象,不同的namespace查出的数据会放在自己对应的缓存中使用  
+        - 使用二级缓存  
+            1. 开启二级缓存配置(显式配置,防止版本更替)  
+            2. 去mapper.xml中配置启用二级缓存  
+            3. 我们的POJO需要实现序列化接口  
+    - mybatis默认缓存相关设置:  
          1. cacheEnabled(T/F)  全局二级缓存开关    
          1. useCache(T/F)      单独控制某一个sql是否使用缓存  
          1. flushCache         每个增删改默认为true,执行后刷新所有缓存(包括一级和二级).对于查询操作,
@@ -134,7 +116,7 @@
          1).导入第三方jar包  
          2).导入与第三方缓存整合的适配包,(Mybatis官方已经提供)  
          3).mapper.xml中引用何时的缓存类型(通过cache的type属性)  
-    - **注意!!!** 在二级缓存开启的情况下,即使是在同一个SqlSession中进行查询,还是会先去二级缓存中查询,再去一级缓存,再去数据库
+    - **注意!!!** 在二级缓存开启的情况下,即使是在同一个SqlSession中进行查询,还是会先去二级缓存中查询,再去一级缓存,再去数据库  
 4. #### MyBatis Generator(MyBatis代码生成器)   
 
     MyBatis Generator (MBG)  will introspect a database table (or many tables) and will generate artifacts that can be used to access the table(s). This lessens the initial nuisance of setting up objects and configuration files to interact with database tables.
@@ -144,16 +126,16 @@
                <package name="mybatis.generator.dao"/>
         </mappers>
         ```
-    2. [配置generator.xml](http://www.mybatis.org/generator/configreference/xmlconfig.html)
+    2. [配置generator.xml](http://www.mybatis.org/generator/configreference/xmlconfig.html)  
 
 5. #### Mybatis运行原理
     ![层次结构图](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatisStructure.png)  
     1. 获取SqlSessionFactory对象:解析所有配置文件的信息包含在Configuration中,返回包含Configuration的DefaultSqlSessionFactory
     其中MappedStatement中的每一个元素代表一条SQL语句的详细信息、  
     ![MappedStatement](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/config_mappedStatement.png)  
-    而Mapper被注册在configuration.mapperRegistry.knownMappers中.  
+    而Mapper被注册在```configuration.mapperRegistry.knownMappers```中.  
     ![knownMappers](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_mapperRegistry.png)  
-        1. 新建一个SqlSessionFactoryBuilder对象,调用SqlSessionFactoryBuilder.Builder(InputStream)方法
+        1. 新建一个SqlSessionFactoryBuilder对象,调用```SqlSessionFactoryBuilder.Builder(InputStream)```方法
         ```SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);```
         2. Builder先new一个XMLConfigBuilder对象,传入配置文件(InputStream).
         ``` XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);```
@@ -198,26 +180,26 @@
                         }
                     }
                     ```
-               2. 调用configuration.addMappersmapperRegistry.addMapper(mapperClass);         
+               2. 调用```configuration.addMappers() ```其中包含```mapperRegistry.addMapper(mapperClass); ```方法        
                     ```java
                     knownMappers.put(type, new MapperProxyFactory<T>(type));
                     MapperAnnotationBuilder parser = new MapperAnnotationBuilder(config, type);
                     parser.parse();
-                    ```
-                    该方法对每个进行Mapper文件注册到Map<Class<?>, MapperProxyFactory<?>> knownMappers中,为每一个mapper映射创建一个MapperProxyFactory
+                    ```  
+                    该方法对每个进行Mapper文件注册到```Map<Class<?>, MapperProxyFactory<?>> knownMappers```中,为每一个mapper映射创建一个MapperProxyFactory
                     其中```parser.parse();``` 再将接口中的方法信息也添加到configuration对象中
         5. 这些所有的操作都是在将所有的配置文件的信息添加到configuration对象中。
         ```qlSessionFactoryBuilder.Builder(InputStream)```最终会返回一个```new DefaultSqlSessionFactory(config)```;
         一个默认的SqlSessionFactory其中包含一个包含所有配置信息的Configuration对象
         ![SessionFactory创建时序图](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/Mybatis_CreateSqlSessionFactory.png)
     2. 获取SqlSession对象:返回一个DefaultSqlSession对象,包括Configuration和一个executor
-        1. SqlSessionFactory.openSession()传入configuration中Executor的类型(SIMPLE/REUSE/BATCH)
+        1. ```SqlSessionFactory.openSession()```传入configuration中Executor的类型(SIMPLE/REUSE/BATCH)
         2. 根据configuration中的environment配置创建一个事务工厂,创建一个事务  
         ```java
         final TransactionFactory transactionFactory = getTransactionFactoryFromEnvironment(environment);
         tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
         ```
-        3. 传入刚刚new的事务和mybatis配置文件中配置的Executor的类型、生成对应的executor,
+        3. 传入刚刚new的事务和mybatis配置文件中配置的Executor的类型、生成对应的executor(SimpleExecutor/ReuseExecutor/BatchExecutor),
         ```java
          public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
            executorType = executorType == null ? defaultExecutorType : executorType;
@@ -246,7 +228,7 @@
         1. 执行```SqlSession.getMapper(Class<T> type)```
         方法,传入Mapper的类型类(类名.class)  
         2. 调用configuration的getMapper方法(configuration对象存储在SqlSession中)  
-            1. mapperRegistry.getMapper(type, sqlSession)方法,在初始加载配置文件时在该对象的knownMappers属性中存储了接口的类型信息和Mapper的代理工厂对象
+            1. ```mapperRegistry.getMapper(type, sqlSession)```方法,在初始加载配置文件时在该对象的knownMappers属性中存储了接口的类型信息和Mapper的代理工厂对象
                 ```Map<Class<?>, MapperProxyFactory<?>> knownMapper``` 此时根据穿入的类型信息取出对应的MapperProxyFactory  
             2. 创建一个实现了InvocationHandler接口(动态代理接口)的Mapper代理对象```MapperProxy<T> mapperProxy = new MapperProxy<T>(sqlSession, mapperInterface, methodCache);```  
             3. 调用 ```java
@@ -254,7 +236,7 @@
                 返回MapperProxy实例  
         ![获得MapperProxy](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_CreateMapperProxy.png)  
     4. 执行CRUD方法  
-        1. MapperProxy执行invoke方法, MapperProxy是一个InvocationHandler类型, 执行目标真正方法之前会执行InvocationHandler.invoke()  
+        1. MapperProxy执行invoke方法, MapperProxy是一个InvocationHandler类型, 执行目标真正方法之前会执行```InvocationHandler.invoke()```  
         2. 先判断要执行的方法是不是Object类的方法如果是则直接执行,先把当前方法method包装成一个MapperMethod,调用```mapperMethod.execute(SqlSession sqlSession, Object[] args)```
         (该调用发生在MapperProxy内,MapperProxy中拥有成员变量sqlSession)  
         3. 在MapperProxy初始化的时候,有新建一个```Map<Method, MapperMethod> methodCache;```  
@@ -277,8 +259,8 @@
                 ……
                 return result;
             ```  
-           此时如果执行的是返回一个对象的select方法,最终也是会执行DefaultSqlSession.SelectList(statement, parameter);方法.不过是只有一个元素的List    
-           statement其实就是command.getName(),也就是方法的全类名.此处为mybatis.generator.dao.EmployeeMapper.selectByExample  
+           此时如果执行的是返回一个对象的select方法,最终也是会执行```DefaultSqlSession.SelectList(statement, parameter);```方法.不过是只有一个元素的List    
+           statement其实就是```command.getName()```,也就是方法的全类名.此处为```mybatis.generator.dao.EmployeeMapper.selectByExample```  
             ```java
              public <T> T selectOne(String statement, Object parameter) {
                // Popular vote was to return null on 0 results and throw exception on too many.
@@ -309,7 +291,7 @@
               }
             ```  
             3. 执行```CachingExecutor.query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler)```方法  
-                1. 调用MaapperStatement.getBoundSql()得到SQL语句以及对应的参数信息,在该方法中调用的DynamicSql.getBoundSql()来将参数拼接到SQL语句中  
+                1. 调用```MapperStatement.getBoundSql()```得到SQL语句以及对应的参数信息,在该方法中调用的```DynamicSql.getBoundSql()```来将参数拼接到SQL语句中  
                 ![获得MapperProxy](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_BoundSql.png)  
                 2. 根据一系列信息生成一个CacheKey  
                 3. 执行```CachingExecutor.query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)```方法  
@@ -322,12 +304,47 @@
                         创建对应的PreparedStatementHandler或者SimpleStatementHandler或者CallableStatementHandler,在创建该**StatementHandler**时,同时创建了**ResultSetHandler**和**ParameterHandler**  
                         2. 使用拦截链对StatementHandler进行处理  
                         3. 调用```RoutingStatementHandler.Statement prepare(Connection connection, Integer transactionTimeout)```转为一个statement对象  
-                            1. SimpleExecutor.prepareStatement进行参数预编译  
+                            1. ```SimpleExecutor.prepareStatement```进行参数预编译  
                             2. 调用```DefaultParameterHandler.setParameters(PreparedStatement ps)```设置参数  
                             3. 调用```PreparedStatement.execute();```执行SQL语句  
                             4. 调用```resultSetHandler.<E> handleResultSets(ps);```对结果进行封装,将数据库中的字段根据对应到Bean中的类型这其中也用到TypeHandle处理类型转化  
                             5. 返回结果.一次查询完成  
-        ![操作数据库](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_Execute.png)  
+        ![操作数据库](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_Execute.png)
+    5. 总结：
+        1. 根据配置文件（全局，sql映射）初始化出Configuration对象  
+        2. 创建一个DefaultSqlSession对象，  
+            他里面包含Configuration以及  
+            Executor（根据全局配置文件中的defaultExecutorType创建出对应的Executor） 
+        3. DefaultSqlSession.getMapper（）：拿到Mapper接口对应的MapperProxy;
+        4. MapperProxy里面有（DefaultSqlSession）;
+        5. 执行增删改查方法：
+            1. 调用DefaultSqlSession的增删改查（Executor）;  
+            2. 会创建一个StatementHandler对象。  
+                （同时也会创建出ParameterHandler和ResultSetHandler）  
+            3. 调用StatementHandler预编译参数以及设置参数值;  
+                使用ParameterHandler来给sql设置参数  
+            4. 调用StatementHandler的增删改查方法;  
+            5. ResultSetHandler封装结果  
+        **注意** :
+            四大对象每个创建的时候都有一个```interceptorChain.pluginAll(parameterHandler)```;  
+6. #### Mybatis插件  
+    1. 在四大对象创建的时候,每个对象都不是直接返回的,而是调用```interceptorChain.pluginAll(parameterHandler)```
+    插件需要实现Interceptor接口,在创建时,循环调用```interceptor.plugin(target)```方法,返回包装后的对象
+    Interceptor使用注解的方式来指定将要拦截的哪一个对象,以及拦截哪一个具体的方法,以及方法的参数类型.  
+    ```java
+    @Intercepts(
+     { 
+       @Signature(
+       type = StatementHandler.class,
+       method = "parameterize",
+       args = Statement.class)
+       }   
+    )
+    public class MyPlugin implements Interceptor {
+    ```
+    2. 插件机制:可以使用插件为目标对象创建一个代理对象;AOP(面向切面)代理对象就可以拦截四大对象的每一次执行.
+    多个插件会按照插件的配置顺序对目标对象进行多层代理,执行目标方法的时候,是按照多重代理时侯的反顺序进行执行.
+    3. 
 
 ----
 ### QUESTION:

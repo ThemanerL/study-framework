@@ -27,6 +27,7 @@
         <!-- 开启二级缓存 -->
         <setting name="cacheEnabled" value="true"/>
     </settings>
+
     <!--
         别名处理器，可以为Java类型起别名
         别名不区分大小写
@@ -38,7 +39,9 @@
         <!--批量取别名,为当前包和下面的所有的后代包都起一个默认别名 -->
         <package name="mybatis.bean"/>
     </typeAliases>
-
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
+    </plugins>
     <!--
         myBatis可以配置多种环境
         environments: default指定使用某种环境，可以达到快速切换
