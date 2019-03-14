@@ -27,14 +27,6 @@ public interface EmployeeMapper {
    * @param id 员工ID
    * @return emp对象
    */
-  Employee getEmpByID(List id);
-
-  /**
-   * 根据ID获取员工信息
-   *
-   * @param id 员工ID
-   * @return emp对象
-   */
   Employee getEmpByID(Integer id);
 
   /**

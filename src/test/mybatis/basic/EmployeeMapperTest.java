@@ -1,10 +1,13 @@
 package test.mybatis.basic;
 
+import mybatis.basic.bean.Department;
+import mybatis.basic.bean.EmpStatus;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper;
 import mybatis.basic.dao.EmployeeMapperAnnotation;
 import mybatis.basic.dao.MyUtil;
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -72,7 +75,7 @@ public class EmployeeMapperTest {
   }
 
   /**
-   * @return 获得一个中文名字
+   * @return 获得一个姓+名
    */
   private String getName() {
     Random random = new Random(System.currentTimeMillis());
@@ -117,7 +120,7 @@ public class EmployeeMapperTest {
   }
 
   /**
-   * @return 获得名字
+   * @return 获得姓名中的"名字"
    */
   private String getChinese() {
     String str = null;
@@ -151,12 +154,11 @@ public class EmployeeMapperTest {
    * 不推荐
    */
   @Test
-  public void getEmpByID() {
+  public void getEmpById() {
     try (SqlSession session = MyUtil.getSession()) {
-      List<Integer> list = new ArrayList<>();
-      list.add(1);
-      list.add(2);
-      Employee employee = session.getMapper(EmployeeMapper.class).getEmpByID(list);
+      session.clearCache();
+      Employee employee = session.getMapper(EmployeeMapper.class).getEmpByID(1);
+      System.out.println(employee.getStatus());
       System.out.println(employee);
     } catch (Exception e) {
       e.printStackTrace();
@@ -268,12 +270,28 @@ public class EmployeeMapperTest {
   @Test
   public void addEmp() {
     try (SqlSession sqlSession = MyUtil.getSession()) {
-      Employee employee = new Employee(null, getName(), String.valueOf(new Random(System.currentTimeMillis()).nextInt(2)), getRandEmail());
+      Employee employee = new Employee(null, getName(), String.valueOf(new Random(System.currentTimeMillis()).nextInt(2)), getRandEmail(), new Department(new Random(System.currentTimeMillis()).nextInt(3)+1,null));
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.addEmp(employee);
       System.out.print(employee);
       sqlSession.commit();
     }
+  }
+
+  @Test
+  public void addEmpBatch(){
+    long startTime = System.currentTimeMillis();
+    try(SqlSession sqlSession = MyUtil.getSession(ExecutorType.BATCH)){
+      int records = 10000;
+      for (int i = 0; i < records; i++) {
+        int deptId = new Random(System.currentTimeMillis()).nextInt(3);
+        Employee employee = new Employee(getName(), String.valueOf(Math.abs(deptId-1)), getRandEmail(), new Department(deptId+1,null), EmpStatus.values()[deptId]);
+        EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
+        result = employeeMapper.addEmp(employee);
+      }
+      sqlSession.commit();
+    }
+    System.out.println(System.currentTimeMillis()-startTime);
   }
 
   @Test
@@ -284,7 +302,6 @@ public class EmployeeMapperTest {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    System.out.println(result);
   }
 
   @Test

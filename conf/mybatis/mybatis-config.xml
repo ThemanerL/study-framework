@@ -16,7 +16,6 @@
         显式的指定每个我们需要更改的配置的值.防止版本更替改变默认设置
     -->
     <settings>
-
         <setting name="lazyLoadingEnabled" value="true"/>
         <!-- When enabled, an object with lazy loaded properties will be loaded entirely upon a call to any of the lazy
         properties. Otherwise, each property is loaded on demand. -->
@@ -37,8 +36,11 @@
         <!-- 为某个Java类型取别名 -->
         <!-- <typeAlias type="mybatis.dao.Employee" alias="Employee"/> -->
         <!--批量取别名,为当前包和下面的所有的后代包都起一个默认别名 -->
-        <package name="mybatis.bean"/>
+        <package name="mybatis.basic.bean"/>
     </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="mybatis.basic.typehandler.EmpStatusTypeHandler" javaType="mybatis.basic.bean.EmpStatus"/>
+    </typeHandlers>
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor"/>
     </plugins>
@@ -99,5 +101,6 @@
         <!--<mapper resource="mybatis/dao/EmployeeMapper.xml"/>-->
         <!--<dao class="EmployeeMapperAnnotation"/>-->
         <package name="mybatis.generator.dao"/>
+        <package name="mybatis.basic.dao"/>
     </mappers>
 </configuration>

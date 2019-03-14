@@ -1,6 +1,7 @@
 package mybatis.basic.dao;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -17,7 +18,7 @@ public class MyUtil {
 
   }
 
-  public static SqlSession getSession() {
+  private static SqlSessionFactory getSqlSessionFactory(){
     String resource;
     InputStream inputStream = null;
     try {
@@ -26,7 +27,14 @@ public class MyUtil {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-    return sqlSessionFactory.openSession();
+    return new  SqlSessionFactoryBuilder().build(inputStream);
+  }
+
+  public static SqlSession getSession() {
+    return getSqlSessionFactory().openSession();
+  }
+
+  public static SqlSession getSession(ExecutorType execType) {
+    return getSqlSessionFactory().openSession(execType);
   }
 }

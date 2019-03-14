@@ -56,4 +56,13 @@ public class GeneratorTest {
     }
   }
 
+  @Test
+  public void deleteAll(){
+    try(SqlSession sqlSession = MyUtil.getSession()){
+      EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
+      int i = employeeMapper.deleteByExample(null);
+      System.out.println(i);
+    }
+  }
+
 }

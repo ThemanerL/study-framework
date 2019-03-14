@@ -21,32 +21,50 @@
         type            指定自定义缓存的全类名
     -->
     <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
-    <select id="getEmpByID" resultType="mybatis.basic.bean.Employee" >
-        select id, last_name, gender, email
+    <sql id="addEmployeeColumn">
+        (last_name, gender, email, dept_id, status)
+    </sql>
+
+    <sql id="addEmployeeValues">
+        (#{lastName}, #{gender}, #{email}, #{department.id}, #{status})
+    </sql>
+
+    <sql id="selectColumn">
+        id, last_name, gender, email, dept_id, status
+    </sql>
+
+    <resultMap id="EmployeeDept" type="mybatis.basic.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="dept_id" property="department" typeHandler="mybatis.basic.typehandler.DepartmentTypeHandler"/>
+    </resultMap>
+
+    <select id="getEmpByID" resultMap="EmployeeDept" >
+        select <include refid="selectColumn"/>
         from tbl_employee
         where id = #{id}
     </select>
+
     <select id="getEmpByIdXLastName" resultType="mybatis.basic.bean.Employee">
-        select *
+        select <include refid="selectColumn"/>
         from tbl_employee
         where id = #{id}
           and last_name = #{lastName}
     </select>
     <select id="getEmpByMap" resultType="mybatis.basic.bean.Employee">
-        select *
+        select <include refid="selectColumn"/>
         from ${tableName}
         where id = ${id}
           and last_name = ${lastName}
     </select>
 
     <select id="getEmpByIDReturnMap" resultType="map">
-        select *
+        select <include refid="selectColumn"/>
         from tbl_employee
         where id = #{id}
     </select>
 
     <select id="getEmpByLastNameReturnMap" resultType="Employee">
-        select *
+        select <include refid="selectColumn"/>
         from tbl_employee
         where last_name like #{lastName}
     </select>
@@ -55,7 +73,7 @@
         ，这个变量必须存在于对应的模型中，并且有对应的GET方法
      -->
     <select id="getEmpsByLastNameLike" resultType="mybatis.basic.bean.Employee">
-        select *
+        select <include refid="selectColumn"/>
         from tbl_employee
         where last_name like #{lastName}
     </select>
@@ -68,9 +86,10 @@
      -->
     <insert id="addEmp" parameterType="mybatis.basic.bean.Employee" useGeneratedKeys="true" keyProperty="id"
             databaseId="mysql">
-        insert into tbl_employee (last_name, gender, email)
-        values (#{lastName}, #{gender}, #{email})
+        insert into tbl_employee <include refid="addEmployeeColumn" />
+        values <include refid="addEmployeeValues" />
     </insert>
+
 
     <!--
         Oracle不支持自增：Oracle使用序列来模拟自增；

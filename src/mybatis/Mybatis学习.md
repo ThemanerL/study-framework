@@ -3,7 +3,8 @@
 1. #### MyBatis的基本运作流程
 	1. 根据XML文件配置文件（全局配置文件），创建一个SqlSessionFactory对象
 	2. 全局配置文件中链接到Sql映射文件，此处为EmployeeSQL.xml。该文件中配置了每一个sql以及sql的封装规则
-	3. 将Sql文件注册到全局配置文件
+	3. 将Sql文件注册到全局配置文件  
+	    Java中调用:  
 		- 根据全局配置文件得到一个SqlSessionFactory对象
 		- 使用SqlSessionFactory，获取到sqlSession对象，使用该对象来执行sql语句
 		- 一个sqlSession就是代表与数据库的一次会话. 使用sql的唯一标示来告诉Mybatis执行哪个sql，sql都是保存在sql映射文件中
@@ -11,7 +12,7 @@
     1. 接口式编程  
         原生:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dao &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->&nbsp;DaoImpl  
         MyBatis:Mapper&nbsp;&nbsp;&nbsp;&nbsp;-->&nbsp;xxMapper.xml  
-    2. SqlSession代表与数据库的一次会话：用完必须释放资源,jdk1,7之后可以使用try-with-resource语句  
+    2. SqlSession代表与数据库的一次会话:用完必须释放资源,jdk1,7之后可以使用try-with-resource语句  
     3. SqlSession与Connection一样，都是非线程安全的。每次使用都应该获取新的对象。  
     4. mapper接口没有实现类。但是myBatis会为这个接口生成一个代理对象。  
     (将接口与XML进行绑定)  
@@ -37,7 +38,7 @@
           ```#{key}:取出map中对应的值```  
         - TO  
           如果多个参数不是业务模型中的数据，但是经常要使用，推荐来编写一个TO(Transfer Object)数据输出对象  
-          ```
+          ```java
           Page{
           int index;
           int size;
@@ -47,9 +48,11 @@
     1. 如果是Collection(List、Set)类型或者是数组，也会特殊处理。也是把传入的list或者数组封装在map中
         Collection的Key为(collection),如果是List的Key为list、数组的Key为array  
         ![List在mybatis处理后的结构](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/listInMybatis.png)  
-        public Employee getEmpById(List<Integer> ids)  
         取值:取出第一个id的值#{list[0]}
-          ```
+          ```java
+          /**
+           * 源码中使用Map封装Collection
+           */
           private Object wrapCollection(final Object object) {
             if (object instanceof Collection) {
               StrictMap<Object> map = new StrictMap<Object>();
@@ -69,7 +72,7 @@
     <hr/>
   
     **#{ }与${ }取值的区别**：
-    1. \#{}是以预编译的形式将参数设置到sql中:PreparedStatement防止sql注入;**大多情况下使用#{}** 本质就是占位符  
+    1. \#{}是以预编译的形式将参数设置到sql中:PreparedStatement防止sql注入;**大多情况下使用#{}** ,本质就是占位符  
         1. 规定参数的规则:  
         javaType、jdbcType、mode(用于存储过程)、numericScale(规定保留小数位数)、resultMap、typeHandler(类型处理器)、jdbcTypeName、expression  
         jdbcType通常在某种特定的条件下被设置:在数据为null的时候，有些数据库不能识别mybatis对于null的默认处理，  
@@ -83,14 +86,13 @@
         select * from tbl_employee order by ${f_name} ${desc/asc}  
 3. #### Mybatis的缓存机制  
     Mybatis中设定了两级缓存  
-    1. 一级缓存 SqlSession级别的缓存,一个Session级别的Map,下次查询先查询Map中有没有,没有的话再操作数据库  
+    1. 一级缓存 SqlSession级别的缓存,一个Session级别的Map,其中保存了当前Session执行过的Sql语句ID和参数信息和结果  
           一级缓存失效情况:  
-          1. 没有使用到当前以及缓存的情况下.还需要向数据库发出查询  
-          2. SqlSession不同,缓存失效  
-          3. SqlSession相同,sql语句不同(当前一级缓存还未被缓存)  
-          4. SqlSession相同,两次查询之间进行了增删改操作  
-          5. SqlSession相同,手动清空缓存  
-    2. 二级缓存(全局缓存) 基于namespace级别,一个namespace对应一个二级缓存,有自己的一个map  
+          1. SqlSession不同,不存在一级缓存  
+          2. SqlSession相同,sql语句不同(当前一级缓存还未被缓存)  
+          3. SqlSession相同,两次查询之间进行了增删改操作  
+          4. SqlSession相同,手动清空缓存  
+    2. 二级缓存(全局缓存) 基于namespace级别,一个namespace对应一个二级缓存,在当前映射文件执行过的Sql语句ID和参数信息和结果,如果新的SqlSession做同样的查询则直接返回  
         - 工作机制:  
             - 一个会话,查询一个数据,这个数据就会被放在当前会话的一次缓存中,  
             - 仅且只有会话关闭或者提交之后,一级缓存中的数据会被保存在二级缓存中,此时新的会话执行查询操作时,就可以参照二级缓存中的内容   
@@ -104,20 +106,27 @@
         - 使用二级缓存  
             1. 开启二级缓存配置(显式配置,防止版本更替)  
             2. 去mapper.xml中配置启用二级缓存  
-            3. 我们的POJO需要实现序列化接口  
+            3. POJO实现序列化接口(Serializable)  
+            开启了二级缓存后，还需要将要缓存的pojo实现Serializable接口，为了将缓存数据取出执行反序列化操作，因为二级缓存数据存储介质多种多样，不一定只存在内存中，
+            有可能存在硬盘中，如果我们要再取这个缓存的话，就需要反序列化了。所以mybatis中的pojo都去实现Serializable接口。
     - mybatis默认缓存相关设置:  
-         1. cacheEnabled(T/F)  全局二级缓存开关    
-         1. useCache(T/F)      单独控制某一个sql是否使用缓存  
-         1. flushCache         每个增删改默认为true,执行后刷新所有缓存(包括一级和二级).对于查询操作,
-                                  查询时不使用缓存且查询后刷新所有缓存  
-         1. SqlSession.clearCache() 只针对一级缓存  
-         1. localCacheScope    本地缓存作用域(一级缓存Session和Statement 值STATEMENT:相当于禁用一级缓存)
+    
+        |在哪设置|缓存设置|描述|
+        |:---|:---|:---|
+        |全局配置文件\<setting\>标签|cacheEnabled(T/F)|全局二级缓存开关|
+        |SQL映射文件语句标签 |useCache(T/F)|单独控制某一个sql是否使用缓存|
+        |SQL映射文件语句标签|flushCache|每个增删改默认为true,执行后刷新所有缓存(包括一级和二级).对于查询语句默认关闭,如果设定为开启,  查询时不使用缓存且查询后刷新所有缓存|
+        |java代码API|SqlSession.clearCache()|只针对一级缓存|
+        |全局配置文件\<setting\>标签|localCacheScope(全局配置)|本地缓存作用域(一级缓存Session和Statement 值STATEMENT:相当于禁用一级缓存)|
+    
     - 第三方缓存整合:  
          1).导入第三方jar包  
          2).导入与第三方缓存整合的适配包,(Mybatis官方已经提供)  
-         3).mapper.xml中引用何时的缓存类型(通过cache的type属性)  
+         3).mapper.xml中引用想要使用的缓存类型(通过cache的type属性)  
     - **注意!!!** 在二级缓存开启的情况下,即使是在同一个SqlSession中进行查询,还是会先去二级缓存中查询,再去一级缓存,再去数据库  
-4. #### MyBatis Generator(MyBatis代码生成器)   
+4. #### [动态SQL](https://github.com/ThemanerL/Study_framework/blob/master/conf/mybatis/basic/dao/EmployeeDynamicSqlMapper.xml)
+5. #### [配置resultMap](https://github.com/ThemanerL/Study_framework/blob/master/conf/mybatis/basic/dao/EmployeeMapper2.xml)
+6. #### MyBatis Generator(MyBatis代码生成器)   
 
     MyBatis Generator (MBG)  will introspect a database table (or many tables) and will generate artifacts that can be used to access the table(s). This lessens the initial nuisance of setting up objects and configuration files to interact with database tables.
     1. 一定要在Mybatis配置文件中添加对Mapper映射文件所在包扫描
@@ -128,12 +137,12 @@
         ```
     2. [配置generator.xml](http://www.mybatis.org/generator/configreference/xmlconfig.html)  
 
-5. #### Mybatis运行原理
+7. #### Mybatis运行原理
     ![层次结构图](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatisStructure.png)  
     1. 获取SqlSessionFactory对象:解析所有配置文件的信息包含在Configuration中,返回包含Configuration的DefaultSqlSessionFactory
     其中MappedStatement中的每一个元素代表一条SQL语句的详细信息、  
     ![MappedStatement](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/config_mappedStatement.png)  
-    而Mapper被注册在```configuration.mapperRegistry.knownMappers```中.  
+    而Mapper接口被注册在```configuration.mapperRegistry.knownMappers```中.  
     ![knownMappers](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_mapperRegistry.png)  
         1. 新建一个SqlSessionFactoryBuilder对象,调用```SqlSessionFactoryBuilder.Builder(InputStream)```方法
         ```SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);```
@@ -327,25 +336,39 @@
             5. ResultSetHandler封装结果  
         **注意** :
             四大对象每个创建的时候都有一个```interceptorChain.pluginAll(parameterHandler)```;  
-6. #### Mybatis插件  
+8. #### Mybatis插件  
     1. 在四大对象创建的时候,每个对象都不是直接返回的,而是调用```interceptorChain.pluginAll(parameterHandler)```
     插件需要实现Interceptor接口,在创建时,循环调用```interceptor.plugin(target)```方法,返回包装后的对象
     Interceptor使用注解的方式来指定将要拦截的哪一个对象,以及拦截哪一个具体的方法,以及方法的参数类型.  
-    ```java
-    @Intercepts(
-     { 
-       @Signature(
-       type = StatementHandler.class,
-       method = "parameterize",
-       args = Statement.class)
-       }   
-    )
-    public class MyPlugin implements Interceptor {
-    ```
+        ```java
+        @Intercepts(
+         { 
+           @Signature(
+           type = StatementHandler.class,
+           method = "parameterize",
+           args = Statement.class)
+           }   
+        )
+        public class MyPlugin implements Interceptor {
+        ```
     2. 插件机制:可以使用插件为目标对象创建一个代理对象;AOP(面向切面)代理对象就可以拦截四大对象的每一次执行.
     多个插件会按照插件的配置顺序对目标对象进行多层代理,执行目标方法的时候,是按照多重代理时侯的反顺序进行执行.
-    3. 
-
+    3. [pageHelper分页插件的使用](https://github.com/pagehelper/Mybatis-PageHelper)
+9. #### 批量操作(BatchExecutor)
+    1. 当我们使用forecah动态SQL来拼接insert语句时,如果数据量太大,无论使用哪种方式拼接,SQL语句都会非常非常长,而数据库能
+    接受的SQL语句的长度是有限的.
+    2. 同样插入1W条数据,当我们执行SimpleExecutor时,数据库将(预编译-->设置参数-->数据库执行)这个操作进行了1W次,
+    而当使用BatchExecutor时,数据库将预编译操作进行了一次,将设置参数进行了1W次,然后数据库执行1次.两种操作速度差异极大.
+10. #### 自定义TypeHanlder
+    1. Mybatis默认在处理枚举类型时,保存的是枚举的名字.可通过全局配置文件中的typeHandlers标签中的typeHandler属性来指定
+    我们想要使用的类型处理器.当我们设定
+    ```xml
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="status"/>
+    </typeHandlers>
+    ```
+    时,就代表当处理empStatus类型时,使用在数据库中保存枚举的索引的类型处理器.
+    2. 如果在参数位置修改了TypeHandler,应该保证保存参数和查询参数使用的TypeHandler是一样的
 ----
 ### QUESTION:
 1. 当方法重载的时在Mapper.xml文件中的SQL语句怎么写？  
@@ -368,6 +391,49 @@
                     where id = #{list[0]}
     </select>
     ```
+    **答**: Mybatis的Mapper接口方法不能进行重载,因为Mapper中的识别唯一的Method的标识符是接口名+方法名.  
 2. 在[mapper](https://github.com/ThemanerL/Study_framework/blob/master/src/mybatis/dao/EmployeeMapper.java)映射文件中加入了<cache>标签,且在[mybatis-config.xml](https://github.com/ThemanerL/Study_framework/tree/master/conf/mybatis/mybatis-config.xml)中配置了<setting
  name="cacheEnabled" value="true"/>,并且sqlSession已经使用try-with-resource包围
- 后 **Cache Hit Ratio \[EmployeeMapper]: 0.0**** 依然为0,并且SQL执行了两次.[源码](https://github.com/ThemanerL/Study_framework/blob/master/src/test/mybatis/dao/CacheTest.java)
+ 后 **Cache Hit Ratio \[EmployeeMapper]: 0.0**** 依然为0,并且SQL执行了两次.[源码](https://github.com/ThemanerL/Study_framework/blob/master/src/test/mybatis/dao/CacheTest.java)  
+3. 为什么SimpleExecutor与BatchExecutor的批量操作效率相差极大?  
+    **答**:当我们执行SimpleExecutor时,数据库将(预编译-->设置参数-->数据库执行)这个操作进行了1W次,
+而当使用BatchExecutor时,数据库将预编译操作进行了一次,将设置参数进行了1W次,然后数据库执行1次.[但这又是怎么做到的呢?](https://sq.163yun.com/blog/article/176036596046073856)
+```java
+@Override
+  public int doUpdate(MappedStatement ms, Object parameterObject) throws SQLException {
+    final Configuration configuration = ms.getConfiguration();
+    final StatementHandler handler = configuration.newStatementHandler(this, ms, parameterObject, RowBounds.DEFAULT, null, null);
+    final BoundSql boundSql = handler.getBoundSql();
+    final String sql = boundSql.getSql();
+    final Statement stmt;
+    // 如果sql等于currentSql同时MappedStatement与currentStatement相同， 就是同一条SQL，但是参数可能不同，这样就不需要重复创建PrepareStatement
+    // 可以减少网络交互次次数，通过源码可以发现批处理中最佳时间就是同样的sql要一起执行，不要存在不同sql间隔这样的场景出现
+    if (sql.equals(currentSql) && ms.equals(currentStatement)) {
+      int last = statementList.size() - 1;
+      // 获取最后一次创建statement
+      stmt = statementList.get(last);
+      // 设置事务超时时间
+      applyTransactionTimeout(stmt);
+      // 设置stmt参数
+      handler.parameterize(stmt);
+      // 获取对应的批量结果
+      BatchResult batchResult = batchResultList.get(last);
+      // 将参数对象添加到参数列表中
+      batchResult.addParameterObject(parameterObject);
+      // 和上一次创建的SQL不同，则需要重新创建PrepareStatement
+    } else {
+      Connection connection = getConnection(ms.getStatementLog());
+      // 在该方法中会再创数据库连接,再得到PreapareStatement 这个过程费时费力
+      stmt = handler.prepare(connection, transaction.getTimeout());
+      handler.parameterize(stmt);  
+      currentSql = sql;
+      currentStatement = ms;
+      statementList.add(stmt);
+      batchResultList.add(new BatchResult(ms, sql, parameterObject));
+    }
+    //添加到批处理
+    handler.batch(stmt);
+    //返回默认值
+    return BATCH_UPDATE_RETURN_VALUE;
+  }
+```
