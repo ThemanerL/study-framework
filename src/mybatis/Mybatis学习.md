@@ -1,5 +1,3 @@
-# Mybatis学习
-
 1. #### MyBatis的基本运作流程
 	1. 根据XML文件配置文件（全局配置文件），创建一个SqlSessionFactory对象
 	2. 全局配置文件中链接到Sql映射文件，此处为EmployeeSQL.xml。该文件中配置了每一个sql以及sql的封装规则
@@ -138,7 +136,7 @@
     2. [配置generator.xml](http://www.mybatis.org/generator/configreference/xmlconfig.html)  
 
 7. #### Mybatis运行原理
-    ![层次结构图](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatisStructure.png)  
+    ![层次结构图](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_Structure.png)  
     1. 获取SqlSessionFactory对象:解析所有配置文件的信息包含在Configuration中,返回包含Configuration的DefaultSqlSessionFactory
     其中MappedStatement中的每一个元素代表一条SQL语句的详细信息、  
     ![MappedStatement](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/config_mappedStatement.png)  
@@ -200,7 +198,7 @@
         5. 这些所有的操作都是在将所有的配置文件的信息添加到configuration对象中。
         ```qlSessionFactoryBuilder.Builder(InputStream)```最终会返回一个```new DefaultSqlSessionFactory(config)```;
         一个默认的SqlSessionFactory其中包含一个包含所有配置信息的Configuration对象
-        ![SessionFactory创建时序图](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/Mybatis_CreateSqlSessionFactory.png)
+        ![SessionFactory创建时序图](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_CreateSqlSessionFactory.png)
     2. 获取SqlSession对象:返回一个DefaultSqlSession对象,包括Configuration和一个executor
         1. ```SqlSessionFactory.openSession()```传入configuration中Executor的类型(SIMPLE/REUSE/BATCH)
         2. 根据configuration中的environment配置创建一个事务工厂,创建一个事务  
@@ -301,7 +299,7 @@
             ```  
             3. 执行```CachingExecutor.query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler)```方法  
                 1. 调用```MapperStatement.getBoundSql()```得到SQL语句以及对应的参数信息,在该方法中调用的```DynamicSql.getBoundSql()```来将参数拼接到SQL语句中  
-                ![获得MapperProxy](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_BoundSql.png)  
+                ![获得MapperProxy](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/mybatis_BoundSql.jpg)  
                 2. 根据一系列信息生成一个CacheKey  
                 3. 执行```CachingExecutor.query(MappedStatement ms, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, CacheKey key, BoundSql boundSql)```方法  
                     - 如果缓存不为空,判断是否刷新缓存在缓存中取数据,在缓存中查数据,查完后加入到缓存   
@@ -359,7 +357,7 @@
     接受的SQL语句的长度是有限的.
     2. 同样插入1W条数据,当我们执行SimpleExecutor时,数据库将(预编译-->设置参数-->数据库执行)这个操作进行了1W次,
     而当使用BatchExecutor时,数据库将预编译操作进行了一次,将设置参数进行了1W次,然后数据库执行1次.两种操作速度差异极大.
-10. #### 自定义TypeHanlder
+10. #### 自定义TypeHandler
     1. Mybatis默认在处理枚举类型时,保存的是枚举的名字.可通过全局配置文件中的typeHandlers标签中的typeHandler属性来指定
     我们想要使用的类型处理器.当我们设定
     ```xml
@@ -398,42 +396,43 @@
 3. 为什么SimpleExecutor与BatchExecutor的批量操作效率相差极大?  
     **答**:当我们执行SimpleExecutor时,数据库将(预编译-->设置参数-->数据库执行)这个操作进行了1W次,
 而当使用BatchExecutor时,数据库将预编译操作进行了一次,将设置参数进行了1W次,然后数据库执行1次.[但这又是怎么做到的呢?](https://sq.163yun.com/blog/article/176036596046073856)
-```java
-@Override
-  public int doUpdate(MappedStatement ms, Object parameterObject) throws SQLException {
-    final Configuration configuration = ms.getConfiguration();
-    final StatementHandler handler = configuration.newStatementHandler(this, ms, parameterObject, RowBounds.DEFAULT, null, null);
-    final BoundSql boundSql = handler.getBoundSql();
-    final String sql = boundSql.getSql();
-    final Statement stmt;
-    // 如果sql等于currentSql同时MappedStatement与currentStatement相同， 就是同一条SQL，但是参数可能不同，这样就不需要重复创建PrepareStatement
-    // 可以减少网络交互次次数，通过源码可以发现批处理中最佳时间就是同样的sql要一起执行，不要存在不同sql间隔这样的场景出现
-    if (sql.equals(currentSql) && ms.equals(currentStatement)) {
-      int last = statementList.size() - 1;
-      // 获取最后一次创建statement
-      stmt = statementList.get(last);
-      // 设置事务超时时间
-      applyTransactionTimeout(stmt);
-      // 设置stmt参数
-      handler.parameterize(stmt);
-      // 获取对应的批量结果
-      BatchResult batchResult = batchResultList.get(last);
-      // 将参数对象添加到参数列表中
-      batchResult.addParameterObject(parameterObject);
-      // 和上一次创建的SQL不同，则需要重新创建PrepareStatement
-    } else {
-      Connection connection = getConnection(ms.getStatementLog());
-      // 在该方法中会再创数据库连接,再得到PreapareStatement 这个过程费时费力
-      stmt = handler.prepare(connection, transaction.getTimeout());
-      handler.parameterize(stmt);  
-      currentSql = sql;
-      currentStatement = ms;
-      statementList.add(stmt);
-      batchResultList.add(new BatchResult(ms, sql, parameterObject));
-    }
-    //添加到批处理
-    handler.batch(stmt);
-    //返回默认值
-    return BATCH_UPDATE_RETURN_VALUE;
-  }
-```
+    ```java
+    @Override
+      public int doUpdate(MappedStatement ms, Object parameterObject) throws SQLException {
+        final Configuration configuration = ms.getConfiguration();
+        final StatementHandler handler = configuration.newStatementHandler(this, ms, parameterObject, RowBounds.DEFAULT, null, null);
+        final BoundSql boundSql = handler.getBoundSql();
+        final String sql = boundSql.getSql();
+        final Statement stmt;
+        // 如果sql等于currentSql同时MappedStatement与currentStatement相同， 就是同一条SQL，但是参数可能不同，这样就不需要重复创建PrepareStatement
+        // 可以减少网络交互次次数，通过源码可以发现批处理中最佳时间就是同样的sql要一起执行，不要存在不同sql间隔这样的场景出现
+        if (sql.equals(currentSql) && ms.equals(currentStatement)) {
+          int last = statementList.size() - 1;
+          // 获取最后一次创建statement
+          stmt = statementList.get(last);
+          // 设置事务超时时间
+          applyTransactionTimeout(stmt);
+          // 设置stmt参数
+          handler.parameterize(stmt);
+          // 获取对应的批量结果
+          BatchResult batchResult = batchResultList.get(last);
+          // 将参数对象添加到参数列表中
+          batchResult.addParameterObject(parameterObject);
+          // 和上一次创建的SQL不同，则需要重新创建PrepareStatement
+        } else {
+          Connection connection = getConnection(ms.getStatementLog());
+          // 在该方法中会再创数据库连接,再得到PreapareStatement 这个过程费时费力
+          stmt = handler.prepare(connection, transaction.getTimeout());
+          handler.parameterize(stmt);  
+          currentSql = sql;
+          currentStatement = ms;
+          statementList.add(stmt);
+          batchResultList.add(new BatchResult(ms, sql, parameterObject));
+        }
+        //添加到批处理
+        handler.batch(stmt);
+        //返回默认值
+        return BATCH_UPDATE_RETURN_VALUE;
+      }
+    ```
+4. 原生JDBC数据库的批处理时,preparedStatement有可能因为预编译空间的问题而报异常.mybatis是如何解决的?

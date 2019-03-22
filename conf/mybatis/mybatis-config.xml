@@ -102,5 +102,6 @@
         <!--<dao class="EmployeeMapperAnnotation"/>-->
         <package name="mybatis.generator.dao"/>
         <package name="mybatis.basic.dao"/>
+        <package name="spring.transaction.dao"/>
     </mappers>
 </configuration>

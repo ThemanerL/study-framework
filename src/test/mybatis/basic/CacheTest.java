@@ -2,7 +2,7 @@ package test.mybatis.basic;
 
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper;
-import mybatis.basic.dao.MyUtil;
+import util.MyUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
@@ -76,4 +76,11 @@ public class CacheTest {
     }
   }
 
+  @Test
+  public void get(){
+    final Employee employee = new Employee();
+    System.out.println(employee.hashCode());
+    employee.setId(1);
+    System.out.println(employee.hashCode());
+  }
 }

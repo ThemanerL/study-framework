@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <context:component-scan base-package="spring.basic.bean" use-default-filters="false">
+        <context:include-filter type="assignable" expression="spring.basic.bean.Salary"/>
+    </context:component-scan>
+
+    <bean id="employee1" class="spring.basic.bean.Employee" p:id="1"
+          p:email="00001@qq.coom" p:lastName="1号员工" p:status="LOGIN" p:deptId="0"/>
+    <!-- parent属性指定继承哪个Bean的配置 -->
+    <bean id="employee2" p:lastName="2号员工" parent="employee1" p:id="2" scope="prototype"/>
+    <bean id="development" class="spring.basic.bean.Department" p:id="0"
+          p:name="developmentDepartment" p:baseSalary="8000"/>
+    <!-- 通过这种方法配置Bean的后置处理器,BeanPostProcessor类似于Mybatis拦截链,功能非常强大 -->
+    <bean class="spring.basic.postprocessor.MyBeanPostProcessor"/>
+    <!-- 使用depends-on标注的bean将在本Bean加载前被加载 -->
+    <bean id="emp1Salary" class="spring.basic.bean.Salary" scope="prototype" init-method="toString" >
+        <constructor-arg name="employeeId" value="#{employee1.id}" index="0"/>
+        <constructor-arg name="baseSalary"  value="#{development.baseSalary + employee1.id*1000}" index="1"/>
+        <constructor-arg name="bonus" value="#{T(Math).random()}" index="2"/>
+        <constructor-arg name="employee" value="#{employee1}"/>
+        <property name="employee" ref="employee2"/>
+    </bean>
+
+    <!-- 通过静态工厂方法来配置Bean -->
+    <bean id="department1" class="spring.basic.factory.StaticFactoryDepartment" factory-method="getDepartment">
+        <constructor-arg value="Development"/>
+    </bean>
+
+    <!-- 配置工厂的实例 -->
+    <bean id="instanceFactoryDepartment" class="spring.basic.factory.InstanceFactoryDepartment" scope="prototype"/>
+    <bean id="department2" factory-bean="instanceFactoryDepartment" factory-method="getDeparment">
+        <constructor-arg value="Custom"/>
+    </bean>
+
+</beans>

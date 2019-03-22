@@ -1,5 +1,6 @@
-package mybatis.basic.dao;
+package util;
 
+import com.google.gson.GsonBuilder;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
@@ -15,7 +16,6 @@ import java.io.InputStream;
 public class MyUtil {
 
   private MyUtil() {
-
   }
 
   private static SqlSessionFactory getSqlSessionFactory(){
@@ -37,4 +37,10 @@ public class MyUtil {
   public static SqlSession getSession(ExecutorType execType) {
     return getSqlSessionFactory().openSession(execType);
   }
+
+
+  public static SqlSession getSession(Boolean execType) {
+    return getSqlSessionFactory().openSession(execType);
+  }
+
 }

@@ -2,7 +2,7 @@ package mybatis.basic.controller;
 
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper;
-import mybatis.basic.dao.MyUtil;
+import util.MyUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

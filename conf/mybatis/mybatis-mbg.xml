@@ -7,7 +7,7 @@
 
     <context id="mysql" targetRuntime="MyBatis3">
         <commentGenerator>
-            <property name="suppressAllComments" value="true"/>
+            <property name="suppressAllComments" value="false"/>
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
@@ -22,24 +22,22 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-
-        <javaModelGenerator targetPackage="mybatis.generator.bean" targetProject=".\src">
+        <javaModelGenerator targetPackage="spring.transaction.bean" targetProject=".\src">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mybatis.generator.dao" targetProject=".\conf">
+        <sqlMapGenerator targetPackage="spring.transaction.dao" targetProject=".\conf">
             <property name="enableSubPackages" value="true"/>
-
         </sqlMapGenerator>
 
-        <javaClientGenerator type="MIXEDMAPPER" targetPackage="mybatis.generator.dao" targetProject=".\src">
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="spring.transaction.dao" targetProject=".\src">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="tbl_employee" domainObjectName="Employee"/>
+        <table tableName="tbl_book" domainObjectName="Book"/>
 
-        <table tableName="tbl_dept" domainObjectName="Department"/>
+        <table tableName="account" domainObjectName="Account"/>
 
     </context>
 </generatorConfiguration>

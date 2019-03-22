@@ -2,7 +2,7 @@ package test.mybatis.basic;
 
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper2;
-import mybatis.basic.dao.MyUtil;
+import util.MyUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 

@@ -3,7 +3,7 @@ package test.mybatis.basic;
 import mybatis.basic.bean.Department;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.DepartmentMapper;
-import mybatis.basic.dao.MyUtil;
+import util.MyUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 

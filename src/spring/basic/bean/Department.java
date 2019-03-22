@@ -1,7 +1,6 @@
-package mybatis.basic.bean;
+package spring.basic.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author 李重辰
@@ -12,22 +11,29 @@ public class Department implements Serializable {
   private static final long serialVersionUID = -6812511105813154069L;
   private Integer id;
   private String name;
-  private List<Employee> employees;
+  private double baseSalary;
 
   public Department() {
-  }
-
-  public Department(Integer id) {
-    this.id = id;
-  }
-
-  public Department(String name) {
-    this.name = name;
   }
 
   public Department(Integer id, String name) {
     this.id = id;
     this.name = name;
+  }
+
+  public Department(Integer id, String name, double baseSalary) {
+    this.id = id;
+    this.name = name;
+    this.baseSalary = baseSalary;
+  }
+
+
+  public double getBaseSalary() {
+    return baseSalary;
+  }
+
+  public void setBaseSalary(double baseSalary) {
+    this.baseSalary = baseSalary;
   }
 
   public Integer getId() {
@@ -46,20 +52,13 @@ public class Department implements Serializable {
     this.name = name;
   }
 
-  public List<Employee> getEmployees() {
-    return employees;
-  }
-
-  public void setEmployees(List<Employee> employees) {
-    this.employees = employees;
-  }
-
   @Override
   public String toString() {
     return "Department{" +
         "id=" + id +
         ", name='" + name + '\'' +
-        ", employees=" + employees +
+        ", baseSalary=" + baseSalary +
         '}';
   }
+
 }

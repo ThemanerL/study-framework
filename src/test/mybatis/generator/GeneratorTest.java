@@ -1,7 +1,7 @@
 package test.mybatis.generator;
 
 import com.github.pagehelper.PageHelper;
-import mybatis.basic.dao.MyUtil;
+import util.MyUtil;
 import mybatis.generator.bean.Employee;
 import mybatis.generator.bean.EmployeeExample;
 import mybatis.generator.dao.EmployeeMapper;
@@ -28,6 +28,7 @@ public class GeneratorTest {
   public void testGenerator( ) throws Exception {
     List<String> warnings = new ArrayList<>();
     boolean overwrite = true;
+
     File configFile = new File("./conf/mybatis/mybatis-mbg.xml");
     ConfigurationParser cp = new ConfigurationParser(warnings);
     Configuration config = cp.parseConfiguration(configFile);
