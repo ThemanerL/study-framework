@@ -1,4 +1,4 @@
-package mybatis.basic.controller;
+package mybatis.basic;
 
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper;
@@ -13,8 +13,7 @@ import java.io.InputStream;
 /**
  * 此类被test.mybatis.dao.EmployeeMapperTest替代
  *
- * @author 李重辰
- * @date 2019/2/19 17:55
+ * @author 李重辰 * @date 2019/2/19 17:55
  */
 class EmployeeTest {
 

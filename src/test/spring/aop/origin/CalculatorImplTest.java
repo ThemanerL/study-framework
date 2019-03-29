@@ -1,11 +1,10 @@
-package test.spring.aop.origin;
+package spring.aop.origin;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import spring.aop.origin.Calculator;
 
 /**
  * CalculatorImpl Tester.

@@ -1,12 +1,12 @@
-package test.mybatis.basic;
+package mybatis.basic;
 
 import mybatis.basic.bean.Department;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeDynamicSqlMapper;
-import util.MyUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
+import util.MyUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

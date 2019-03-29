@@ -1,4 +1,4 @@
-package test.spring;
+package spring;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;

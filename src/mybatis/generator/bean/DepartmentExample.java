@@ -1,8 +1,10 @@
 package mybatis.generator.bean;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class DepartmentExample {
     protected String orderByClause;
 

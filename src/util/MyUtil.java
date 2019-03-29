@@ -1,6 +1,5 @@
 package util;
 
-import com.google.gson.GsonBuilder;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;

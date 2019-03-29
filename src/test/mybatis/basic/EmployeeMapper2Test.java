@@ -1,4 +1,4 @@
-package test.mybatis.basic;
+package mybatis.basic;
 
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper2;

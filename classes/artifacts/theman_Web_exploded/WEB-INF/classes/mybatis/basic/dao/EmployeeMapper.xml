@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mybatis.basic.dao.EmployeeMapper">
+    <!--
+    命名空间和接口名称绑定，SQL标签与接口方法名绑定
+    namespace:名称空间；指定为接口的全类名
+    id：唯一标识
+    resultType：返回值类型、如果返回的是一个集合，要写集合中元素的类型
+        永远是每一次记录封装为什么类型就写什么类型。
+    #{id}: 从传递过来的参数中取出ID值
+    databaseId:表示这条语句在mysql情况下使用
+    -->
+    <!--
+        eviction        缓存回收策略,(LRU/FIFO/SOFT/WEAK,默认是LRU)
+        flushInterval   缓存刷新间隔,多长时间(毫秒单位)清空一次;默认不清空
+        readOnly        只读/只写.默认为FALSE只写
+                        TRUE:mybatis认为所有从缓存中获取数据的操作都是只读操作的不会修改数据,
+                        mybatis直接会将数据在缓存中的引用交给用户.(快速,不安全)
+                        FASLE:mybatis会通过序列化和反序列化克隆一份数据(默认.安全,速度较慢)
+        size            The cache will store 1024 references to lists or objects (whatever the query method returns).
+        type            指定自定义缓存的全类名
+    -->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <sql id="addEmployeeColumn">
+        (last_name, gender, email, dept_id, status)
+    </sql>
+
+    <sql id="addEmployeeValues">
+        (#{lastName}, #{gender}, #{email}, #{department.id}, #{status})
+    </sql>
+
+    <sql id="selectColumn">
+        id, last_name, gender, email, dept_id, status
+    </sql>
+
+    <resultMap id="EmployeeDept" type="mybatis.basic.bean.Employee">
+        <id column="id" property="id"/>
+        <result column="dept_id" property="department" typeHandler="mybatis.basic.typehandler.DepartmentTypeHandler"/>
+    </resultMap>
+
+    <select id="getEmpByID" resultMap="EmployeeDept" >
+        select <include refid="selectColumn"/>
+        from tbl_employee
+        where id = #{id}
+    </select>
+
+    <select id="getEmpByIdXLastName" resultType="mybatis.basic.bean.Employee">
+        select <include refid="selectColumn"/>
+        from tbl_employee
+        where id = #{id}
+          and last_name = #{lastName}
+    </select>
+    <select id="getEmpByMap" resultType="mybatis.basic.bean.Employee">
+        select <include refid="selectColumn"/>
+        from ${tableName}
+        where id = ${id}
+          and last_name = ${lastName}
+    </select>
+
+    <select id="getEmpByIDReturnMap" resultType="map">
+        select <include refid="selectColumn"/>
+        from tbl_employee
+        where id = #{id}
+    </select>
+
+    <select id="getEmpByLastNameReturnMap" resultType="Employee">
+        select <include refid="selectColumn"/>
+        from tbl_employee
+        where last_name like #{lastName}
+    </select>
+    <!--
+        用$传递传递参数的时候需要有对应的GET方法，在MyBatis的映射文件中如果用某个变量传递传递参数
+        ，这个变量必须存在于对应的模型中，并且有对应的GET方法
+     -->
+    <select id="getEmpsByLastNameLike" resultType="mybatis.basic.bean.Employee">
+        select <include refid="selectColumn"/>
+        from tbl_employee
+        where last_name like #{lastName}
+    </select>
+
+    <!--
+        parameterType可以省略;
+        mysql支持自增主键，自增主键值的获取，mybatis也是利用statement.getGeneratedKeys();
+        useGeneratedKeys="true" 使用自增主键获取主键值策略
+        keyProperty="id"将获得的自增主键的值,赋给javaBean中的ID属性
+     -->
+    <insert id="addEmp" parameterType="mybatis.basic.bean.Employee" useGeneratedKeys="true" keyProperty="id"
+            databaseId="mysql">
+        insert into tbl_employee <include refid="addEmployeeColumn" />
+        values <include refid="addEmployeeValues" />
+    </insert>
+
+
+    <!--
+        Oracle不支持自增：Oracle使用序列来模拟自增；
+        每次插入的数据的主键是从序列中拿到的值
+    -->
+    <insert id="addEmp" databaseId="oracle">
+        # 插入时的主键是从序列中拿到的
+        # keyProperty:查出的主键封装给JavaBean的哪个属性
+        # order="BEFORE" 当前SQL在插入SQL执行前运行
+        # resultType 查出的返回值的类型
+        <selectKey keyProperty="id" order="BEFORE" resultType="Integer">
+            # 编写查询主键的sql语句
+            select EMPLOYEE_SEQ.nextval fromdual
+        </selectKey>
+        insert into tbl_employee(EMPLOYEE_ID, last_name, email)
+        VALUES (#{id}, #{lastName}, #{email})
+    </insert>
+
+    <update id="updateEmp">
+        update tbl_employee
+        set last_name = #{lastName},
+            email     = #{email},
+            gender    = #{gender}
+        where id = #{id}
+    </update>
+    <delete id="deleteEmpById">
+        delete
+        from tbl_employee
+        where id = #{id}
+    </delete>
+    <delete id="deleteEmpEmail">
+        delete
+        from tbl_employee
+        where email = #{email}
+    </delete>
+    <select id="getEmpByID" resultType="mybatis.basic.bean.Employee" databaseId="oracle">
+        select *
+        from tbl_employee
+        where id = #{id}
+    </select>
+</mapper>
