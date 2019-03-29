@@ -42,8 +42,9 @@
 1. ### \@ModelAttribute分析
     使用前后对比:
     传统的方法是取出数据库中的对象，然后前台传回一个对象，将部分前台不能给的值从数据库对象中的值取出赋对前台传回的对象再存
-    入数据库![springmvc_modelAttributrBefore](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/springmvc_modelAttributrBefore.jpg)        
-    使用该注解后可以将数据库中的某个对象取出通过MVC给到前台，前台进行操作后再把原对象返回
+    入数据库  
+    ![springmvc_modelAttributrBefore](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/springmvc_modelAttributrBefore.jpg)        
+    使用该注解后可以将数据库中的某个对象取出通过MVC给到前台，前台进行操作后再把原对象返回  
     ![springmvc_modelAttributrAfter](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/springmvc_modelAttributrAfter.jpg)  
     运行流程:
     1. 执行 @ModelAttribute 注解修饰的方法: 从数据库中取出对象， 把对象放入到了 Map 中。 键为: user
@@ -153,43 +154,40 @@
             </property>
         </bean>	
         ```
-1. ##SpringMVC执行流程  
+1. ### SpringMVC执行流程  
     ![springMVC_执行流程](https://makedown-1257967443.cos.ap-guangzhou.myqcloud.com/springmvc_%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B.png)
 1. 在 Spring MVC 配置文件中引用业务层的 Bean多个 Spring IOC 容器之间可以设置为父子关系，以实现良好的解耦。Spring MVC WEB 
     层容器可作为 “业务层” Spring 容器的子容器：即 WEB 层容器可以引用业务层容器的 Bean，而业务层容器却访问不到 WEB 层容器的 Bean
-###  Question  
+---
+##  Question   
 1. Tomcat的首页设定为.html静态网页的时候，不能正常进入到静态页面。同时，视图解析器也不能解析转发到html?  
-    答: 优雅的 REST 风格的资源URL 不希望带 .html 或 .do 等后缀，若将 DispatcherServlet 请求映射配置为 /，则 Spring MVC 将捕获  
-    WEB 容器的所有请求，包括静态资源的请求， SpringMVC 会将他们当成一个普通请求处理，因找不到对应处理器将导致错误。
-    可以在 SpringMVC 的配置文件中配置 \<mvc:default-servlet-handler/\> 的方式解决静态资源的问题      
-    简单的说就是SpringMVC连接了所有的URL请求，然后根据URL去找映射到的目标方法。但是静态资源并将没有建立这样的映射关系，所以访问不到
-    ---
+    **答**: 优雅的 REST 风格的资源URL 不希望带 .html 或 .do 等后缀，若将 DispatcherServlet 请求映射配置为 /，则 Spring MVC 将捕获  
+    WEB容器的所有请求，包括静态资源的请求， SpringMVC 会将他们当成一个普通请求处理，因找不到对应处理器将导致错误。可以在 SpringMVC 的配置文件中配置 \<mvc:default-servlet-handler/\> 的方式解决静态资源的问题。  
     1. 激活Tomcat的defaultServlet来处理静态文件[detail](https://www.cnblogs.com/Jtianlin/p/5833669.html)  
-    ```xml
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>.jpg</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>.js</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>.css</url-pattern>
-    </servlet-mapping>
-    ``` 
-    要配置多个，每种文件配置一个，要写在DispatcherServlet的前面，让defaultServlet先拦截，这个就不会进入Spring了。
-    Tomcat，Jetty，JBoss，and GlassFish默认Servlet的名字 — “default” 
-    Google App Engine默认Servlet的名字 — “_ah_default”  
-    Resin默认Servlet的名字 — “resin-file”   
-    WebLogic默认Servlet的名字  — “FileServlet”  
-    WebSphere默认Servlet的名字 — “SimpleFileServlet”  
-    --- 
+        ```xml
+        <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>.jpg</url-pattern>
+        </servlet-mapping>
+        <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>.js</url-pattern>
+        </servlet-mapping>
+        <servlet-mapping>
+            <servlet-name>default</servlet-name>
+            <url-pattern>.css</url-pattern>
+        </servlet-mapping>
+        ``` 
+        要配置多个，每种文件配置一个，要写在DispatcherServlet的前面，让defaultServlet先拦截，这个就不会进入Spring了。
+        Tomcat，Jetty，JBoss，and GlassFish默认Servlet的名字 — “default” 
+        Google App Engine默认Servlet的名字 — “_ah_default”  
+        Resin默认Servlet的名字 — “resin-file”   
+        WebLogic默认Servlet的名字  — “FileServlet”  
+        WebSphere默认Servlet的名字 — “SimpleFileServlet”  
     2. \<mvc:default-servlet-handler/> 将在 SpringMVC 上下文中定义一个DefaultServletHttpRequestHandler，它会对进入
     DispatcherServlet 的 请求进行筛查，如果发现是没有经过映射的请求，就将该请求交由 WEB应用服务器默认的 Servlet 处理，
     如果不是静态资源的请求，才由 DispatcherServlet 继续处理一般 WEB 应用服务器默认的 Servlet 的名称都是 default。若所使
     用的WEB 服务器的默认 Servlet 名称不是 default，则需要通过 default-servlet-name 属性显式指定
 2. 	若 Spring 的 IOC 容器和 SpringMVC 的 IOC 容器扫描的包有重合的部分, 就会导致有的 bean 会被创建 2 次.  
-    答:使用 exclude-filter 和 include-filter 子节点来规定只能扫描的注解，使 Spring 的 IOC 容器扫描的包和 SpringMVC 的
-     IOC 容器扫描的包没有重合的部分即可
+    **答**:使用 exclude-filter 和 include-filter 子节点来规定只能扫描的注解，使 Spring 的 IOC 容器扫描的包和 SpringMVC 的
+     IOC 容器扫描的包没有重合的部分即可    
