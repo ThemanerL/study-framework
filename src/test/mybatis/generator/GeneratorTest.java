@@ -1,7 +1,6 @@
-package test.mybatis.generator;
+package mybatis.generator;
 
 import com.github.pagehelper.PageHelper;
-import util.MyUtil;
 import mybatis.generator.bean.Employee;
 import mybatis.generator.bean.EmployeeExample;
 import mybatis.generator.dao.EmployeeMapper;
@@ -11,13 +10,13 @@ import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import util.MyUtil;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ TODO: 2019/3/12  默认的注释生成器生成的注释缺少类的创建者信息,并且有很多不必须的注释,使用mybatisGenerator的插件功能来替换
  *
  * @author 李重辰
  * @date 2019/3/11 23:48
@@ -29,7 +28,7 @@ public class GeneratorTest {
     List<String> warnings = new ArrayList<>();
     boolean overwrite = true;
 
-    File configFile = new File("./conf/mybatis/mybatis-mbg.xml");
+    File configFile = new File("./conf/ssm/resource/mybatis-mbg.xml");
     ConfigurationParser cp = new ConfigurationParser(warnings);
     Configuration config = cp.parseConfiguration(configFile);
     DefaultShellCallback callback = new DefaultShellCallback(overwrite);

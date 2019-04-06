@@ -7,15 +7,38 @@
         <param-name>javax.faces.CONFIG_FILES</param-name>
         <param-value>classpath:mybatis/mybatis-config.xml</param-value>
     </context-param>
-    <!-- 配置Spring配置文件的名称和位置 -->
+    <!-- 1. 配置Spring配置文件的名称和位置 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:/spring/annotationScan.xml</param-value>
+        <param-value>classpath:/ssm/resource/applicationContext.xml</param-value>
     </context-param>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!-- 3. 字符编码过滤器，字符编码的过滤器一定要放在最前面-->
+    <filter>
+        <filter-name>CharacterEncoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 4.使用Rest风格的URL，将post请求转为delete或put请求 -->
     <filter>
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
@@ -24,29 +47,23 @@
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <url-pattern>/springMVC/*</url-pattern>
     </filter-mapping>
+
+    <!-- 将请求体中的数据解析包装成一个Map，能够直接发送一个封装有请求体数据的PUT请求 -->
     <filter>
-        <filter-name>CharacterEncoding</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
+        <filter-name>formContentFilter</filter-name>
+        <filter-class>org.springframework.web.filter.FormContentFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>CharacterEncoding</filter-name>
-        <url-pattern>/</url-pattern>
+        <filter-name>formContentFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-    <!-- 使用tomcat默认的servlet来解析html资源 -->
-    <servlet>
-        <servlet-name>default</servlet-name>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
-    <!-- 配置DispatcherServlet -->
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>default</servlet-name>-->
+    <!--<url-pattern>*.js</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <!-- 2. 配置SpringMVC_DispatcherServlet -->
     <servlet>
         <servlet-name>springMVC</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -57,7 +74,6 @@
             <!--<param-name>contextConfigLocation</param-name>-->
             <!--<param-value>classpath:/springmvc/springmvc.xml</param-value>-->
         <!--</init-param>-->
-
         <!-- load-on-startup元素标记容器是否应该在启动的时候加载这个servlet,
         正数的值越小,优先级越高，应用启动时就越先加载。 -->
         <load-on-startup>3</load-on-startup>
@@ -67,4 +83,5 @@
         <!-- 应答所有请求 -->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
 </web-app>

@@ -436,3 +436,4 @@
       }
     ```
 4. 原生JDBC数据库的批处理时,preparedStatement有可能因为预编译空间的问题而报异常.mybatis是如何解决的?
+5. Mybatis的batchExecutor执行的update方法的返回值为总是```public static final int BATCH_UPDATE_RETURN_VALUE = Integer.MIN_VALUE + 1002;```

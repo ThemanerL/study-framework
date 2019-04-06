@@ -100,61 +100,16 @@ public class MysqlCommentGenerator extends DefaultCommentGenerator {
 
   @Override
   public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
-    StringBuilder sb = new StringBuilder();
-
-    method.addJavaDocLine("/**");
-
-    sb.append(" * This method returns the value of the database column ");
-    sb.append(introspectedTable.getFullyQualifiedTable());
-    sb.append('.');
-    sb.append(introspectedColumn.getActualColumnName());
-    method.addJavaDocLine(sb.toString());
-
-    method.addJavaDocLine(" *");
-
-    sb.setLength(0);
-    sb.append(" * @return the value of ");
-    sb.append(introspectedTable.getFullyQualifiedTable());
-    sb.append('.');
-    sb.append(introspectedColumn.getActualColumnName());
-    method.addJavaDocLine(sb.toString());
-    method.addJavaDocLine(" */");
   }
 
   @Override
   public void addSetterComment(Method method,
                                IntrospectedTable introspectedTable,
                                IntrospectedColumn introspectedColumn) {
-
-    StringBuilder sb = new StringBuilder();
-
-    method.addJavaDocLine("/**");
-    sb.append(" * This method sets the value of the database column ");
-    sb.append(introspectedTable.getFullyQualifiedTable());
-    sb.append('.');
-    sb.append(introspectedColumn.getActualColumnName());
-    method.addJavaDocLine(sb.toString());
-    method.addJavaDocLine(" *");
-    Parameter parm = method.getParameters().get(0);
-    sb.setLength(0);
-    sb.append(" * @param ");
-    sb.append(parm.getName());
-    sb.append(" the value for ");
-    sb.append(introspectedTable.getFullyQualifiedTable());
-    sb.append('.');
-    sb.append(introspectedColumn.getActualColumnName());
-    method.addJavaDocLine(sb.toString());
-    method.addJavaDocLine(" */");
   }
 
   @Override
   public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
-    StringBuilder sb = new StringBuilder();
-    method.addJavaDocLine("/**");
-    sb.append(" * This method corresponds to the database table ");
-    sb.append(introspectedTable.getFullyQualifiedTable());
-    method.addJavaDocLine(sb.toString());
-    method.addJavaDocLine(" */");
   }
 
 }
