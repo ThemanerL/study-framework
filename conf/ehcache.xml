@@ -17,7 +17,7 @@
     </defaultCache>
 
     <!--可以给每个实体类指定一个配置文件，通过name属性指定，要使用类的全名-->
-    <cache name="mybatis.basic.bean.Employee"
+    <cache name="main.java.mybatis.basic.bean.Employee"
            maxElementsInMemory="10000"
            timeToIdleSeconds="300"
            timeToLiveSeconds="600"

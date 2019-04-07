@@ -204,7 +204,7 @@ function build_emps_table(result) {
     $("#emps_table tbody").empty();
     var emps = result.map.pageInfo.list;
     $.each(emps, function (index, item) {
-        var checkBoxTd = $("<td><input type='checkBox' class='check_item'>")
+        var checkBoxTd = $("<td><input type='checkBox' class='check_item'>");
         var empIdTd = $("<td>").append(item.empId);
         var empNameTd = $("<td>").append(item.empName);
         var empGenderTd = $("<td>").append("0" === item.gender ? "女" : "男");
@@ -215,7 +215,7 @@ function build_emps_table(result) {
             .append("编辑").attr("empId", item.empId);
         var deleteBtn = $("<button>").addClass("btn btn-danger btn-sm delete_btn")
             .append($("<span>").addClass("glyphicon glyphicon-trash"))
-            .append("删除").attr("empId", item.empId);;
+            .append("删除").attr("empId", item.empId);
         var btnTd = $("<td>").append(editBtn).append(" ").append(deleteBtn);
         // append返回执行后返回原来的元素
         $("<tr>").append(checkBoxTd)

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:content="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+
+>
+
+    <content:component-scan base-package="spring.basic.bean.annotation">
+        <content:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <content:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        <content:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </content:component-scan>
+    <!--实测没有通过注解方式自动扫描的类手动装配也是正常调用-->
+    <bean id="userService" class="spring.basic.bean.annotation.service.UserService" scope="prototype"/>
+
+    <content:component-scan base-package="spring.transaction"/>
+    <content:component-scan base-package="spring.aop.origin"/>
+    <content:component-scan base-package="mybatis.generator.bean"/>
+    <!-- 使AspectJ 注解起作用,自动为匹配的类生成代理对象(使用注解配置切面)-->
+    <!--<aop:aspectj-autoproxy/>-->
+    <!--<bean id="loggingAspectXml" class="spring.aop.aspect.LoggingAspectXml"/>-->
+    <!--<aop:config>-->
+    <!--<aop:pointcut id="calculatorAllMethod" expression="execution(* spring.transaction.service.BookShop.*(..))"/>-->
+    <!--<aop:aspect  ref="loggingAspectXml" order="0">-->
+    <!--<aop:before method="beforeMethod" pointcut-ref="calculatorAllMethod"/>-->
+    <!--<aop:after method="afterMethod" pointcut-ref="calculatorAllMethod"/>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+</beans>

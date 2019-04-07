@@ -7,7 +7,7 @@
         不以/开始的相对路径，会以当前资源路径为基准寻找资源，容易出问题
         以/开始的相对路径，会以服务器的路径为基准寻找资源-->
     <%
-        pageContext.setAttribute("APP_PATH",request.getContextPath());
+        pageContext.setAttribute("APP_PATH", request.getContextPath());
     %>
     <link rel="stylesheet" href="${APP_PATH}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <script src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="javascript"></script>
@@ -46,19 +46,19 @@
                 <c:forEach items="${pageInfo.list}" var="emp">
                     <tr>
                         <td>
-                            ${emp.empId}
+                                ${emp.empId}
                         </td>
                         <td>
-                            ${emp.empName}
+                                ${emp.empName}
                         </td>
                         <td>
-                            ${emp.gender=="0"?"男":"女"}
+                                ${emp.gender=="0"?"男":"女"}
                         </td>
                         <td>
-                            ${emp.email}
+                                ${emp.email}
                         </td>
                         <td>
-                            ${emp.department.deptName}
+                                ${emp.department.deptName}
                         </td>
                         <td>
                             <button class="btn btn-info btn-sm">
@@ -80,7 +80,8 @@
     <div class="row">
         <!--分页文字信息  -->
         <div class="col-md-6">当前 ${pageInfo.pageNum }页,总${pageInfo.pages }
-            页,总 ${pageInfo.total } 条记录</div>
+            页,总 ${pageInfo.total } 条记录
+        </div>
         <!-- 分页条信息 -->
         <div class="col-md-6">
             <nav aria-label="Page navigation">

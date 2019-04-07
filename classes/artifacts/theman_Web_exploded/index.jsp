@@ -233,11 +233,16 @@
     });
 
     /**
-     * 更新 email值改变触发前端效验
+     * 更新 email值改变触发前端合法性检查效验，提交的时候再去后台查询邮箱是否被使用
+     *
      */
     $("#email_update_input").change(function () {
         var reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-        lostFocus("#email_update_input", reg, "请检查邮箱格式！", "email")
+        var originValue = $("#email_update_input").val();
+        if (!reg.test(originValue)) {
+            submitCode = false;
+            show_validate_msg("#email_update_input", "error", "请检查邮箱格式！", "email");
+        }
     });
 
     /**
@@ -264,12 +269,12 @@
     empList.on("click", ".delete_btn", function () {
         //1、弹出是否确认删除对话框
         var empName = $(this).parents("tr").find("td:eq(2)").text();
-        if(confirm("确认删除【"+empName+"】吗？")){
+        if (confirm("确认删除【" + empName + "】吗？")) {
             //确认，发送ajax请求删除即可
             $.ajax({
-                url:"${APP_PATH}/emp/"+$(this).attr("empId"),
-                type:"DELETE",
-                success:function (result) {
+                url: "${APP_PATH}/emp/" + $(this).attr("empId"),
+                type: "DELETE",
+                success: function (result) {
                     updateMsg(result);
                 }
             })
@@ -293,33 +298,33 @@
         })
     });
 
-    $("#check_all").on("click",function () {
-        $(".check_item").prop("checked",$(this).prop("checked"));
+    $("#check_all").on("click", function () {
+        $(".check_item").prop("checked", $(this).prop("checked"));
     });
 
     /**
      * 如果当前表格的选择框全部被选中，则全选按钮被选中
      */
-    empList.on("click",".check_item",function () {
+    empList.on("click", ".check_item", function () {
         //判断当前表格中的checkBox是否被全部选中
-        var flag = $(".check_item:checked").length===$(".check_item").length;
-        $("#check_all").prop("checked",flag);
+        var flag = $(".check_item:checked").length === $(".check_item").length;
+        $("#check_all").prop("checked", flag);
     });
 
-    $("#emp_delete_btn").on("click",function () {
+    $("#emp_delete_btn").on("click", function () {
         if (confirm("确认一次删除这么这么多的数据吗！？")) {
             var empIds = [];
-            $.each($(".check_item:checked"),function () {
+            $.each($(".check_item:checked"), function () {
                 empIds.push($(this).parents("tr").find("td:eq(1)").text());
             });
             $.ajax({
-                url:"${APP_PATH}/emps",
-                type:"DELETE",
+                url: "${APP_PATH}/emps",
+                type: "DELETE",
                 data: JSON.stringify(empIds),
-                contentType:"application/json;charset=utf-8",
-                success:function (result) {
+                contentType: "application/json;charset=utf-8",
+                success: function (result) {
                     updateMsg(result);
-                    $("#check_all").prop("checked",false);
+                    $("#check_all").prop("checked", false);
                 }
             })
         }
