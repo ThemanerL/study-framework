@@ -128,7 +128,7 @@
         - NEVER--当前的方法不应当运行在事务中,如果有事务正在运行就抛出异常
         - NESTED--如果有事务在运行,当前的方法就应该在这个事务的嵌套事务内运行,否则就启动一个新的事务,并在自己的事务内运行 
     1. 事务的隔离级别:在Spring中通过@Transactional注解的isolation键值对来指定
-        [详](https://github.com/ThemanerL/Study_framework/blob/master/src/interview/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3.md)
+        [详](https://github.com/ThemanerL/Study_framework/blob/master/src/main/java/interview/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3.md)
         默认情况下Spring对所有的运行时异常进行回滚,也可以自定义对某些异常进行回滚或者定义对某些异常不进行回滚.
     1. 事务属性
         - 只读事务readOnly=true:表示这个事务只读取数据但不更新数据,这样可以帮助数据库引擎优化事务
