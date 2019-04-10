@@ -16,7 +16,7 @@ public class LoggingAspect {
   /**
    * 抽取切点以公用
    */
-  @Pointcut("execution(* main.java.spring.transaction.service.BookShop.*(..))")
+  @Pointcut("execution(* spring.transaction.service.BookShop.*(..))")
   void declareJoinPointExpression() {
   }
 

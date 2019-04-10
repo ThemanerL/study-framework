@@ -40,7 +40,7 @@ public class EmployeeController {
   @RequestMapping(value = "/emps", method = RequestMethod.GET)
   public Message getEmpsByJson(@RequestParam(value = "pn", defaultValue = "1") Integer pn) {
     PageHelper.startPage(pn, 10);
-    List<Employee> employeeList = employeeService.getAll();
+    List<Employee> employeeList = employeeService.listEmps();
     PageInfo<Employee> pageInfo = new PageInfo<>(employeeList, 5);
     return Message.success().add("pageInfo", pageInfo);
   }
@@ -107,7 +107,7 @@ public class EmployeeController {
   @ResponseBody
   @RequestMapping(value = "/emps", method = RequestMethod.DELETE)
   public Message deleteEmps(@RequestBody List<Integer> empIds) {
-    employeeService.deleteEmp(empIds);
+    employeeService.deleteEmpList(empIds);
     return Message.success();
   }
 
@@ -137,7 +137,7 @@ public class EmployeeController {
     // 在查询前调用，传入页码和每页的大小
     PageHelper.startPage(pn, 10);
     // 在startPage后面紧跟的这个查询就是分页查询
-    List<Employee> employeeList = employeeService.getAll();
+    List<Employee> employeeList = employeeService.listEmps();
     // navigatePages设定连续显示5页，使用PageInfo包装查询后的结果，将PageInfo传给页码，封装了详细的分页信息，包括有我们查询出来的数据
     PageInfo<Employee> pageInfo = PageInfo.of(employeeList, 5);
     model.addAttribute("pageInfo", pageInfo);

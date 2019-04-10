@@ -1,4 +1,4 @@
-package main.java.interview;
+package interview;
 
 import org.junit.Test;
 
@@ -11,11 +11,30 @@ import java.util.Arrays;
 public class BubbleSortTest {
 
   /**
-   * 比较交换数组arr[i]和arr[i+1]
-   *
-   * @param arr /
-   * @param i   /
+   * 第二次优化 如果已经有序不进行交换
+   * 假定数组是有序的，进行任意两个相邻元素比对，如果发生了交换，且将数组状态设为无序。
+   * 如果在一次循环中没有任何两个元素发生了交换，则数组已经有序，跳出循环。
    */
+  @Test
+  public void sortFinal() {
+    int[] arr = {1, 2, 6, 4, 9, 7, 8};
+    for (int j = 0; j < arr.length; j++) {
+      boolean sorted = true;
+      for (int i = 0; i < arr.length - 1 - j; i++) {
+        if (arr[i] > arr[i + 1]) {
+          int temp = arr[i + 1];
+          arr[i + 1] = arr[i];
+          arr[i] = temp;
+          sorted = false;
+        }
+      }
+      if (sorted) {
+        break;
+      }
+    }
+    System.out.println(Arrays.toString(arr));
+  }
+
   private static void swapTwo(int[] arr, int i) {
     if (arr[i] > arr[i + 1]) {
       int temp = arr[i + 1];
@@ -50,31 +69,6 @@ public class BubbleSortTest {
     for (int j = 0; j < arr.length; j++) {
       for (int i = 0; i < arr.length - 1 - j; i++) {
         swapTwo(arr, i);
-      }
-    }
-    System.out.println(Arrays.toString(arr));
-  }
-
-  /**
-   * 第二次优化 如果已经有序不进行交换
-   * 假定数组是有序的，进行任意两个相邻元素比对，如果发生了交换，且将数组状态设为无序。
-   * 如果在一次循环中没有任何两个元素发生了交换，则数组已经有序，跳出循环。
-   */
-  @Test
-  public void sortFinal() {
-    int[] arr = {1, 2, 6, 4, 9, 7, 8};
-    for (int j = 0; j < arr.length; j++) {
-      boolean sorted = true;
-      for (int i = 0; i < arr.length - 1 - j; i++) {
-        if (arr[i] > arr[i + 1]) {
-          int temp = arr[i + 1];
-          arr[i + 1] = arr[i];
-          arr[i] = temp;
-          sorted = false;
-        }
-      }
-      if (sorted) {
-        break;
       }
     }
     System.out.println(Arrays.toString(arr));

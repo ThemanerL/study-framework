@@ -34,7 +34,7 @@ public class EmployeeService {
    *
    * @return 、
    */
-  public List<Employee> getAll() {
+  public List<Employee> listEmps() {
     return employeeMapper.selectByExampleWithDept(null);
   }
 
@@ -151,7 +151,7 @@ public class EmployeeService {
     employeeMapper.deleteByPrimaryKey(empId);
   }
 
-  public void deleteEmp(List<Integer> empIds) {
+  public void deleteEmpList(List<Integer> empIds) {
     EmployeeExample example = new EmployeeExample();
     EmployeeExample.Criteria criteria = example.createCriteria();
     criteria.andEmpIdIn(empIds);
