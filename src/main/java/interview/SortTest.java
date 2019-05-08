@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author 李重辰
  * @date 2019/3/1 13:33
  */
-public class BubbleSortTest {
+public class SortTest {
 
   /**
    * 第二次优化 如果已经有序不进行交换
@@ -73,4 +73,35 @@ public class BubbleSortTest {
     }
     System.out.println(Arrays.toString(arr));
   }
+}
+
+/**
+ * 选择排序
+ */
+class SelectSort {
+
+    public static void main(String[] args) {
+        int[] arr = {1, 5, 23, 5, 7, 4, 2, 98, 34, 6, 7, 8};
+        new SelectSort().selectionSort(arr);
+    }
+
+    public void selectionSort(int[] ins) {
+        int n = ins.length, count = 0;
+        for (int i = 0; i < n; i++) {
+            int min = i;
+            for (int j = i; j < n - 1; j++) {
+                if (ins[j] < min) {
+                    min = ins[j];
+                }
+                int temp = ins[j];
+                ins[j] = ins[j + 1];
+                ins[j + 1] = temp;
+                count++;
+            }
+        }
+        for (int s : ins) {
+            System.out.print(s + ",");
+        }
+        System.out.println("/t :" + count);
+    }
 }

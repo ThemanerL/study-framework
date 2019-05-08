@@ -5,8 +5,12 @@
          version="3.1">
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>classpath:main.java.mybatis/main.java.mybatis-config.xml</param-value>
+        <param-value>classpath:main.java.mybatis-config.xml</param-value>
     </context-param>
+    <!--<context-param>-->
+        <!--<param-name>isLog4jAutoInitializationDisabled</param-name>-->
+        <!--<param-value>true</param-value>-->
+    <!--</context-param>-->
     <!-- 1. 配置Spring配置文件的名称和位置 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>

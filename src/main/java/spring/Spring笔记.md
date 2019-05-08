@@ -168,3 +168,4 @@
         </listener>
         ```
 ### Question
+1. Spring官方文档[Core-1.2.1Configuration Metadata](https://docs.spring.io/spring/docs/5.1.6.RELEASE/spring-framework-reference/core.html#beans-factory-metadata)中提到的Domain Objects是指什么对象？

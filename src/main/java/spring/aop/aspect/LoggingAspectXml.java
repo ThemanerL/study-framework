@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspectXml {
 
-  /**
+    /**S
    * 通过Before指定该方法在目标方法执行前执行
    */
   public void beforeMethod(JoinPoint point) {

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
 >
     <!-- 配置Bean -->
@@ -9,12 +10,12 @@
     <bean id="springHelloWorld" class="spring.basic.bean.HelloWorld">
         <property name="name" value="Spring"/>
     </bean>
-    <bean id="developmentDepartment" class="mybatis.basic.bean.Department" >
+    <bean id="developmentDepartment" class="mybatis.basic.bean.Department">
         <property name="id" value="4"/>
         <property name="name" value="development"/>
         <property name="employees" ref="employees"/>
     </bean>
-    <context:property-placeholder location="main/java/mybatis/db-config.properties" />
+    <context:property-placeholder location="main/java/mybatis/db-config.properties"/>
     <bean name="DataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
@@ -26,7 +27,9 @@
         <constructor-arg name="lastName" value="构造器赋值" type="java.lang.String"/>
         <constructor-arg name="gender" value="0" type="java.lang.String"/>
         <constructor-arg name="email" value="SpringHello@no1.com" type="java.lang.String"/>
-        <constructor-arg name="department"><null/></constructor-arg>
+        <constructor-arg name="department">
+            <null/>
+        </constructor-arg>
         <constructor-arg name="status" value="LOGIN" type="mybatis.basic.bean.EmpStatus"/>
     </bean>
     <bean id="employee1" class="mybatis.basic.bean.Employee">
@@ -41,7 +44,7 @@
         <property name="gender" value="0"/>
     </bean>
     <!-- 为Collection赋值 -->
-    <util:list id="employees" >
+    <util:list id="employees">
         <ref bean="employee"/>
         <ref bean="employee1"/>
         <bean class="mybatis.basic.bean.Employee">

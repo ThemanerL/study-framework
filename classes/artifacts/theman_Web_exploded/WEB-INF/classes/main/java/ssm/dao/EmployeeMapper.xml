@@ -298,7 +298,7 @@
         </association>
     </resultMap>
     <sql id="Emp_And_Dept_Column">
-        emp_id, emp_name, gender, email, d_id,dept_id, dept_name
+        emp_id, emp_name, gender, email, d_id, dept_id, dept_name
     </sql>
     <select id="selectByExampleWithDept" parameterType="ssm.bean.EmployeeExample" resultMap="EmpAndDept">
         select

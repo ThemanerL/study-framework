@@ -12,6 +12,6 @@
 </head>
 <body>
 <h2>Something Wrong!</h2>
-${exception}
+${msg}
 </body>
 </html>

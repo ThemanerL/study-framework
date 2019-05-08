@@ -5,6 +5,7 @@
     2. response对象 javax.servlet.http.HttpServletResponse 
         - response 代表的是对客户端的响应，主要是将JSP容器处理过的对象传回到客户端。response对象也具有作用域，它只在JSP页面内有效。
     3. session对象 javax.servlet.http.HttpSession 
+        ![Session时序图](https://www.ibm.com/developerworks/cn/java/j-lo-servlet/image023.jpg)
         - session 对象是由服务器自动创建的与用户请求相关的对象。服务器为每个用户都生成一个session对象，用于保存该用户的信息，跟踪用户的操作状态。
         1. 在Jsp/Servlet中，如果浏览器不支持**会话Cookie**，可以通过**URL重写**来实现，就是将一些额外数据追加到表示回话的每个URL末尾，服务器在该标识符与其存储的有关的该会话的数据之间建立关联。如hello.jsp?jsessionid=1234 
         2. 可以通过程序来终止一个会话。如果客户端在一定时间内没有操作，服务器会自动终止对话。
@@ -28,7 +29,6 @@
     2. 调用Servlet对象的init()方法，初始化Servlet的信息，init()方法只会在创建后被调用一次；
     3. 每次请求到来，都会调用service方法，在HttpServlet中，service方法用于判断请求的方法（不用重写），而去重写doGet方法或doPost方法。
     4. 在长时间没有被调用或者是服务器关闭时，会调用destroy()方法来销毁Servlet对象。
-
 - Servlet中常用来存储数据的三大作用域:按照使用范围从小到大排列为: HttpServletRequest、HttpSession、ServletContext三个作用域，下边详细介绍这三个作用域。
     1. HttpServletRequest作用域:
         - 存入数据的方法request.setAttribute("User",user);(这里是把user放入到request作用域中，key是User,value是user),此作用域保存的数据只是针对一次请求。使用该对象保存数据，一次请求内数据有效。请求转发是属于一次请求的，所以放在此作用域中的数据，在一个页面转发多个页面数据都是有效的。

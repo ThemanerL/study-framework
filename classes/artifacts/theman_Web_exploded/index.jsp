@@ -7,8 +7,8 @@
         不以/开始的相对路径，会以当前资源路径为基准寻找资源，容易出问题
         以/开始的相对路径，会以服务器的路径为基准寻找资源-->
     <%
-        pageContext.setAttribute("APP_PATH", request.getContextPath());
-        System.out.println(request.getContextPath());
+    pageContext.setAttribute("APP_PATH", request.getContextPath());
+    System.out.println(request.getContextPath());
     %>
     <!-- 引入jquery -->
     <script src="${APP_PATH}/static/js/jquery-3.3.1.js"></script>

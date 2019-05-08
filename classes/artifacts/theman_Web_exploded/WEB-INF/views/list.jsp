@@ -12,17 +12,11 @@
     <link rel="stylesheet" href="${APP_PATH}/static/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <script src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js" type="javascript"></script>
     <!-- 引入jquery -->
-    <script src="${APP_PATH}/static/js/jquery-1.12.4.min.js" type="javascript"></script>
+    <script src="${APP_PATH}/static/js/jquery-3.3.1.js" type="javascript"></script>
 </head>
 <body>
 <!-- 搭建显示页面 -->
 <div class="container">
-    <!-- 标题 -->
-    <div class="row">
-        <div class="col-md-12">
-            <h1>SSM框架整合</h1>
-        </div>
-    </div>
     <!-- 按钮 -->
     <div class="row">
         <div class="col-mod-4 col-md-offset-8">
