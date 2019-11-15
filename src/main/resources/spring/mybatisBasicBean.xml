@@ -15,7 +15,7 @@
         <property name="name" value="development"/>
         <property name="employees" ref="employees"/>
     </bean>
-    <context:property-placeholder location="main/java/mybatis/db-config.properties"/>
+    <context:property-placeholder location="mybatis/db-config.properties"/>
     <bean name="DataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>

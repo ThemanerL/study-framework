@@ -6,7 +6,7 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
     <!-- 数据源 -->
-    <context:property-placeholder location="classpath:main/java/ssm/resource/db-config.properties"/>
+    <context:property-placeholder location="classpath:ssm/resource/db-config.properties"/>
     <context:property-placeholder location="classpath:log4j.properties"/>
     <bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="user" value="${jdbc.username}"/>
@@ -24,9 +24,9 @@
     <!-- 配置和mybatis的整合 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!-- 指定Mybatis全局配置文件的位置 -->
-        <property name="configLocation" value="classpath:main/java/ssm/resource/mybatis-config.xml"/>
+        <property name="configLocation" value="classpath:ssm/resource/mybatis-config.xml"/>
         <property name="dataSource" ref="pooledDataSource"/>
-        <property name="mapperLocations" value="classpath:main/java/ssm/dao/*.xml"/>
+        <property name="mapperLocations" value="classpath:ssm/dao/*.xml"/>
     </bean>
 
     <!-- 配置扫描器，将mybatis接口的实现加入到IOC容器中 -->
