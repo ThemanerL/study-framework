@@ -9,7 +9,7 @@
         resource:来引入类路径下的资源
         url:引入网络路径或者磁盘路径下的资源
       -->
-    <properties resource="main/java/mybatis/db-config.properties"/>
+    <properties resource="mybatis/db-config.properties"/>
     <!--
         Settings包含很多的重要的设置项
         setting:用来设置每一个设置项

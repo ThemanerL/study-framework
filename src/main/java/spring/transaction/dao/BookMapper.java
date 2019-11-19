@@ -77,7 +77,7 @@ public interface BookMapper {
       "from tbl_book",
       "where id = #{id,jdbcType=INTEGER}"
   })
-  @ResultMap("main.java.spring.transaction.dao.BookMapper.BaseResultMap")
+  @ResultMap("spring.transaction.dao.BookMapper.BaseResultMap")
   Book selectByPrimaryKey(Integer id);
 
   /**

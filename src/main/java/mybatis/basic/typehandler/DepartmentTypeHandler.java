@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * main.java.mybatis.basic.dao.EmployeeMapper.getEmpByID的返回值ResultMap使用
+ * mybatis.basic.dao.EmployeeMapper.getEmpByID的返回值ResultMap使用
  *
  * @author 李重辰
  * @date 2019/3/14 12:03

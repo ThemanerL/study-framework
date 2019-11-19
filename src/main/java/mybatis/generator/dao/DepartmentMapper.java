@@ -33,7 +33,7 @@ public interface DepartmentMapper {
       "from tbl_dept",
       "where id = #{id,jdbcType=INTEGER}"
   })
-  @ResultMap("main.java.mybatis.generator.dao.DepartmentMapper.BaseResultMap")
+  @ResultMap("mybatis.generator.dao.DepartmentMapper.BaseResultMap")
   Department selectByPrimaryKey(Integer id);
 
   int updateByExampleSelective(@Param("record") Department record, @Param("example") DepartmentExample example);

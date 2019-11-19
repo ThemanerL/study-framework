@@ -77,7 +77,7 @@ public interface AccountMapper {
       "from account",
       "where id = #{id,jdbcType=INTEGER}"
   })
-  @ResultMap("main.java.spring.transaction.dao.AccountMapper.BaseResultMap")
+  @ResultMap("spring.transaction.dao.AccountMapper.BaseResultMap")
   Account selectByPrimaryKey(Integer id);
 
   /**

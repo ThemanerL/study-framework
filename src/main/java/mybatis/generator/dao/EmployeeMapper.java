@@ -35,7 +35,7 @@ public interface EmployeeMapper {
       "from tbl_employee",
       "where id = #{id,jdbcType=INTEGER}"
   })
-  @ResultMap("main.java.mybatis.generator.dao.EmployeeMapper.BaseResultMap")
+  @ResultMap("mybatis.generator.dao.EmployeeMapper.BaseResultMap")
   Employee selectByPrimaryKey(Integer id);
 
   int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);

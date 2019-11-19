@@ -5,7 +5,7 @@
          version="3.1">
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>classpath:main.java.mybatis-config.xml</param-value>
+        <param-value>classpath:mybatis-config.xml</param-value>
     </context-param>
     <!--<context-param>-->
     <!--<param-name>isLog4jAutoInitializationDisabled</param-name>-->
@@ -76,7 +76,7 @@
         当前servletName为springMVC,默认文件路径即为WEB-INF\springMVC-servlet.xml -->
         <!--<init-param>-->
         <!--<param-name>contextConfigLocation</param-name>-->
-        <!--<param-value>classpath:/main.java.springmvc/main.java.springmvc.xml</param-value>-->
+        <!--<param-value>classpath:/springmvc/springmvc.xml</param-value>-->
         <!--</init-param>-->
         <!-- load-on-startup元素标记容器是否应该在启动的时候加载这个servlet,
         正数的值越小,优先级越高，应用启动时就越先加载。 -->
