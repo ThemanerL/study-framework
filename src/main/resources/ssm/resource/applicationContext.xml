@@ -13,6 +13,7 @@
         <property name="password" value="${jdbc.password}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="acquireRetryAttempts" value="2"/>
     </bean>
     <bean id="dateFormat" class="java.text.SimpleDateFormat">
         <constructor-arg name="pattern" value="yyyy/MM/dd hh:mm:ss"/>
