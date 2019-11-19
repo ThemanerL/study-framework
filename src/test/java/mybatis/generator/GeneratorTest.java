@@ -13,8 +13,11 @@ import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author 李重辰
@@ -27,7 +30,11 @@ public class GeneratorTest {
     List<String> warnings = new ArrayList<>();
     boolean overwrite = true;
 
-    File configFile = new File("./ssm/resource/mybatis-mbg.xml");
+    URL res = getClass().getClassLoader().getResource("ssm/resource/mybatis-mbg.xml");
+    assert res != null;
+    File configFile = Paths.get(res.toURI()).toFile();
+    String absolutePath = configFile.getAbsolutePath();
+    System.out.println(absolutePath);
     ConfigurationParser cp = new ConfigurationParser(warnings);
     Configuration config = cp.parseConfiguration(configFile);
     DefaultShellCallback callback = new DefaultShellCallback(overwrite);

@@ -4,9 +4,9 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <properties resource="db-config.properties"/>
+    <properties resource="ssm/resource/db-config.properties"/>
     <context id="mysql" targetRuntime="MyBatis3">
-        <commentGenerator type="util.MysqlCommentGenerator">
+        <commentGenerator type="main.java.util.MysqlCommentGenerator">
             <!--<property name="suppressAllComments" value="false"/>-->
             <!--&lt;!&ndash;生成的注释包含时间戳&ndash;&gt;-->
             <!--<property name="suppressDate" value="true"/>-->
