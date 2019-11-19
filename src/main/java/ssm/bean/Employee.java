@@ -7,6 +7,14 @@ import java.util.Date;
  * @date   2019/11/20 12:06
  */
 public class Employee {
+
+    public Employee(String empName, String gender, String email, Long dId) {
+        this.empName = empName;
+        this.gender = gender;
+        this.email = email;
+        this.dId = dId;
+    }
+
     /**
      * 
      */
