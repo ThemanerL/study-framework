@@ -24,16 +24,16 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="ssm.bean" targetProject=".\src">
+        <javaModelGenerator targetPackage="ssm.bean" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="ssm.dao" targetProject=".\resources">
+        <sqlMapGenerator targetPackage="ssm.dao" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="ssm.dao" targetProject=".\src">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="ssm.dao" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 

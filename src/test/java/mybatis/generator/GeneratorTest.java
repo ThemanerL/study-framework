@@ -33,8 +33,6 @@ public class GeneratorTest {
     URL res = getClass().getClassLoader().getResource("ssm/resource/mybatis-mbg.xml");
     assert res != null;
     File configFile = Paths.get(res.toURI()).toFile();
-    String absolutePath = configFile.getAbsolutePath();
-    System.out.println(absolutePath);
     ConfigurationParser cp = new ConfigurationParser(warnings);
     Configuration config = cp.parseConfiguration(configFile);
     DefaultShellCallback callback = new DefaultShellCallback(overwrite);
