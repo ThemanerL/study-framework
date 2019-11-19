@@ -27,7 +27,7 @@ public class GeneratorTest {
     List<String> warnings = new ArrayList<>();
     boolean overwrite = true;
 
-    File configFile = new File("./conf/main.java.ssm/resource/mybatis-mbg.xml");
+    File configFile = new File("./ssm/resource/mybatis-mbg.xml");
     ConfigurationParser cp = new ConfigurationParser(warnings);
     Configuration config = cp.parseConfiguration(configFile);
     DefaultShellCallback callback = new DefaultShellCallback(overwrite);

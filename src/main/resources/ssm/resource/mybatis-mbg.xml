@@ -29,7 +29,7 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="ssm.dao" targetProject=".\conf">
+        <sqlMapGenerator targetPackage="ssm.dao" targetProject=".\resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
