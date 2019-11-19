@@ -24,7 +24,7 @@ import static main.java.util.MyUtil.getRandEmail;
 @Transactional
 @Rollback
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:main/java/ssm/resource/applicationContext.xml")
+@ContextConfiguration(locations = "classpath:ssm/resource/applicationContext.xml")
 public class EmployeeMapperTest {
 
   @Autowired
