@@ -10,10 +10,10 @@ import java.util.Collection;
  */
 public interface DepartmentService {
 
-    /**
-     * 获得所有部门
-     *
-     * @return 部门集合
-     */
-    Collection<Department> getDepts();
+  /**
+   * 获得所有部门
+   *
+   * @return 部门集合
+   */
+  Collection<Department> getDepts();
 }

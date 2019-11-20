@@ -28,7 +28,7 @@ public interface EmployeeService {
    */
   void saveEmp(Employee employee);
 
-    Message dataValidate(Employee employee, BindingResult result);
+  Message dataValidate(Employee employee, BindingResult result);
 
   /**
    * 用户名或者邮箱是否被使用过，
@@ -57,11 +57,11 @@ public interface EmployeeService {
   @Deprecated
   boolean regexCheck(CheckRepeat checkRepeat);
 
-    void updateEmp(Employee employee);
+  void updateEmp(Employee employee);
 
-    Employee getEmpById(Integer empId);
+  Employee getEmpById(Integer empId);
 
-    void deleteEmp(Integer empId);
+  void deleteEmp(Integer empId);
 
-    void deleteEmpList(List<Integer> empIds);
+  void deleteEmpList(List<Integer> empIds);
 }

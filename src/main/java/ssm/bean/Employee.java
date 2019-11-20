@@ -4,48 +4,48 @@ import java.util.Date;
 
 /**
  * @author 李重辰
- * @date   2019/11/20 01:40
+ * @date 2019/11/20 01:40
  */
 public class Employee {
-    /**
-     * 
-     */
-    private Integer id;
+  /**
+   *
+   */
+  private Integer id;
 
-    /**
-     * 员工姓名
-     */
-    private String empName;
+  /**
+   * 员工姓名
+   */
+  private String empName;
 
-    /**
-     * 性别
-     */
-    private String gender;
+  /**
+   * 性别
+   */
+  private String gender;
 
-    /**
-     * 邮箱
-     */
-    private String email;
+  /**
+   * 邮箱
+   */
+  private String email;
 
-    /**
-     * 
-     */
-    private Integer dId;
+  /**
+   *
+   */
+  private Integer dId;
 
-    /**
-     * 
-     */
-    private Date gmtCreate;
+  /**
+   *
+   */
+  private Date gmtCreate;
 
-    /**
-     * 
-     */
-    private Date gmtModified;
+  /**
+   *
+   */
+  private Date gmtModified;
 
-    /**
-     * 
-     */
-    private Byte isDeleted;
+  /**
+   *
+   */
+  private Byte isDeleted;
 
   public Employee(String empName, String gender, String email, Integer dId) {
     this.empName = empName;
@@ -55,66 +55,66 @@ public class Employee {
   }
 
   public Integer getId() {
-        return id;
-    }
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getEmpName() {
-        return empName;
-    }
+  public String getEmpName() {
+    return empName;
+  }
 
-    public void setEmpName(String empName) {
-        this.empName = empName == null ? null : empName.trim();
-    }
+  public void setEmpName(String empName) {
+    this.empName = empName == null ? null : empName.trim();
+  }
 
-    public String getGender() {
-        return gender;
-    }
+  public String getGender() {
+    return gender;
+  }
 
-    public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
-    }
+  public void setGender(String gender) {
+    this.gender = gender == null ? null : gender.trim();
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+  public void setEmail(String email) {
+    this.email = email == null ? null : email.trim();
+  }
 
-    public Integer getdId() {
-        return dId;
-    }
+  public Integer getdId() {
+    return dId;
+  }
 
-    public void setdId(Integer dId) {
-        this.dId = dId;
-    }
+  public void setdId(Integer dId) {
+    this.dId = dId;
+  }
 
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
+  public Date getGmtCreate() {
+    return gmtCreate;
+  }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
+  public void setGmtCreate(Date gmtCreate) {
+    this.gmtCreate = gmtCreate;
+  }
 
-    public Date getGmtModified() {
-        return gmtModified;
-    }
+  public Date getGmtModified() {
+    return gmtModified;
+  }
 
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
+  public void setGmtModified(Date gmtModified) {
+    this.gmtModified = gmtModified;
+  }
 
-    public Byte getIsDeleted() {
-        return isDeleted;
-    }
+  public Byte getIsDeleted() {
+    return isDeleted;
+  }
 
-    public void setIsDeleted(Byte isDeleted) {
-        this.isDeleted = isDeleted;
-    }
+  public void setIsDeleted(Byte isDeleted) {
+    this.isDeleted = isDeleted;
+  }
 }

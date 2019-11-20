@@ -13,15 +13,16 @@ import java.util.Collection;
  */
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
-    final private DepartmentMapper departmentMapper;
 
-    @Autowired
-    public DepartmentServiceImpl(DepartmentMapper departmentMapper) {
-        this.departmentMapper = departmentMapper;
-    }
+  final private DepartmentMapper departmentMapper;
 
-    @Override
-    public Collection<Department> getDepts() {
-        return departmentMapper.selectByExample(null);
-    }
+  @Autowired
+  public DepartmentServiceImpl(DepartmentMapper departmentMapper) {
+    this.departmentMapper = departmentMapper;
+  }
+
+  @Override
+  public Collection<Department> getDepts() {
+    return departmentMapper.selectByExample(null);
+  }
 }

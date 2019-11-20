@@ -1,34 +1,35 @@
 package ssm.dao;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import ssm.bean.Employee;
 import ssm.bean.EmployeeExample;
 
+import java.util.List;
+
 public interface EmployeeMapper {
-    long countByExample(EmployeeExample example);
+  long countByExample(EmployeeExample example);
 
-    int deleteByExample(EmployeeExample example);
+  int deleteByExample(EmployeeExample example);
 
-    int deleteByPrimaryKey(Integer id);
+  int deleteByPrimaryKey(Integer id);
 
-    int insert(Employee record);
+  int insert(Employee record);
 
-    int insertSelective(Employee record);
+  int insertSelective(Employee record);
 
-    List<Employee> selectByExample(EmployeeExample example);
+  List<Employee> selectByExample(EmployeeExample example);
 
-    Employee selectByPrimaryKey(Integer id);
+  Employee selectByPrimaryKey(Integer id);
 
-    int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);
+  int updateByExampleSelective(@Param("record") Employee record, @Param("example") EmployeeExample example);
 
-    int updateByExample(@Param("record") Employee record, @Param("example") EmployeeExample example);
+  int updateByExample(@Param("record") Employee record, @Param("example") EmployeeExample example);
 
-    int updateByPrimaryKeySelective(Employee record);
+  int updateByPrimaryKeySelective(Employee record);
 
-    int updateByPrimaryKey(Employee record);
+  int updateByPrimaryKey(Employee record);
 
-    List<Employee> selectByExampleWithDept(Object o);
+  List<Employee> selectByExampleWithDept(Object o);
 
-    Employee selectByPrimaryKeyWithDept(Integer empId);
+  Employee selectByPrimaryKeyWithDept(Integer empId);
 }

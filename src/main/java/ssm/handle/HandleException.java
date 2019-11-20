@@ -17,22 +17,22 @@ import java.util.Date;
  */
 @ControllerAdvice
 public class HandleException {
-    /**
-     * The name of this Logger will be "ssm.handle.HandleException"
-     */
-    private static final Logger logger = LogManager.getLogger();
-    private final DateFormat dateFormat;
+  /**
+   * The name of this Logger will be "ssm.handle.HandleException"
+   */
+  private static final Logger logger = LogManager.getLogger();
+  private final DateFormat dateFormat;
 
-    @Autowired
-    public HandleException(DateFormat dateFormat) {
-        this.dateFormat = dateFormat;
-    }
+  @Autowired
+  public HandleException(DateFormat dateFormat) {
+    this.dateFormat = dateFormat;
+  }
 
-    @ExceptionHandler
-    public ModelAndView handleException(Exception e) {
-        logger.error(dateFormat.format(new Date()), e);
-        ModelAndView modelAndView = new ModelAndView("error");
-        modelAndView.addObject("msg", "出现了错误哦:" + e.getMessage());
-        return modelAndView;
-    }
+  @ExceptionHandler
+  public ModelAndView handleException(Exception e) {
+    logger.error(dateFormat.format(new Date()), e);
+    ModelAndView modelAndView = new ModelAndView("error");
+    modelAndView.addObject("msg", "出现了错误哦:" + e.getMessage());
+    return modelAndView;
+  }
 }

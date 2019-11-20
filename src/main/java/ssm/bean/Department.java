@@ -4,71 +4,71 @@ import java.util.Date;
 
 /**
  * @author 李重辰
- * @date   2019/11/20 01:40
+ * @date 2019/11/20 01:40
  */
 public class Department {
-    /**
-     * 部门编号
-     */
-    private Integer id;
+  /**
+   * 部门编号
+   */
+  private Integer id;
 
-    /**
-     * 部门名
-     */
-    private String deptName;
+  /**
+   * 部门名
+   */
+  private String deptName;
 
-    /**
-     * 
-     */
-    private Date gmtCreate;
+  /**
+   *
+   */
+  private Date gmtCreate;
 
-    /**
-     * 
-     */
-    private Date gmtModified;
+  /**
+   *
+   */
+  private Date gmtModified;
 
-    /**
-     * 
-     */
-    private Boolean isDeleted;
+  /**
+   *
+   */
+  private Boolean isDeleted;
 
-    public Integer getId() {
-        return id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getDeptName() {
-        return deptName;
-    }
+  public String getDeptName() {
+    return deptName;
+  }
 
-    public void setDeptName(String deptName) {
-        this.deptName = deptName == null ? null : deptName.trim();
-    }
+  public void setDeptName(String deptName) {
+    this.deptName = deptName == null ? null : deptName.trim();
+  }
 
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
+  public Date getGmtCreate() {
+    return gmtCreate;
+  }
 
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
+  public void setGmtCreate(Date gmtCreate) {
+    this.gmtCreate = gmtCreate;
+  }
 
-    public Date getGmtModified() {
-        return gmtModified;
-    }
+  public Date getGmtModified() {
+    return gmtModified;
+  }
 
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
+  public void setGmtModified(Date gmtModified) {
+    this.gmtModified = gmtModified;
+  }
 
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
+  public Boolean getIsDeleted() {
+    return isDeleted;
+  }
 
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
-    }
+  public void setIsDeleted(Boolean isDeleted) {
+    this.isDeleted = isDeleted;
+  }
 }
