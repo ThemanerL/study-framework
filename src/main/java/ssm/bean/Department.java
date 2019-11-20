@@ -32,6 +32,14 @@ public class Department {
    */
   private Boolean isDeleted;
 
+  public Department() {
+  }
+
+  public Department(Integer id, String deptName) {
+    this.id = id;
+    this.deptName = deptName;
+  }
+
   public Integer getId() {
     return id;
   }

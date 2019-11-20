@@ -8,54 +8,42 @@ import java.util.Date;
  */
 public class Employee {
 
-  public Department getDepartment() {
-    return department;
-  }
-
-  public void setDepartment(Department department) {
-    this.department = department;
-  }
-
   private Department department;
   /**
    *
    */
   private Integer id;
-
   /**
    * 员工姓名
    */
   private String empName;
-
   /**
    * 性别
    */
   private String gender;
-
   /**
    * 邮箱
    */
   private String email;
-
   /**
    *
    */
   private Integer dId;
-
   /**
    *
    */
   private Date gmtCreate;
-
   /**
    *
    */
   private Date gmtModified;
-
   /**
    *
    */
   private Byte isDeleted;
+
+  public Employee() {
+  }
 
   public Employee(String empName, String gender, String email, Integer dId) {
     this.empName = empName;
@@ -71,6 +59,14 @@ public class Employee {
     this.gender = gender;
     this.email = email;
     this.dId = dId;
+  }
+
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
   }
 
   public Integer getId() {
