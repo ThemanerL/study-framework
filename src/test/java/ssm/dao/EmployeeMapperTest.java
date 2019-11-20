@@ -51,7 +51,7 @@ public class EmployeeMapperTest {
         EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
         for (int i = 0; i < 785; i++) {
             int deptId = new Random(System.currentTimeMillis()).nextInt(3);
-            Employee employee = new Employee(getName(), String.valueOf(Math.abs(deptId - 1)), getRandEmail(), (long) (deptId + 1));
+            Employee employee = new Employee(getName(), String.valueOf(Math.abs(deptId - 1)), getRandEmail(), deptId + 1);
             mapper.insertSelective(employee);
         }
         System.err.println(System.currentTimeMillis() - start);

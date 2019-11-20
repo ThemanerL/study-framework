@@ -4,21 +4,13 @@ import java.util.Date;
 
 /**
  * @author 李重辰
- * @date   2019/11/20 12:06
+ * @date   2019/11/20 01:40
  */
 public class Employee {
-
-    public Employee(String empName, String gender, String email, Long dId) {
-        this.empName = empName;
-        this.gender = gender;
-        this.email = email;
-        this.dId = dId;
-    }
-
     /**
      * 
      */
-    private Long id;
+    private Integer id;
 
     /**
      * 员工姓名
@@ -38,7 +30,7 @@ public class Employee {
     /**
      * 
      */
-    private Long dId;
+    private Integer dId;
 
     /**
      * 
@@ -55,11 +47,18 @@ public class Employee {
      */
     private Byte isDeleted;
 
-    public Long getId() {
+  public Employee(String empName, String gender, String email, Integer dId) {
+    this.empName = empName;
+    this.gender = gender;
+    this.email = email;
+    this.dId = dId;
+  }
+
+  public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -87,11 +86,11 @@ public class Employee {
         this.email = email == null ? null : email.trim();
     }
 
-    public Long getdId() {
+    public Integer getdId() {
         return dId;
     }
 
-    public void setdId(Long dId) {
+    public void setdId(Integer dId) {
         this.dId = dId;
     }
 

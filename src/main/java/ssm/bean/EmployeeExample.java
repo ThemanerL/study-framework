@@ -66,7 +66,7 @@ public class EmployeeExample {
 
     /**
      * @author 李重辰
-     * @date   2019/11/20 12:06
+     * @date   2019/11/20 01:40
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -119,52 +119,52 @@ public class EmployeeExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Long value) {
+        public Criteria andIdEqualTo(Integer value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Long value) {
+        public Criteria andIdNotEqualTo(Integer value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Long value) {
+        public Criteria andIdGreaterThan(Integer value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Long value) {
+        public Criteria andIdLessThan(Integer value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Long value) {
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Long> values) {
+        public Criteria andIdIn(List<Integer> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Long> values) {
+        public Criteria andIdNotIn(List<Integer> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Long value1, Long value2) {
+        public Criteria andIdBetween(Integer value1, Integer value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Long value1, Long value2) {
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
             addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
@@ -389,52 +389,52 @@ public class EmployeeExample {
             return (Criteria) this;
         }
 
-        public Criteria andDIdEqualTo(Long value) {
+        public Criteria andDIdEqualTo(Integer value) {
             addCriterion("d_id =", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdNotEqualTo(Long value) {
+        public Criteria andDIdNotEqualTo(Integer value) {
             addCriterion("d_id <>", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdGreaterThan(Long value) {
+        public Criteria andDIdGreaterThan(Integer value) {
             addCriterion("d_id >", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andDIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("d_id >=", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdLessThan(Long value) {
+        public Criteria andDIdLessThan(Integer value) {
             addCriterion("d_id <", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdLessThanOrEqualTo(Long value) {
+        public Criteria andDIdLessThanOrEqualTo(Integer value) {
             addCriterion("d_id <=", value, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdIn(List<Long> values) {
+        public Criteria andDIdIn(List<Integer> values) {
             addCriterion("d_id in", values, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdNotIn(List<Long> values) {
+        public Criteria andDIdNotIn(List<Integer> values) {
             addCriterion("d_id not in", values, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdBetween(Long value1, Long value2) {
+        public Criteria andDIdBetween(Integer value1, Integer value2) {
             addCriterion("d_id between", value1, value2, "dId");
             return (Criteria) this;
         }
 
-        public Criteria andDIdNotBetween(Long value1, Long value2) {
+        public Criteria andDIdNotBetween(Integer value1, Integer value2) {
             addCriterion("d_id not between", value1, value2, "dId");
             return (Criteria) this;
         }
@@ -622,7 +622,7 @@ public class EmployeeExample {
 
     /**
      * @author 李重辰
-     * @date   2019/11/20 12:06
+     * @date   2019/11/20 01:40
      */
     public static class Criteria extends GeneratedCriteria {
 
@@ -633,7 +633,7 @@ public class EmployeeExample {
 
     /**
      * @author 李重辰
-     * @date   2019/11/20 12:06
+     * @date   2019/11/20 01:40
      */
     public static class Criterion {
         private String condition;

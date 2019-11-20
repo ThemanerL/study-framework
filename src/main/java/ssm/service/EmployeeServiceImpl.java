@@ -164,7 +164,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmpList(List<Integer> empIds) {
         EmployeeExample example = new EmployeeExample();
         EmployeeExample.Criteria criteria = example.createCriteria();
-        criteria.andEmpIdIn(empIds);
+        criteria.andIdIn(empIds);
         employeeMapper.deleteByExample(example);
     }
 }

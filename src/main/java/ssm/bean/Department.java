@@ -4,13 +4,13 @@ import java.util.Date;
 
 /**
  * @author 李重辰
- * @date   2019/11/20 12:06
+ * @date   2019/11/20 01:40
  */
 public class Department {
     /**
-     * 
+     * 部门编号
      */
-    private Long id;
+    private Integer id;
 
     /**
      * 部门名
@@ -32,11 +32,11 @@ public class Department {
      */
     private Boolean isDeleted;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

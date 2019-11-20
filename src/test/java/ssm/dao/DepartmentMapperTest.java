@@ -37,7 +37,7 @@ public class DepartmentMapperTest {
   @Test
   public void insertTest() {
     Department department = new Department();
-    department.setId(9L);
+    department.setId(9);
     department.setDeptName("测试部门");
     departmentMapper.insert(department);
     Assert.assertEquals(department.toString(), departmentMapper.selectByPrimaryKey(department.getId()).toString());
@@ -48,14 +48,14 @@ public class DepartmentMapperTest {
     Department department = new Department();
     department.setDeptName("客户服务");
     int i = departmentMapper.insertSelective(department);
-//    Assert.assertEquals(department.toString(), departmentMapper.selectByPrimaryKey(department.getId()).toString());
+    Assert.assertEquals(department.toString(), departmentMapper.selectByPrimaryKey(department.getId()).toString());
   }
 
   @Test
   public void selectByExampleTest() {
     DepartmentExample department = new DepartmentExample();
     DepartmentExample.Criteria criteria = department.createCriteria();
-    criteria.andIdBetween(-9L, 30L);
+    criteria.andIdBetween(-9, 30);
     List<Department> departments = departmentMapper.selectByExample(department);
     Assert.assertNotNull(departments);
   }

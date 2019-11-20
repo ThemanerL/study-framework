@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"classpath:ssm/resource/applicationContext.xml", "file:../../../../../main/web/WEB-INF/springMVC-servlet.xml"})
+@ContextConfiguration(locations = {"classpath:ssm/resource/applicationContext.xml", "file:src/main/resources/springmvc/springmvc.xml"})
 public class EmployeeControllerTest {
   // 传入SpringMVC的IOC
   @Autowired
