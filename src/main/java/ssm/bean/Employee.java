@@ -7,6 +7,16 @@ import java.util.Date;
  * @date 2019/11/20 01:40
  */
 public class Employee {
+
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
+  private Department department;
   /**
    *
    */
@@ -48,6 +58,15 @@ public class Employee {
   private Byte isDeleted;
 
   public Employee(String empName, String gender, String email, Integer dId) {
+    this.empName = empName;
+    this.gender = gender;
+    this.email = email;
+    this.dId = dId;
+  }
+
+  public Employee(Integer id, String empName, String gender, String email, Integer dId, Department department) {
+    this.department = department;
+    this.id = id;
     this.empName = empName;
     this.gender = gender;
     this.email = email;

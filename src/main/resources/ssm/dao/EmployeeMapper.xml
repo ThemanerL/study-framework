@@ -16,6 +16,20 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="is_deleted" jdbcType="TINYINT" property="isDeleted" />
   </resultMap>
+  <resultMap id="EmpAndDept" type="ssm.bean.Employee">
+    <id property="empId" column="id" jdbcType="INTEGER"/>
+    <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+    <result column="gender" jdbcType="CHAR" property="gender"/>
+    <result column="email" jdbcType="VARCHAR" property="email"/>
+    <result column="d_id" jdbcType="INTEGER" property="dId"/>
+    <association property="department" javaType="ssm.bean.Department">
+      <id property="id" jdbcType="INTEGER" column="d_id"/>
+      <result property="deptName" jdbcType="VARCHAR" column="dept_name"/>
+    </association>
+  </resultMap>
+  <sql id="Emp_And_Dept_Column">
+    emp.id, emp.emp_name, emp.gender, emp.email, emp.d_id, dept.id, dept.dept_name
+  </sql>
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbg.generated
@@ -122,13 +136,13 @@
     from tbl_emp
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByExampleWithDept" parameterType="ssm.java.bean.EmployeeExample" resultMap="EmpAndDept">
+  <select id="selectByExampleWithDept" parameterType="ssm.bean.EmployeeExample" resultMap="EmpAndDept">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Emp_And_Dept_Column"/>
-    from tbl_emp left join tbl_dept on tbl_emp.d_id=tbl_dept.dept_id
+    from tbl_emp as emp left join tbl_dept as dept on emp.d_id=dept.id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause"/>
     </if>
@@ -137,11 +151,11 @@
     </if>
 
   </select>
-  <select id="selectByPrimaryKeyWithDept" parameterType="ssm.java.bean.EmployeeExample" resultMap="EmpAndDept">
+  <select id="selectByPrimaryKeyWithDept" parameterType="ssm.bean.EmployeeExample" resultMap="EmpAndDept">
     select
     <include refid="Emp_And_Dept_Column"/>
-    from tbl_emp left join tbl_dept on tbl_emp.d_id=tbl_dept.dept_id
-    where emp_id = #{empId}
+    from tbl_emp as emp left join tbl_dept as dept on emp.d_id=dept.id
+    where id = #{empId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     <!--
