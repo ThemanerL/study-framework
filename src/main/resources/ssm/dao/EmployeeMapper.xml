@@ -155,7 +155,7 @@
         select
         <include refid="Emp_And_Dept_Column"/>
         from tbl_emp as emp left join tbl_dept as dept on emp.d_id=dept.id
-        where id = #{empId}
+        where emp.id = #{empId}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <!--

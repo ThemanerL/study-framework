@@ -40,7 +40,7 @@ function getDepts(ele) {
             // 清空下拉列表中上次添加的选项
             $(ele).empty();
             $.each(result.map.depts, function (index, dept) {
-                var optionEle = $("<option>").append(dept.deptName).attr("value", dept.deptId);
+                var optionEle = $("<option>").append(dept.deptName).attr("value", dept.id);
                 $(ele).append(optionEle);
             })
         }
@@ -205,17 +205,17 @@ function build_emps_table(result) {
     var emps = result.map.pageInfo.list;
     $.each(emps, function (index, item) {
         var checkBoxTd = $("<td><input type='checkBox' class='check_item'>");
-        var empIdTd = $("<td>").append(item.empId);
+        var empIdTd = $("<td>").append(item.id);
         var empNameTd = $("<td>").append(item.empName);
         var empGenderTd = $("<td>").append("0" === item.gender ? "女" : "男");
         var empEmailTd = $("<td>").append(item.email);
         var deptNameTd = $("<td>").append(item.department.deptName);
         var editBtn = $("<button>").addClass("btn btn-info btn-sm edit_btn")
             .append($("<span>").addClass("glyphicon glyphicon-pencil"))
-            .append("编辑").attr("empId", item.empId);
+            .append("编辑").attr("empId", item.id);
         var deleteBtn = $("<button>").addClass("btn btn-danger btn-sm delete_btn")
             .append($("<span>").addClass("glyphicon glyphicon-trash"))
-            .append("删除").attr("empId", item.empId);
+            .append("删除").attr("empId", item.id);
         var btnTd = $("<td>").append(editBtn).append(" ").append(deleteBtn);
         // append返回执行后返回原来的元素
         $("<tr>").append(checkBoxTd)
