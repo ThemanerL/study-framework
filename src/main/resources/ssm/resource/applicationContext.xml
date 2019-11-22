@@ -14,6 +14,8 @@
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="driverClass" value="${jdbc.driver}"/>
         <property name="acquireRetryAttempts" value="2"/>
+        <property name="testConnectionOnCheckin" value="false"/>
+        <property name="testConnectionOnCheckout" value="true"/>
     </bean>
     <bean id="dateFormat" class="java.text.SimpleDateFormat">
         <constructor-arg name="pattern" value="yyyy/MM/dd hh:mm:ss"/>

@@ -37,7 +37,7 @@ public class DepartmentMapperTest {
   @Test
   public void insertTest() {
     Department department = new Department();
-    department.setId(9);
+    department.setId(1);
     department.setDeptName("测试部门");
     departmentMapper.insert(department);
     Assert.assertEquals(department.toString(), departmentMapper.selectByPrimaryKey(department.getId()).toString());

@@ -86,7 +86,8 @@ public class EmployeeController {
    */
   @ResponseBody
   @RequestMapping(value = "/emp/{empId}", method = RequestMethod.PUT)
-  public Message updateEmp(@Valid Employee employee, BindingResult result) {
+  public Message updateEmp(@Valid Employee employee, BindingResult result, @PathVariable("empId") int id) {
+    employee.setId(id);
     Message message = employeeService.dataValidate(employee, result);
     int successStatusCode = 200;
     if (successStatusCode != message.getStatusCode()) {

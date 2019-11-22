@@ -1,6 +1,7 @@
 package ssm.bean;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author 李重辰
@@ -11,22 +12,18 @@ public class Department {
    * 部门编号
    */
   private Integer id;
-
   /**
    * 部门名
    */
   private String deptName;
-
   /**
    *
    */
   private Date gmtCreate;
-
   /**
    *
    */
   private Date gmtModified;
-
   /**
    *
    */
@@ -38,6 +35,24 @@ public class Department {
   public Department(Integer id, String deptName) {
     this.id = id;
     this.deptName = deptName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Department that = (Department) o;
+    return id.equals(that.id) &&
+        Objects.equals(deptName, that.deptName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, deptName);
   }
 
   public Integer getId() {
