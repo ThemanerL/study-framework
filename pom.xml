@@ -7,12 +7,20 @@
     <groupId>com.theman</groupId>
     <artifactId>study-framework</artifactId>
     <version>1.0.1</version>
-    <packaging>war</packaging>
+    <modules>
+        <module>sping-boot</module>
+    </modules>
+    <packaging>pom</packaging>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+        <relativePath/>
+    </parent>
     <dependencies>
         <!-- ################################## 数据库相关 ################################- -->
         <dependency>
