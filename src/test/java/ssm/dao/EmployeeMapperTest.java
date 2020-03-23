@@ -41,20 +41,20 @@ public class EmployeeMapperTest {
     }
   }
 
-    /**
-     * 批量插入时，使用BatchExecutor
-     */
-    @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    @Test
-    public void batchInsertSelective() {
-        long start = System.currentTimeMillis();
-        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
-        for (int i = 0; i < 785; i++) {
-            int deptId = new Random(System.currentTimeMillis()).nextInt(3);
-            Employee employee = new Employee(getName(), String.valueOf(Math.abs(deptId - 1)), getRandEmail(), deptId + 1);
-            mapper.insertSelective(employee);
-        }
-        System.err.println(System.currentTimeMillis() - start);
+  /**
+   * 批量插入时，使用BatchExecutor
+   */
+  @Transactional(propagation = Propagation.NOT_SUPPORTED)
+  @Test
+  public void batchInsertSelective() {
+    long start = System.currentTimeMillis();
+    EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+    for (int i = 0; i < 785; i++) {
+      int deptId = new Random(System.currentTimeMillis()).nextInt(3);
+      Employee employee = new Employee(getName(), Math.abs(deptId - 1), getRandEmail());
+      mapper.insertSelective(employee);
     }
+    System.err.println(System.currentTimeMillis() - start);
+  }
 
 }

@@ -27,7 +27,6 @@ public class Department implements Serializable {
     this.baseSalary = baseSalary;
   }
 
-
   public double getBaseSalary() {
     return baseSalary;
   }

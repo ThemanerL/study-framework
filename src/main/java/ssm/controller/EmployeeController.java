@@ -6,7 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.bean.CheckRepeat;
 import ssm.bean.Employee;
 import ssm.bean.Message;
@@ -57,7 +62,6 @@ public class EmployeeController {
     return Message.success().add("emp", employee);
   }
 
-
   /**
    * 新增员工
    *
@@ -76,7 +80,6 @@ public class EmployeeController {
       return Message.success();
     }
   }
-
 
   /**
    * 更新员工，要求前台请求为PUT
@@ -111,7 +114,6 @@ public class EmployeeController {
     employeeService.deleteEmpList(empIds);
     return Message.success();
   }
-
 
   /**
    * 前台输入框失去焦点触发数据库查重验证，

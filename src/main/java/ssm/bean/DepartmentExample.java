@@ -15,20 +15,20 @@ public class DepartmentExample {
     oredCriteria = new ArrayList<Criteria>();
   }
 
-  public void setOrderByClause(String orderByClause) {
-    this.orderByClause = orderByClause;
-  }
-
   public String getOrderByClause() {
     return orderByClause;
   }
 
-  public void setDistinct(boolean distinct) {
-    this.distinct = distinct;
+  public void setOrderByClause(String orderByClause) {
+    this.orderByClause = orderByClause;
   }
 
   public boolean isDistinct() {
     return distinct;
+  }
+
+  public void setDistinct(boolean distinct) {
+    this.distinct = distinct;
   }
 
   public List<Criteria> getOredCriteria() {
@@ -66,7 +66,7 @@ public class DepartmentExample {
 
   /**
    * @author 李重辰
-   * @date 2019/11/20 01:40
+   * @date 2020/03/23 11:29
    */
   protected abstract static class GeneratedCriteria {
     protected List<Criterion> criteria;
@@ -422,7 +422,7 @@ public class DepartmentExample {
 
   /**
    * @author 李重辰
-   * @date 2019/11/20 01:40
+   * @date 2020/03/23 11:29
    */
   public static class Criteria extends GeneratedCriteria {
 
@@ -433,7 +433,7 @@ public class DepartmentExample {
 
   /**
    * @author 李重辰
-   * @date 2019/11/20 01:40
+   * @date 2020/03/23 11:29
    */
   public static class Criterion {
     private String condition;
@@ -451,38 +451,6 @@ public class DepartmentExample {
     private boolean listValue;
 
     private String typeHandler;
-
-    public String getCondition() {
-      return condition;
-    }
-
-    public Object getValue() {
-      return value;
-    }
-
-    public Object getSecondValue() {
-      return secondValue;
-    }
-
-    public boolean isNoValue() {
-      return noValue;
-    }
-
-    public boolean isSingleValue() {
-      return singleValue;
-    }
-
-    public boolean isBetweenValue() {
-      return betweenValue;
-    }
-
-    public boolean isListValue() {
-      return listValue;
-    }
-
-    public String getTypeHandler() {
-      return typeHandler;
-    }
 
     protected Criterion(String condition) {
       super();
@@ -518,6 +486,38 @@ public class DepartmentExample {
 
     protected Criterion(String condition, Object value, Object secondValue) {
       this(condition, value, secondValue, null);
+    }
+
+    public String getCondition() {
+      return condition;
+    }
+
+    public Object getValue() {
+      return value;
+    }
+
+    public Object getSecondValue() {
+      return secondValue;
+    }
+
+    public boolean isNoValue() {
+      return noValue;
+    }
+
+    public boolean isSingleValue() {
+      return singleValue;
+    }
+
+    public boolean isBetweenValue() {
+      return betweenValue;
+    }
+
+    public boolean isListValue() {
+      return listValue;
+    }
+
+    public String getTypeHandler() {
+      return typeHandler;
     }
   }
 }

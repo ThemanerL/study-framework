@@ -36,5 +36,4 @@ public class BookShopTest {
     shop.purchaseBook(1, 6, 3);
   }
 
-
 }

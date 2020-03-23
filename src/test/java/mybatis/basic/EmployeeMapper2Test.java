@@ -53,7 +53,6 @@ public class EmployeeMapper2Test {
     }
   }
 
-
   @Test
   public void addEmpDeptId() {
     try (SqlSession sqlSession = MyUtil.getSession()) {

@@ -10,6 +10,14 @@ import java.util.Arrays;
  */
 public class SortTest {
 
+  private static void swapTwo(int[] arr, int i) {
+    if (arr[i] > arr[i + 1]) {
+      int temp = arr[i + 1];
+      arr[i + 1] = arr[i];
+      arr[i] = temp;
+    }
+  }
+
   /**
    * 第二次优化 如果已经有序不进行交换
    * 假定数组是有序的，进行任意两个相邻元素比对，如果发生了交换，且将数组状态设为无序。
@@ -33,14 +41,6 @@ public class SortTest {
       }
     }
     System.out.println(Arrays.toString(arr));
-  }
-
-  private static void swapTwo(int[] arr, int i) {
-    if (arr[i] > arr[i + 1]) {
-      int temp = arr[i + 1];
-      arr[i + 1] = arr[i];
-      arr[i] = temp;
-    }
   }
 
   @Test
@@ -80,28 +80,28 @@ public class SortTest {
  */
 class SelectSort {
 
-    public static void main(String[] args) {
-        int[] arr = {1, 5, 23, 5, 7, 4, 2, 98, 34, 6, 7, 8};
-        new SelectSort().selectionSort(arr);
-    }
+  public static void main(String[] args) {
+    int[] arr = {1, 5, 23, 5, 7, 4, 2, 98, 34, 6, 7, 8};
+    new SelectSort().selectionSort(arr);
+  }
 
-    public void selectionSort(int[] ins) {
-        int n = ins.length, count = 0;
-        for (int i = 0; i < n; i++) {
-            int min = i;
-            for (int j = i; j < n - 1; j++) {
-                if (ins[j] < min) {
-                    min = ins[j];
-                }
-                int temp = ins[j];
-                ins[j] = ins[j + 1];
-                ins[j + 1] = temp;
-                count++;
-            }
+  public void selectionSort(int[] ins) {
+    int n = ins.length, count = 0;
+    for (int i = 0; i < n; i++) {
+      int min = i;
+      for (int j = i; j < n - 1; j++) {
+        if (ins[j] < min) {
+          min = ins[j];
         }
-        for (int s : ins) {
-            System.out.print(s + ",");
-        }
-        System.out.println("/t :" + count);
+        int temp = ins[j];
+        ins[j] = ins[j + 1];
+        ins[j + 1] = temp;
+        count++;
+      }
     }
+    for (int s : ins) {
+      System.out.print(s + ",");
+    }
+    System.out.println("/t :" + count);
+  }
 }

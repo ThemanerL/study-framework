@@ -29,7 +29,7 @@ public interface EmployeeMapper {
 
   int updateByPrimaryKey(Employee record);
 
-  List<Employee> selectByExampleWithDept(Object o);
-
   Employee selectByPrimaryKeyWithDept(Integer empId);
+
+  List<Employee> selectByExampleWithDept(EmployeeExample example);
 }

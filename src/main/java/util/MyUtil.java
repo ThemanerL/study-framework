@@ -39,7 +39,6 @@ public class MyUtil {
     return getSqlSessionFactory().openSession(execType);
   }
 
-
   public static SqlSession getSession(Boolean execType) {
     return getSqlSessionFactory().openSession(execType);
   }
@@ -111,7 +110,6 @@ public class MyUtil {
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
     }
-
 
     return str;
   }

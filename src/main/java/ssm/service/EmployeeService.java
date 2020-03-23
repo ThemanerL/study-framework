@@ -38,7 +38,6 @@ public interface EmployeeService {
    */
   boolean empRepeat(Employee employee);
 
-
   /**
    * 根据前台传入的将被检查的类型，查看有无重复的用户名或者邮箱
    * 只用于新增

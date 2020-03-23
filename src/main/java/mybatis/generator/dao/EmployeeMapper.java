@@ -2,7 +2,12 @@ package mybatis.generator.dao;
 
 import mybatis.generator.bean.Employee;
 import mybatis.generator.bean.EmployeeExample;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 

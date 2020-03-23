@@ -54,7 +54,7 @@
         <td>√</td>
     </tr>
 </table>
-<hr width="1800px" color="blue"/>
+<hr color="blue" width="1800px"/>
 <table>
     <tr>
         <th>
@@ -67,7 +67,7 @@
         </td>
         <td>
             <form action="/springMVC/methodPut" method="post">
-                <input name="_method" value="put" type="hidden">
+                <input name="_method" type="hidden" value="put">
                 <input type="submit" value="PUT">
             </form>
         </td>
@@ -88,7 +88,7 @@
         </td>
         <td>
             <form action="/springMVC/methodDelete" method="post">
-                <input name="_method" value="DELETE" type="hidden">
+                <input name="_method" type="hidden" value="DELETE">
                 <input type="submit" value="DELETE">
             </form>
         </td>
@@ -114,7 +114,7 @@
             putDepartment
         </td>
         <td>
-            <form method="post" action="/springMVC/putDepartment">
+            <form action="/springMVC/putDepartment" method="post">
                 <label>
                     ID:
                     <input name="id" type="number">
@@ -177,7 +177,7 @@
                 <label>id:<input name="id" type="number" value="2"></label>
                 <label>lastName:<input name="lastName" type="text" value="Joey"></label>
                 <label>gender:<input name="gender" type="text" value="0"></label>
-                <input type="submit" name="sub"/>
+                <input name="sub" type="submit"/>
             </form>
         </td>
         <td>
@@ -189,15 +189,15 @@
             Test json
         </td>
         <td>
-            <a id="textJson" href="/mav/json">Return Json</a>
+            <a href="/mav/json" id="textJson">Return Json</a>
         </td>
     </tr>
     <tr>
         <td>
             Test zeroException
-            <form method="post" action="/mav/zeroException">
+            <form action="/mav/zeroException" method="post">
                 <label>i:
-                    <input type="number" name="i">
+                    <input name="i" type="number">
                 </label>
                 <input type="submit" value="zeroException">
             </form>

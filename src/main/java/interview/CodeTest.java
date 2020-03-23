@@ -98,7 +98,6 @@ public class CodeTest {
     return -1;
   }
 
-
 }
 
 class Single {
