@@ -61,7 +61,6 @@ public class EmployeeMapperTest {
     try (SqlSession session = MyUtil.getSession()) {
       session.clearCache();
       Employee employee = session.getMapper(EmployeeMapper.class).getEmpByID(1);
-      System.out.println(employee.getStatus());
       System.out.println(employee);
     } catch (Exception e) {
       e.printStackTrace();
@@ -113,11 +112,11 @@ public class EmployeeMapperTest {
   }
 
   @Test
-  public void getEmpByIdXLastName() {
+  public void getEmpByIdXempName() {
     String str = null;
     try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper empMapper = sqlSession.getMapper(EmployeeMapper.class);
-      Employee employee = empMapper.getEmpByIdXLastName(1, "UpdateT");
+      Employee employee = empMapper.getEmpByIdXempName(1, "UpdateT");
       str = String.valueOf(employee);
     } catch (Exception e) {
       e.printStackTrace();
@@ -126,10 +125,10 @@ public class EmployeeMapperTest {
   }
 
   @Test
-  public void getEmpsByLastNameLike() {
+  public void getEmpsByempNameLike() {
     try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
-      List<Employee> emps = employeeMapper.getEmpsByLastNameLike("码");
+      List<Employee> emps = employeeMapper.getEmpsByempNameLike("码");
       for (Employee emp : emps) {
         System.out.println(emp);
       }
@@ -148,9 +147,9 @@ public class EmployeeMapperTest {
   }
 
   @Test
-  public void getEmpByLastNameReturnMap() {
+  public void getEmpByempNameReturnMap() {
     try (SqlSession sqlSession = MyUtil.getSession()) {
-      Map<String, Employee> map = sqlSession.getMapper(EmployeeMapper.class).getEmpByLastNameReturnMap("%码");
+      Map<String, Employee> map = sqlSession.getMapper(EmployeeMapper.class).getEmpByempNameReturnMap("%码");
       for (Map.Entry<String, Employee> set : map.entrySet()) {
         System.out.println("Key: " + set.getKey() + "\tValue: " + set.getValue());
       }
@@ -164,8 +163,8 @@ public class EmployeeMapperTest {
       EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
       Map<String, Object> map = new HashMap<>(16);
       map.put("id", 1);
-      map.put("lastName", "'updateT'");
-      map.put("tableName", "tbl_employee");
+      map.put("empName", "'updateT'");
+      map.put("tableName", "tbl_emp");
       System.out.println(mapper.getEmpByMap(map));
     }
   }
@@ -185,10 +184,10 @@ public class EmployeeMapperTest {
   public void addEmpBatch() {
     long startTime = System.currentTimeMillis();
     try (SqlSession sqlSession = MyUtil.getSession(ExecutorType.BATCH)) {
-      int records = 10000;
+      int records = 1000;
       for (int i = 0; i < records; i++) {
         int deptId = new Random(System.currentTimeMillis()).nextInt(3);
-        Employee employee = new Employee(MyUtil.getName(), String.valueOf(Math.abs(deptId - 1)), MyUtil.getRandEmail(), new Department(deptId + 1, null), EmpStatus.values()[deptId]);
+        Employee employee = new Employee(MyUtil.getName(), String.valueOf(Math.abs(deptId - 1)), MyUtil.getRandEmail(), new Department(deptId + 1, null));
         EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
         result = employeeMapper.addEmp(employee);
       }

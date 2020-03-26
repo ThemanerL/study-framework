@@ -16,10 +16,10 @@ public interface EmployeeMapper {
   /**
    * 根据员工的姓进行模糊查询
    *
-   * @param lastName /
+   * @param empName /
    * @return 所有符合结果的员工集合
    */
-  List<Employee> getEmpsByLastNameLike(String lastName);
+  List<Employee> getEmpsByempNameLike(String empName);
 
   /**
    * 根据ID获取员工信息
@@ -33,11 +33,11 @@ public interface EmployeeMapper {
    * 多条记录封装为一个Map<Integer, Employee>.Key为该条记录的主键，值为封装后的javabean对象
    * 该注解告诉myBatis封装这个Map时使用哪个属性作为Map的Key
    *
-   * @param lastName /
+   * @param empName /
    * @return /
    */
-  @MapKey("lastName")
-  Map<String, Employee> getEmpByLastNameReturnMap(String lastName);
+  @MapKey("empName")
+  Map<String, Employee> getEmpByempNameReturnMap(String empName);
 
   /**
    * 返回一条记录的Map：key就是列名，值为查出来的值
@@ -51,10 +51,10 @@ public interface EmployeeMapper {
    * 根据ID和名字 获取员工
    *
    * @param id       /
-   * @param lastName /
+   * @param empName /
    * @return /
    */
-  Employee getEmpByIdXLastName(@Param("id") Integer id, @Param("lastName") String lastName);
+  Employee getEmpByIdXempName(@Param("id") Integer id, @Param("empName") String empName);
 
   /**
    * 根据ID和名字 获取员工

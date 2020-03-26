@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class Employee {
   private Integer id;
 
-  private String lastName;
+  private String empName;
 
   private String gender;
 
@@ -22,12 +22,12 @@ public class Employee {
     this.id = id;
   }
 
-  public String getLastName() {
-    return lastName;
+  public String getEmpName() {
+    return empName;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName == null ? null : lastName.trim();
+  public void setEmpName(String empName) {
+    this.empName = empName == null ? null : empName.trim();
   }
 
   public String getGender() {

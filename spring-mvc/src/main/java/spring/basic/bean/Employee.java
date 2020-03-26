@@ -12,7 +12,7 @@ public class Employee implements Serializable {
 
   private static final long serialVersionUID = -2101711165167738656L;
   private Integer id;
-  private String lastName;
+  private String empName;
   private String gender;
   private String email;
   private int deptId;
@@ -21,16 +21,16 @@ public class Employee implements Serializable {
   public Employee() {
   }
 
-  public Employee(Integer id, String lastName, String gender, String email) {
+  public Employee(Integer id, String empName, String gender, String email) {
     this.id = id;
-    this.lastName = lastName;
+    this.empName = empName;
     this.gender = gender;
     this.email = email;
   }
 
-  public Employee(Integer id, String lastName, String gender, String email, EmpStatus status) {
+  public Employee(Integer id, String empName, String gender, String email, EmpStatus status) {
     this.id = id;
-    this.lastName = lastName;
+    this.empName = empName;
     this.gender = gender;
     this.email = email;
     this.status = status;
@@ -48,13 +48,13 @@ public class Employee implements Serializable {
     this.id = id;
   }
 
-  public String getLastName() {
-    return lastName;
+  public String getEmpName() {
+    return empName;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-    System.out.println(lastName);
+  public void setEmpName(String empName) {
+    this.empName = empName;
+    System.out.println(empName);
   }
 
   public String getGender() {
@@ -93,7 +93,7 @@ public class Employee implements Serializable {
   public String toString() {
     return "Employee{" +
         "id=" + id +
-        ", lastName='" + lastName + '\'' +
+        ", empName='" + empName + '\'' +
         ", gender='" + gender + '\'' +
         ", email='" + email + '\'' +
         ", deptId=" + deptId +

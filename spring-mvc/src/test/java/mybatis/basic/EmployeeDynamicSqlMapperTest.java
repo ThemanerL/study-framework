@@ -59,7 +59,7 @@ public class EmployeeDynamicSqlMapperTest {
   public void getEmpsByChoose() {
     try (SqlSession sqlSession = MyUtil.getSession()) {
       EmployeeDynamicSqlMapper mapper = sqlSession.getMapper(EmployeeDynamicSqlMapper.class);
-      Employee employee = new Employee(null, "李%", null, null);
+      Employee employee = new Employee((Integer) null, "李%", null, null);
       List<Employee> emps = mapper.getEmpsByChoose(employee);
       for (Employee e : emps) {
         System.out.println(e);

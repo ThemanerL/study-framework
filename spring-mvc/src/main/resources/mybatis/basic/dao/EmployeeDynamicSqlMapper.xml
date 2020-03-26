@@ -7,7 +7,7 @@
     <!--  使用Where标签拼接(有缺陷) -->
     <select id="getEmpsByIfWhere" resultType="mybatis.basic.bean.Employee">
         select *
-        from tbl_employee
+        from tbl_emp
         <!--
         使用Myabtis的where标签包裹所有的查询条件,mybatis会自动的将拼装的sql语句中多的and(&amp;) 和 or 去掉
         where标签只能去掉第一个多余的and 或者 or
@@ -17,8 +17,8 @@
             <if test="id!=null &amp;&amp; id!=0">
                 id = #{id}
             </if>
-            <if test="lastName!=null &amp;&amp; lastName!=&quot;&quot;">
-                and last_name like #{lastName}
+            <if test="empName!=null &amp;&amp; empName!=&quot;&quot;">
+                and emp_name like #{empName}
             </if>
             <if test="email!=null &amp;&amp; email.trim()!=&quot;&quot;">
                 and email = #{email}
@@ -33,7 +33,7 @@
     <!--  使用trim标签拼接 -->
     <select id="getEmpsByIfTrim" resultType="mybatis.basic.bean.Employee">
         select *
-        from tbl_employee
+        from tbl_emp
         <!--
             trim标签是整个字符串拼串后的结果
             prefix:给sql语句拼接的前缀
@@ -45,8 +45,8 @@
             <if test="id!=null &amp;&amp; id!=0">
                 id = #{id} and
             </if>
-            <if test="lastName!=null &amp;&amp; lastName!=&quot;&quot;">
-                last_name like #{lastName} and
+            <if test="empName!=null &amp;&amp; empName!=&quot;&quot;">
+                emp_name like #{empName} and
             </if>
             <if test="email!=null &amp;&amp; email.trim()!=&quot;&quot;">
                 email = #{email}and
@@ -58,17 +58,17 @@
     </select>
 
     <!--
-        eg2:如果带了id就用id查,如果带了lastname就用lastname查,    或
+        eg2:如果带了id就用id查,如果带了empName就用empName查,    或
     -->
     <select id="getEmpsByChoose" resultType="mybatis.basic.bean.Employee">
-        select * from tbl_employee
+        select * from tbl_emp
         <where>
             <choose>
                 <when test="id!=0 &amp;&amp;id!=null">
                     id = #{id}
                 </when>
-                <when test="lastName!=null">
-                    last_Name like #{lastName}
+                <when test="empName!=null">
+                    emp_name like #{empName}
                 </when>
                 <otherwise>
                     1=1
@@ -80,7 +80,7 @@
     <!-- foreach批量保存 -->
     <!-- 批量保存 -->
     <select id="getEmpsByForeach" resultType="mybatis.basic.bean.Employee">
-        select * from tbl_employee
+        select * from tbl_emp
         where id in
         <foreach collection="ids" item="emp.id" open="(" close=")" separator=",">
             #{emp.id}
@@ -88,11 +88,11 @@
     </select>
 
     <select id="getEmpsInnerParameter" resultType="mybatis.basic.bean.Employee">
-        select * from tbl_employee
+        select * from tbl_emp
         <if test="_parameter!=null">
             <where>
-                <if test="lastName!= null">
-                    last_Name = #{lastName} and
+                <if test="empName!= null">
+                    emp_name = #{empName} and
                 </if>
                 <if test="email!= null">
                     email = #{email} and
@@ -109,10 +109,10 @@
     </select>
 
     <update id="updateEmpBySet" parameterType="mybatis.basic.bean.Employee">
-        update tbl_employee
+        update tbl_emp
         <set>
-            <if test="lastName!=null">
-                last_Name = #{lastName} ,
+            <if test="empName!=null">
+                emp_name = #{empName} ,
             </if>
             <if test="email!=null">
                 email = #{email} ,
@@ -128,18 +128,18 @@
 
     <!--MySQL下批量保存：可以foreach遍历   mysql支持values(),(),()语法-->
     <insert id="addEmpsByForeach" parameterType="mybatis.basic.bean.Employee">
-        insert into tbl_employee(
+        insert into tbl_emp(
         <!-- include还可以自定义property,sql标签内部就可以使用自定义的属性使用${pram}取值.不能使用#{} -->
         <include refid="insertColumn"/>
         )
         values
         <foreach collection="emps" item="temp" separator=",">
-            (#{temp.lastName},#{temp.gender},#{temp.email},#{temp.department.id})
+            (#{temp.empName},#{temp.gender},#{temp.email},#{temp.department.id})
         </foreach>
     </insert>
 
     <!-- 抽取可重用的sql片段 -->
     <sql id="insertColumn">
-        last_name, gender, email, dept_id
+        emp_name, gender, email, d_id
     </sql>
 </mapper>

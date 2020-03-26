@@ -24,7 +24,7 @@
     </bean>
     <!-- 构造器赋值-->
     <bean id="employee" class="mybatis.basic.bean.Employee">
-        <constructor-arg name="lastName" value="构造器赋值" type="java.lang.String"/>
+        <constructor-arg name="empName" value="构造器赋值" type="java.lang.String"/>
         <constructor-arg name="gender" value="0" type="java.lang.String"/>
         <constructor-arg name="email" value="SpringHello@no1.com" type="java.lang.String"/>
         <constructor-arg name="department">
@@ -49,7 +49,7 @@
         <ref bean="employee1"/>
         <bean class="mybatis.basic.bean.Employee">
             <constructor-arg name="id" value="3" index="0"/>
-            <constructor-arg name="lastName" value="Util:List中的第三个元素" type="java.lang.String"/>
+            <constructor-arg name="empName" value="Util:List中的第三个元素" type="java.lang.String"/>
             <constructor-arg name="gender" value="0" type="java.lang.String"/>
             <constructor-arg name="email" value="SpringHello@no1.com" type="java.lang.String"/>
         </bean>

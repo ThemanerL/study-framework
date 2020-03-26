@@ -11,41 +11,53 @@ public class Employee {
    *
    */
   private Integer id;
-
   /**
    * 员工姓名
    */
   private String empName;
-
   /**
    * 性别
    */
   private String gender;
-
   /**
    * 邮箱
    */
   private String email;
-
   /**
    *
    */
   private Integer dId;
-
   /**
    *
    */
   private Date gmtCreate;
-
   /**
    *
    */
   private Date gmtModified;
-
   /**
    *
    */
   private Byte isDeleted;
+
+  private Department department;
+
+  public Department getDepartment() {
+    return department;
+  }
+
+  public void setDepartment(Department department) {
+    this.department = department;
+  }
+
+  public Employee() {
+  }
+
+  public Employee(String empName, Integer dId, String email) {
+    this.empName = empName;
+    this.email = email;
+    this.dId = dId;
+  }
 
   public Integer getId() {
     return id;
@@ -57,12 +69,6 @@ public class Employee {
 
   public String getEmpName() {
     return empName;
-  }
-
-  public Employee(String empName, Integer dId, String email) {
-    this.empName = empName;
-    this.email = email;
-    this.dId = dId;
   }
 
   public void setEmpName(String empName) {

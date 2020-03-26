@@ -15,21 +15,21 @@
         -->
         <id column="id" property="id"/>
         <!-- 定义普通列的封装规则，不指定的列可以自动封装。推荐把所有的列映射规则都写上 -->
-        <result column="last_Name" property="lastName"/>
+        <result column="emp_name" property="empName"/>
         <result column="gender" property="gender"/>
         <result column="email" property="email"/>
     </resultMap>
 
     <select id="getEmpById" resultMap="MyEmp">
         select *
-        from tbl_employee
+        from tbl_emp
         where id = #{id}
     </select>
 
     <select id="getEmpsByDeptId" resultMap="MyEmp">
-        select id, last_name, gender, email
-        from tbl_employee
-        where dept_id = #{deptId}
+        select id, emp_name, gender, email
+        from tbl_emp
+        where d_id = #{deptId}
     </select>
 
     <!--
@@ -39,7 +39,7 @@
     <!-- 联合查询:级联属性封装结果集 -->
     <resultMap id="complexEmp" type="Employee">
         <id column="id" property="id"/>
-        <result column="last_name" property="lastName"/>
+        <result column="emp_name" property="empName"/>
         <result column="gender" property="gender"/>
         <result column="email" property="email"/>
         <result column="dept_name" property="department.name"/>
@@ -50,7 +50,7 @@
      -->
     <resultMap id="complexEmp2" type="Employee">
         <id column="id" property="id"/>
-        <result column="last_name" property="lastName"/>
+        <result column="emp_name" property="empName"/>
         <result column="gender" property="gender"/>
         <result column="email" property="email"/>
         <!--
@@ -64,28 +64,28 @@
         </association>
     </resultMap>
     <select id="getEmpAndDept" resultMap="empDis">
-        select a.id, a.last_name, a.gender, a.email, b.dept_name, b.id as deptId
-        from tbl_employee as a,
+        select a.id, a.emp_name, a.gender, a.email, b.dept_name, b.id as deptId
+        from tbl_emp as a,
              tbl_dept as b
-        where a.dept_id = b.id
+        where a.d_id = b.id
           and a.id = #{id}
     </select>
 
     <!-- 使用association进行分步查询 -->
     <resultMap id="EmpByStep" type="Employee">
         <id column="id" property="id"/>
-        <result column="last_name" property="lastName"/>
+        <result column="emp_name" property="empName"/>
         <result column="gender" property="gender"/>
         <result column="email" property="email"/>
         <!--
             select:表明当前的属性是调用的select指定的方法查出的结果
             column:指定将哪一列的值传给这个方法
          -->
-        <association property="department" select="mybatis.basic.dao.DepartmentMapper.getDeptById" column="dept_id"/>
+        <association property="department" select="mybatis.basic.dao.DepartmentMapper.getDeptById" column="d_id"/>
     </resultMap>
     <select id="getEmpByIdStep" resultMap="EmpByStep">
-        select id, last_name, gender, email, dept_id
-        from tbl_employee
+        select id, emp_name, gender, email, d_id
+        from tbl_emp
         where id = #{id}
     </select>
     <!--
@@ -109,7 +109,7 @@
     -->
     <resultMap id="empDis" type="mybatis.basic.bean.Employee">
         <id column="id" property="id"/>
-        <result column="last_name" property="lastName"/>
+        <result column="emp_name" property="empName"/>
         <result column="gender" property="gender"/>
         <result column="email" property="email"/>
         <!--
@@ -125,7 +125,7 @@
             </case>
             <case value="1" resultType="mybatis.basic.bean.Employee">
                 <id column="id" property="id"/>
-                <result column="last_name" property="lastName"/>
+                <result column="emp_name" property="empName"/>
                 <result column="gender" property="gender"/>
                 <result column="email" property="email"/>
             </case>
@@ -133,8 +133,8 @@
     </resultMap>
 
     <update id="addEmpDeptId" parameterType="boolean">
-        update tbl_employee
-        set dept_id = ${deptId}
+        update tbl_emp
+        set d_id = ${deptId}
         where id = #{id}
     </update>
 </mapper>

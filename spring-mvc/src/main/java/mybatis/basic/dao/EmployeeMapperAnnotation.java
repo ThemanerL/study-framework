@@ -14,6 +14,6 @@ public interface EmployeeMapperAnnotation {
    * @param id /
    * @return /
    */
-  @Select("select * from tbl_employee where id = #{id}")
+  @Select("select * from tbl_emp where id = #{id}")
   Employee getEmpById(Integer id);
 }

@@ -19,8 +19,8 @@
             $.post(url, args, function (data) {
                 for (var i = 0; i < data.length; i++) {
                     var id = data[i].id;
-                    var lastName = data[i].lastName;
-                    alert(id + ": " + lastName);
+                    var empName = data[i].empName;
+                    alert(id + ": " + empName);
                 }
             });
         });

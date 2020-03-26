@@ -45,11 +45,11 @@ public class GeneratorTest {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       EmployeeExample employeeExample = new EmployeeExample();
       EmployeeExample.Criteria criteria = employeeExample.createCriteria();
-      criteria.andLastNameLike("李%");
+      criteria.andempNameLike("李%");
       criteria.andGenderEqualTo("0");
       EmployeeExample.Criteria criteria1 = employeeExample.createCriteria();
       criteria1.andGenderEqualTo("1");
-      criteria1.andLastNameLike("王%");
+      criteria1.andempNameLike("王%");
       employeeExample.or(criteria1);
       PageHelper.startPage(1, 5);
       List<Employee> employees = employeeMapper.selectByExample(employeeExample);

@@ -26,11 +26,11 @@ public enum EmpStatus {
   ERROR(0, "不存在");
 
   private int code;
-  private String masg;
+  private String msg;
 
-  EmpStatus(int code, String masg) {
+  EmpStatus(int code, String msg) {
     this.code = code;
-    this.masg = masg;
+    this.msg = msg;
   }
 
   /**
@@ -60,11 +60,11 @@ public enum EmpStatus {
     this.code = code;
   }
 
-  public String getMasg() {
-    return masg;
+  public String getMsg() {
+    return msg;
   }
 
-  public void setMasg(String masg) {
-    this.masg = masg;
+  public void setMsg(String msg) {
+    this.msg = msg;
   }
 }

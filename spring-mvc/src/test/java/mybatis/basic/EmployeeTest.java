@@ -1,12 +1,12 @@
 package mybatis.basic;
 
-import util.MyUtil;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import util.MyUtil;
 
 import java.io.InputStream;
 

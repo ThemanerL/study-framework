@@ -17,8 +17,8 @@ public class StaticFactoryDepartment {
 
   static {
     departmentMap.put("Development", new Department(1, "Development Department"));
-    departmentMap.put("Custom", new Department(1, "Custom Department"));
-    departmentMap.put("Maintain", new Department(1, "Maintain Department"));
+    departmentMap.put("Custom", new Department(2, "Custom Department"));
+    departmentMap.put("Maintain", new Department(3, "Maintain Department"));
   }
 
   /**

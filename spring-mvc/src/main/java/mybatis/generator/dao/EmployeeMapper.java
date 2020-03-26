@@ -17,15 +17,15 @@ public interface EmployeeMapper {
   int deleteByExample(EmployeeExample example);
 
   @Delete({
-      "delete from tbl_employee",
+      "delete from tbl_emp",
       "where id = #{id,jdbcType=INTEGER}"
   })
   int deleteByPrimaryKey(Integer id);
 
   @Insert({
-      "insert into tbl_employee (id, last_name, ",
-      "gender, email, dept_id)",
-      "values (#{id,jdbcType=INTEGER}, #{lastName,jdbcType=VARCHAR}, ",
+      "insert into tbl_emp (id, emp_name, ",
+      "gender, email, d_id)",
+      "values (#{id,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, ",
       "#{gender,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER})"
   })
   int insert(Employee record);
@@ -36,8 +36,8 @@ public interface EmployeeMapper {
 
   @Select({
       "select",
-      "id, last_name, gender, email, dept_id",
-      "from tbl_employee",
+      "id, emp_name, gender, email, d_id",
+      "from tbl_emp",
       "where id = #{id,jdbcType=INTEGER}"
   })
   @ResultMap("mybatis.generator.dao.EmployeeMapper.BaseResultMap")
@@ -50,11 +50,11 @@ public interface EmployeeMapper {
   int updateByPrimaryKeySelective(Employee record);
 
   @Update({
-      "update tbl_employee",
-      "set last_name = #{lastName,jdbcType=VARCHAR},",
+      "update tbl_emp",
+      "set emp_name = #{empName,jdbcType=VARCHAR},",
       "gender = #{gender,jdbcType=CHAR},",
       "email = #{email,jdbcType=VARCHAR},",
-      "dept_id = #{deptId,jdbcType=INTEGER}",
+      "d_id = #{deptId,jdbcType=INTEGER}",
       "where id = #{id,jdbcType=INTEGER}"
   })
   int updateByPrimaryKey(Employee record);

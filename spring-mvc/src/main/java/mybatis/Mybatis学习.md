@@ -25,7 +25,7 @@
     Map<Key:param1,param2 ... Value:传入的参数值1, 值2, ...>  
     Key也可以为参数的索引
     3. 命名参数：在接口声明方法时，对参数添加注解明确指定封装参数时的Map<Key:使用@Param注解指定的值,Value:参数值>的Key  
-        ```Employee getEmpByIdXLastName(@Param("id") Integer id, @Param("lastName") String lastName);```  
+        ```Employee getEmpByIdXempName(@Param("id") Integer id, @Param("empName") String empName);```  
          \#{指定的Key}即可取出对应的参数值
     4. 多参数传参的具体运用   
         - Pojo  
@@ -81,7 +81,7 @@
     2. ${}取出的值直接拼装在sql语句中;  
         1. 原生sql不支持占位符的地方，我们就可以使用${}进行取值, 比如分表、排序;按照年份分表拆分  
         select * from ${year}_salary where ***;  
-        select * from tbl_employee order by ${f_name} ${desc/asc}  
+        select * from tbl_emp order by ${f_name} ${desc/asc}  
 3. #### Mybatis的缓存机制  
     Mybatis中设定了两级缓存  
     1. 一级缓存 SqlSession级别的缓存,一个Session级别的Map,其中保存了当前Session执行过的Sql语句ID和参数信息和结果  
@@ -379,13 +379,13 @@
     错误示例  
     ```
     <select id="getEmpByID" resultType="Employee" databaseId="mysql">
-               select id, last_name, gender, email
-                 from tbl_employee
+               select id, emp_name, gender, email
+                 from tbl_emp
                  where id = #{id}
     </select>
     <select id="getEmpByID" resultType="Employee" databaseId="mysql">
-                  select id, last_name, gender, email
-                    from tbl_employee
+                  select id, emp_name, gender, email
+                    from tbl_emp
                     where id = #{list[0]}
     </select>
     ```

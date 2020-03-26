@@ -4,7 +4,7 @@
         ```
         A a = new AImpl();  
         B b = new BImpl();  
-        a.setB(b); 
+        a.setB(b);  
         ```
     1. 这样以来带来的问题是:
         - 更换实现需要重新编译源代码

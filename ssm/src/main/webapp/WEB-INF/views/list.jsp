@@ -2,6 +2,7 @@
 <%@page language="java" pageEncoding="UTF-8" contentType="text/html; charset=utf-8" %>
 <html>
 <head>
+    <meta name="referrer" content="never">
     <title>员工列表</title>
     <!--
         不以/开始的相对路径，会以当前资源路径为基准寻找资源，容易出问题

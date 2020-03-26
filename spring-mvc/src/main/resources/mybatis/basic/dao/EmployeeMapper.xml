@@ -22,66 +22,66 @@
     -->
     <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
     <sql id="addEmployeeColumn">
-        (last_name, gender, email, dept_id, status)
+        (emp_name, gender, email, d_id)
     </sql>
 
     <sql id="addEmployeeValues">
-        (#{lastName}, #{gender}, #{email}, #{department.id}, #{status})
+        (#{empName}, #{gender}, #{email}, #{department.id})
     </sql>
 
     <sql id="selectColumn">
-        id, last_name, gender, email, dept_id, status
+        id, emp_name, gender, email, d_id
     </sql>
 
     <resultMap id="EmployeeDept" type="mybatis.basic.bean.Employee">
         <id column="id" property="id"/>
-        <result column="dept_id" property="department" typeHandler="mybatis.basic.typehandler.DepartmentTypeHandler"/>
+        <result column="d_id" property="department" typeHandler="mybatis.basic.typehandler.DepartmentTypeHandler"/>
     </resultMap>
 
     <select id="getEmpByID" resultMap="EmployeeDept">
         select
         <include refid="selectColumn"/>
-        from tbl_employee
+        from tbl_emp
         where id = #{id}
     </select>
 
-    <select id="getEmpByIdXLastName" resultType="mybatis.basic.bean.Employee">
+    <select id="getEmpByIdXempName" resultType="mybatis.basic.bean.Employee">
         select
         <include refid="selectColumn"/>
-        from tbl_employee
+        from tbl_emp
         where id = #{id}
-        and last_name = #{lastName}
+        and emp_name = #{empName}
     </select>
     <select id="getEmpByMap" resultType="mybatis.basic.bean.Employee">
         select
         <include refid="selectColumn"/>
         from ${tableName}
         where id = ${id}
-        and last_name = ${lastName}
+        and emp_name = ${empName}
     </select>
 
     <select id="getEmpByIDReturnMap" resultType="map">
         select
         <include refid="selectColumn"/>
-        from tbl_employee
+        from tbl_emp
         where id = #{id}
     </select>
 
-    <select id="getEmpByLastNameReturnMap" resultType="Employee">
+    <select id="getEmpByempNameReturnMap" resultType="Employee">
         select
         <include refid="selectColumn"/>
-        from tbl_employee
-        where last_name like #{lastName}
+        from tbl_emp
+        where emp_name like #{empName}
     </select>
     <!--
         用$传递传递参数的时候需要有对应的GET方法，在MyBatis的映射文件中如果用某个变量传递传递参数
         ，这个变量必须存在于对应的模型中，并且有对应的GET方法
      -->
-    <select id="getEmpsByLastNameLike" resultType="mybatis.basic.bean.Employee">
+    <select id="getEmpsByempNameLike" resultType="mybatis.basic.bean.Employee">
         select
         <include refid="selectColumn"/>
-        from tbl_employee
-        where last_name like #{lastName}
+        from tbl_emp
+        where emp_name like #{empName}
     </select>
 
     <!--
@@ -92,7 +92,7 @@
      -->
     <insert id="addEmp" parameterType="mybatis.basic.bean.Employee" useGeneratedKeys="true" keyProperty="id"
             databaseId="mysql">
-        insert into tbl_employee
+        insert into tbl_emp
         <include refid="addEmployeeColumn"/>
         values
         <include refid="addEmployeeValues"/>
@@ -112,30 +112,30 @@
             # 编写查询主键的sql语句
             select EMPLOYEE_SEQ.nextval fromdual
         </selectKey>
-        insert into tbl_employee(EMPLOYEE_ID, last_name, email)
-        VALUES (#{id}, #{lastName}, #{email})
+        insert into tbl_emp(EMPLOYEE_ID, emp_name, email)
+        VALUES (#{id}, #{empName}, #{email})
     </insert>
 
     <update id="updateEmp">
-        update tbl_employee
-        set last_name = #{lastName},
+        update tbl_emp
+        set emp_name = #{empName},
             email     = #{email},
             gender    = #{gender}
         where id = #{id}
     </update>
     <delete id="deleteEmpById">
         delete
-        from tbl_employee
+        from tbl_emp
         where id = #{id}
     </delete>
     <delete id="deleteEmpEmail">
         delete
-        from tbl_employee
+        from tbl_emp
         where email = #{email}
     </delete>
     <select id="getEmpByID" resultType="mybatis.basic.bean.Employee" databaseId="oracle">
         select *
-        from tbl_employee
+        from tbl_emp
         where id = #{id}
     </select>
 </mapper>

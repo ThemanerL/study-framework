@@ -167,73 +167,73 @@ public class EmployeeExample {
       return (Criteria) this;
     }
 
-    public Criteria andLastNameIsNull() {
-      addCriterion("last_name is null");
+    public Criteria andempNameIsNull() {
+      addCriterion("emp_name is null");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameIsNotNull() {
-      addCriterion("last_name is not null");
+    public Criteria andempNameIsNotNull() {
+      addCriterion("emp_name is not null");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameEqualTo(String value) {
-      addCriterion("last_name =", value, "lastName");
+    public Criteria andempNameEqualTo(String value) {
+      addCriterion("emp_name =", value, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameNotEqualTo(String value) {
-      addCriterion("last_name <>", value, "lastName");
+    public Criteria andempNameNotEqualTo(String value) {
+      addCriterion("emp_name <>", value, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameGreaterThan(String value) {
-      addCriterion("last_name >", value, "lastName");
+    public Criteria andempNameGreaterThan(String value) {
+      addCriterion("emp_name >", value, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameGreaterThanOrEqualTo(String value) {
-      addCriterion("last_name >=", value, "lastName");
+    public Criteria andempNameGreaterThanOrEqualTo(String value) {
+      addCriterion("emp_name >=", value, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameLessThan(String value) {
-      addCriterion("last_name <", value, "lastName");
+    public Criteria andempNameLessThan(String value) {
+      addCriterion("emp_name <", value, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameLessThanOrEqualTo(String value) {
-      addCriterion("last_name <=", value, "lastName");
+    public Criteria andempNameLessThanOrEqualTo(String value) {
+      addCriterion("emp_name <=", value, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameLike(String value) {
-      addCriterion("last_name like", value, "lastName");
+    public Criteria andempNameLike(String value) {
+      addCriterion("emp_name like", value, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameNotLike(String value) {
-      addCriterion("last_name not like", value, "lastName");
+    public Criteria andempNameNotLike(String value) {
+      addCriterion("emp_name not like", value, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameIn(List<String> values) {
-      addCriterion("last_name in", values, "lastName");
+    public Criteria andempNameIn(List<String> values) {
+      addCriterion("emp_name in", values, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameNotIn(List<String> values) {
-      addCriterion("last_name not in", values, "lastName");
+    public Criteria andempNameNotIn(List<String> values) {
+      addCriterion("emp_name not in", values, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameBetween(String value1, String value2) {
-      addCriterion("last_name between", value1, value2, "lastName");
+    public Criteria andempNameBetween(String value1, String value2) {
+      addCriterion("emp_name between", value1, value2, "empName");
       return (Criteria) this;
     }
 
-    public Criteria andLastNameNotBetween(String value1, String value2) {
-      addCriterion("last_name not between", value1, value2, "lastName");
+    public Criteria andempNameNotBetween(String value1, String value2) {
+      addCriterion("emp_name not between", value1, value2, "empName");
       return (Criteria) this;
     }
 
@@ -378,62 +378,62 @@ public class EmployeeExample {
     }
 
     public Criteria andDeptIdIsNull() {
-      addCriterion("dept_id is null");
+      addCriterion("d_id is null");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdIsNotNull() {
-      addCriterion("dept_id is not null");
+      addCriterion("d_id is not null");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdEqualTo(Integer value) {
-      addCriterion("dept_id =", value, "deptId");
+      addCriterion("d_id =", value, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdNotEqualTo(Integer value) {
-      addCriterion("dept_id <>", value, "deptId");
+      addCriterion("d_id <>", value, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdGreaterThan(Integer value) {
-      addCriterion("dept_id >", value, "deptId");
+      addCriterion("d_id >", value, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdGreaterThanOrEqualTo(Integer value) {
-      addCriterion("dept_id >=", value, "deptId");
+      addCriterion("d_id >=", value, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdLessThan(Integer value) {
-      addCriterion("dept_id <", value, "deptId");
+      addCriterion("d_id <", value, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdLessThanOrEqualTo(Integer value) {
-      addCriterion("dept_id <=", value, "deptId");
+      addCriterion("d_id <=", value, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdIn(List<Integer> values) {
-      addCriterion("dept_id in", values, "deptId");
+      addCriterion("d_id in", values, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdNotIn(List<Integer> values) {
-      addCriterion("dept_id not in", values, "deptId");
+      addCriterion("d_id not in", values, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdBetween(Integer value1, Integer value2) {
-      addCriterion("dept_id between", value1, value2, "deptId");
+      addCriterion("d_id between", value1, value2, "deptId");
       return (Criteria) this;
     }
 
     public Criteria andDeptIdNotBetween(Integer value1, Integer value2) {
-      addCriterion("dept_id not between", value1, value2, "deptId");
+      addCriterion("d_id not between", value1, value2, "deptId");
       return (Criteria) this;
     }
   }

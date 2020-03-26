@@ -27,7 +27,7 @@ public interface EmployeeDynamicSqlMapper {
   List<Employee> getEmpsByIfTrim(Employee employee);
 
   /**
-   * eg1:如果带了id就用id查,如果带了lastname就用lastname查
+   * eg1:如果带了id就用id查,如果带了empName就用empName查
    *
    * @param employee /
    * @return /

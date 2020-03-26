@@ -1,5 +1,6 @@
 package spring.basic.postprocessor;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
@@ -8,8 +9,9 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
  * @date 2019/3/18 23:29
  */
 public class MyBeanPostProcessor implements BeanPostProcessor {
+
   @Override
-  public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+  public Object postProcessBeforeInitialization(@NotNull Object bean, String beanName) throws BeansException {
     String judge = "emp1Salary";
     if (judge.equals(beanName)) {
       System.out.print("MyBeanPostProcessor.postProcessBeforeInitialization");
@@ -19,7 +21,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor {
   }
 
   @Override
-  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+  public Object postProcessAfterInitialization(@NotNull Object bean, String beanName) throws BeansException {
     String judge = "emp1Salary";
     if (judge.equals(beanName)) {
       System.out.print("MyBeanPostProcessor.postProcessAfterInitialization");
