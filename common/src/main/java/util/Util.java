@@ -14,9 +14,9 @@ import java.util.Random;
  * @author 李重辰
  * @date 2019/3/8 19:19
  */
-public class MyUtil {
+public class Util {
 
-  private MyUtil() {
+  private Util() {
   }
 
   private static SqlSessionFactory getSqlSessionFactory() {

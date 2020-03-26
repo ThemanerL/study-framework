@@ -9,19 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-mvc</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>com.theman</groupId>
-            <artifactId>common</artifactId>
-            <version>1.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-
-    </dependencies>
+    <artifactId>common</artifactId>
 
 
 </project>

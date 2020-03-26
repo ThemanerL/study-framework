@@ -1,7 +1,6 @@
 package mybatis.generator;
 
 import com.github.pagehelper.PageHelper;
-import util.MyUtil;
 import mybatis.generator.bean.Employee;
 import mybatis.generator.bean.EmployeeExample;
 import mybatis.generator.dao.EmployeeMapper;
@@ -11,6 +10,7 @@ import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import util.Util;
 
 import java.io.File;
 import java.net.URL;
@@ -41,7 +41,7 @@ public class GeneratorTest {
 
   @Test
   public void selectAll() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       EmployeeExample employeeExample = new EmployeeExample();
       EmployeeExample.Criteria criteria = employeeExample.createCriteria();
@@ -61,7 +61,7 @@ public class GeneratorTest {
 
   @Test
   public void deleteAll() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       int i = employeeMapper.deleteByExample(null);
       System.out.println(i);

@@ -1,6 +1,6 @@
 package mybatis.basic;
 
-import util.MyUtil;
+import util.Util;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper;
 import org.apache.ibatis.session.SqlSession;
@@ -36,7 +36,7 @@ public class CacheTest {
    */
   @Test
   public void level1Cache() {
-    try (SqlSession sqlsession = MyUtil.getSession()) {
+    try (SqlSession sqlsession = Util.getSession()) {
       Employee emp = sqlsession.getMapper(EmployeeMapper.class).getEmpByID(1);
       System.out.println(emp);
       Employee emp1 = sqlsession.getMapper(EmployeeMapper.class).getEmpByID(1);
@@ -64,13 +64,13 @@ public class CacheTest {
   @Test
   public void level2Cache() {
     EmployeeMapper mapper;
-    try (SqlSession sqlSession1 = MyUtil.getSession()) {
+    try (SqlSession sqlSession1 = Util.getSession()) {
       mapper = sqlSession1.getMapper(EmployeeMapper.class);
       System.out.println(mapper.getEmpByID(1));
       System.out.println(mapper.getEmpByID(1));
       System.out.println(mapper.getEmpByID(1));
     }
-    try (SqlSession sqlSession1 = MyUtil.getSession()) {
+    try (SqlSession sqlSession1 = Util.getSession()) {
       mapper = sqlSession1.getMapper(EmployeeMapper.class);
       System.out.println(mapper.getEmpByID(1));
     }

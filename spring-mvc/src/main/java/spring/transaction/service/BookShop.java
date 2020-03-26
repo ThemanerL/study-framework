@@ -6,7 +6,7 @@ import spring.transaction.bean.Account;
 import spring.transaction.bean.Book;
 import spring.transaction.dao.AccountMapper;
 import spring.transaction.dao.BookMapper;
-import util.MyUtil;
+import util.Util;
 
 /**
  * @author 李重辰
@@ -23,7 +23,7 @@ public class BookShop {
    * @param bookId     购买的什么书
    */
   public void purchaseBook(int userId, int bookNumber, int bookId) {
-    SqlSession sqlSession = MyUtil.getSession(false);
+    SqlSession sqlSession = Util.getSession(false);
     try {
       AccountMapper accountMapper = sqlSession.getMapper(AccountMapper.class);
       BookMapper bookMapper = sqlSession.getMapper(BookMapper.class);

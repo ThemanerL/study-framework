@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ssm.bean.Employee;
-import util.MyUtil;
+import util.Util;
 
 import java.util.List;
 import java.util.Random;
@@ -49,7 +49,7 @@ public class EmployeeMapperTest {
     EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
     for (int i = 0; i < 785; i++) {
       int deptId = new Random(System.currentTimeMillis()).nextInt(3);
-      Employee employee = new Employee(MyUtil.getName(), Math.abs(deptId - 1), MyUtil.getRandEmail());
+      Employee employee = new Employee(Util.getName(), Math.abs(deptId - 1), Util.getRandEmail());
       mapper.insertSelective(employee);
     }
     System.err.println(System.currentTimeMillis() - start);

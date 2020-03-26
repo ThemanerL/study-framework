@@ -1,6 +1,6 @@
 package mybatis.basic;
 
-import util.MyUtil;
+import util.Util;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper2;
 import org.apache.ibatis.session.SqlSession;
@@ -17,7 +17,7 @@ public class EmployeeMapper2Test {
 
   @Test
   public void getEmpById() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper2 employeeMapper2 = sqlSession.getMapper(EmployeeMapper2.class);
       Employee employee = employeeMapper2.getEmpById(87);
       System.out.println(employee);
@@ -26,7 +26,7 @@ public class EmployeeMapper2Test {
 
   @Test
   public void getEmpsByDeptId() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper2 employeeMapper2 = sqlSession.getMapper(EmployeeMapper2.class);
       List<Employee> empsByDeptId = employeeMapper2.getEmpsByDeptId(1);
       System.out.println(empsByDeptId.size());
@@ -35,7 +35,7 @@ public class EmployeeMapper2Test {
 
   @Test
   public void getEmpAndDept() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper2 employeeMapper2 = sqlSession.getMapper(EmployeeMapper2.class);
       Employee employee = employeeMapper2.getEmpAndDept(1);
       System.out.println(employee);
@@ -45,7 +45,7 @@ public class EmployeeMapper2Test {
 
   @Test
   public void getEmpByIdStep() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper2 employeeMapper2 = sqlSession.getMapper(EmployeeMapper2.class);
       Employee employee = employeeMapper2.getEmpByIdStep(6787);
       System.out.println(employee.getEmail());
@@ -55,7 +55,7 @@ public class EmployeeMapper2Test {
 
   @Test
   public void addEmpDeptId() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper2 employeeMapper2 = sqlSession.getMapper(EmployeeMapper2.class);
       boolean flag = employeeMapper2.addEmpDeptId(0, new Random(System.currentTimeMillis()).nextInt(3) + 1);
       System.out.println(flag);

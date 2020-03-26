@@ -13,9 +13,8 @@
     <dependencies>
         <dependency>
             <groupId>com.theman</groupId>
-            <artifactId>spring-mvc</artifactId>
+            <artifactId>common</artifactId>
             <version>1.0.1</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>

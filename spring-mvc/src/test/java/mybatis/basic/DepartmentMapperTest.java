@@ -1,6 +1,6 @@
 package mybatis.basic;
 
-import util.MyUtil;
+import util.Util;
 import mybatis.basic.bean.Department;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.DepartmentMapper;
@@ -17,7 +17,7 @@ public class DepartmentMapperTest {
 
   @Test
   public void addDept() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
       boolean result = departmentMapper.addDept(new Department(null, "售后服务部"));
       System.out.println(result);
@@ -26,7 +26,7 @@ public class DepartmentMapperTest {
 
   @Test
   public void getDeptById() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       Department department = sqlSession.getMapper(DepartmentMapper.class).getDeptById(1);
       System.out.println(department);
     }
@@ -34,7 +34,7 @@ public class DepartmentMapperTest {
 
   @Test
   public void getDepts() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
       List<Department> depts = departmentMapper.getDepts();
       System.out.println(depts);
@@ -43,7 +43,7 @@ public class DepartmentMapperTest {
 
   @Test
   public void getDeptEmpsById() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       DepartmentMapper departmentMapper = sqlSession.getMapper(DepartmentMapper.class);
       Department department = departmentMapper.getDeptEmpsById("开发部");
       System.out.println(department.getName());

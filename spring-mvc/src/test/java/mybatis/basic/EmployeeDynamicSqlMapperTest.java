@@ -1,6 +1,6 @@
 package mybatis.basic;
 
-import util.MyUtil;
+import util.Util;
 import mybatis.basic.bean.Department;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeDynamicSqlMapper;
@@ -22,7 +22,7 @@ public class EmployeeDynamicSqlMapperTest {
 
   @Test
   public void getEmpsByIfWhere() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeDynamicSqlMapper mapper = sqlSession.getMapper(EmployeeDynamicSqlMapper.class);
       Employee employee = new Employee(0, "李%", null, null);
       List<Employee> emps = mapper.getEmpsByIfWhere(employee);
@@ -34,7 +34,7 @@ public class EmployeeDynamicSqlMapperTest {
 
   @Test
   public void getEmpsInnerParameter() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeDynamicSqlMapper mapper = sqlSession.getMapper(EmployeeDynamicSqlMapper.class);
       List<Employee> emps = mapper.getEmpsInnerParameter(new Employee(2342, null, null, null));
       for (Employee e : emps) {
@@ -45,7 +45,7 @@ public class EmployeeDynamicSqlMapperTest {
 
   @Test
   public void getEmpsByIfTrim() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeDynamicSqlMapper mapper = sqlSession.getMapper(EmployeeDynamicSqlMapper.class);
       Employee employee = new Employee(1434, null, null, null);
       List<Employee> emps = mapper.getEmpsByIfTrim(employee);
@@ -57,7 +57,7 @@ public class EmployeeDynamicSqlMapperTest {
 
   @Test
   public void getEmpsByChoose() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeDynamicSqlMapper mapper = sqlSession.getMapper(EmployeeDynamicSqlMapper.class);
       Employee employee = new Employee((Integer) null, "李%", null, null);
       List<Employee> emps = mapper.getEmpsByChoose(employee);
@@ -69,7 +69,7 @@ public class EmployeeDynamicSqlMapperTest {
 
   @Test
   public void getEmpsByForeach() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeDynamicSqlMapper mapper = sqlSession.getMapper(EmployeeDynamicSqlMapper.class);
       List<Integer> ids = new ArrayList<>(Arrays.asList(11, 2, 33, 4));
       List<Employee> emps = mapper.getEmpsByForeach(ids);
@@ -81,7 +81,7 @@ public class EmployeeDynamicSqlMapperTest {
 
   @Test
   public void updateEmp() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeDynamicSqlMapper mapper = sqlSession.getMapper(EmployeeDynamicSqlMapper.class);
       Employee employee = new Employee(1434, "nameUpdate", null, null);
       boolean b = mapper.updateEmpBySet(employee);
@@ -91,7 +91,7 @@ public class EmployeeDynamicSqlMapperTest {
 
   @Test
   public void addEmpsByForeach() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeDynamicSqlMapper mapper = sqlSession.getMapper(EmployeeDynamicSqlMapper.class);
       List<Employee> employees = new ArrayList<>();
       Employee employee1 = new Employee(null, "Foreach-1", "0", "one@kju.com", new Department(1));

@@ -1,7 +1,6 @@
 package mybatis.basic;
 
 import mybatis.basic.bean.Department;
-import mybatis.basic.bean.EmpStatus;
 import mybatis.basic.bean.Employee;
 import mybatis.basic.dao.EmployeeMapper;
 import mybatis.basic.dao.EmployeeMapperAnnotation;
@@ -11,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
-import util.MyUtil;
+import util.Util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +57,7 @@ public class EmployeeMapperTest {
    */
   @Test
   public void getEmpById() {
-    try (SqlSession session = MyUtil.getSession()) {
+    try (SqlSession session = Util.getSession()) {
       session.clearCache();
       Employee employee = session.getMapper(EmployeeMapper.class).getEmpByID(1);
       System.out.println(employee);
@@ -80,7 +79,7 @@ public class EmployeeMapperTest {
     // 1、获取sqlSessionFactory对象
     // 2、获取sqlSession对象
     Employee employee = null;
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       // 3、获取接口的实现类对象
       // MyBatis会为接口自动的创建一个代理对象，代理对象去执行数据库操作
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
@@ -114,7 +113,7 @@ public class EmployeeMapperTest {
   @Test
   public void getEmpByIdXempName() {
     String str = null;
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper empMapper = sqlSession.getMapper(EmployeeMapper.class);
       Employee employee = empMapper.getEmpByIdXempName(1, "UpdateT");
       str = String.valueOf(employee);
@@ -126,7 +125,7 @@ public class EmployeeMapperTest {
 
   @Test
   public void getEmpsByempNameLike() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       List<Employee> emps = employeeMapper.getEmpsByempNameLike("码");
       for (Employee emp : emps) {
@@ -148,7 +147,7 @@ public class EmployeeMapperTest {
 
   @Test
   public void getEmpByempNameReturnMap() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       Map<String, Employee> map = sqlSession.getMapper(EmployeeMapper.class).getEmpByempNameReturnMap("%码");
       for (Map.Entry<String, Employee> set : map.entrySet()) {
         System.out.println("Key: " + set.getKey() + "\tValue: " + set.getValue());
@@ -171,8 +170,8 @@ public class EmployeeMapperTest {
 
   @Test
   public void addEmp() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
-      Employee employee = new Employee(null, MyUtil.getName(), String.valueOf(new Random(System.currentTimeMillis()).nextInt(2)), MyUtil.getRandEmail(), new Department(new Random(System.currentTimeMillis()).nextInt(3) + 1, null));
+    try (SqlSession sqlSession = Util.getSession()) {
+      Employee employee = new Employee(null, Util.getName(), String.valueOf(new Random(System.currentTimeMillis()).nextInt(2)), Util.getRandEmail(), new Department(new Random(System.currentTimeMillis()).nextInt(3) + 1, null));
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.addEmp(employee);
       System.out.print(employee);
@@ -183,11 +182,11 @@ public class EmployeeMapperTest {
   @Test
   public void addEmpBatch() {
     long startTime = System.currentTimeMillis();
-    try (SqlSession sqlSession = MyUtil.getSession(ExecutorType.BATCH)) {
+    try (SqlSession sqlSession = Util.getSession(ExecutorType.BATCH)) {
       int records = 1000;
       for (int i = 0; i < records; i++) {
         int deptId = new Random(System.currentTimeMillis()).nextInt(3);
-        Employee employee = new Employee(MyUtil.getName(), String.valueOf(Math.abs(deptId - 1)), MyUtil.getRandEmail(), new Department(deptId + 1, null));
+        Employee employee = new Employee(Util.getName(), String.valueOf(Math.abs(deptId - 1)), Util.getRandEmail(), new Department(deptId + 1, null));
         EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
         result = employeeMapper.addEmp(employee);
       }
@@ -198,7 +197,7 @@ public class EmployeeMapperTest {
 
   @Test
   public void updateEmp() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.updateEmp(new Employee(1, "updateT", "0", "updater@qw"));
     } catch (Exception e) {
@@ -208,7 +207,7 @@ public class EmployeeMapperTest {
 
   @Test
   public void deleteEmpById() {
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.deleteEmpById(5);
     } catch (Exception e) {
@@ -220,7 +219,7 @@ public class EmployeeMapperTest {
   @Test
   public void deleteEmpEmail() {
     int result = 0;
-    try (SqlSession sqlSession = MyUtil.getSession()) {
+    try (SqlSession sqlSession = Util.getSession()) {
       EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
       result = employeeMapper.deleteEmpEmail("add3");
     } catch (Exception e) {
