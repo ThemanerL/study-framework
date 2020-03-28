@@ -6,5 +6,5 @@ employee:
   department:
     deptName: 开发部
   email: 7ehsjew@gmail.com
-  gender: 0
+  gender: "0"
   isDeleted: 0

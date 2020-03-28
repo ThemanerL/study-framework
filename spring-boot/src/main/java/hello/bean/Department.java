@@ -1,5 +1,8 @@
 package hello.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -7,21 +10,16 @@ import org.springframework.stereotype.Component;
  * @date 2020/3/28 10:01
  */
 @Component
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Department {
   private String deptName;
 
-  public Department() {
-  }
-
-  public String getDeptName() {
-    return deptName;
-  }
-
-  public void setDeptName(String deptName) {
-    this.deptName = deptName;
-  }
-
-  public Department(String deptName) {
-    this.deptName = deptName;
+  @Override
+  public String toString() {
+    return "{\"Department\":{" +
+        "\"deptName\":\"" + deptName + '\"' +
+        "}}";
   }
 }
