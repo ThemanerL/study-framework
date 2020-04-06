@@ -1,8 +1,6 @@
-server:
-  port: 8081
 spring:
   profiles:
-    active: prod
+    active: dev
 ---
 server:
   port: 8082
@@ -13,3 +11,8 @@ server:
   port: 8083
 spring:
   profiles: prod
+---
+server:
+  port: 80
+spring:
+  profiles: dev
