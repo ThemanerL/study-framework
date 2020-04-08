@@ -1,4 +1,4 @@
-package hello.confi;
+package hello.config;
 
 
 import org.springframework.context.annotation.Configuration;
