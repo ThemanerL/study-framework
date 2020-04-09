@@ -2,9 +2,11 @@ spring:
   profiles:
     active: dev
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: root
-    url:
+    url: jdbc:mysql://116.62.239.206:3306/edms
+    driver-class-name: com.mysql.cj.jdbc.Driver
 ---
 server:
   port: 8082

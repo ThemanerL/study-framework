@@ -30,7 +30,6 @@
         <constructor-arg name="department">
             <null/>
         </constructor-arg>
-        <constructor-arg name="status" value="LOGIN" type="mybatis.basic.bean.EmpStatus"/>
     </bean>
     <bean id="employee1" class="mybatis.basic.bean.Employee">
         <property name="id" value="001"/>

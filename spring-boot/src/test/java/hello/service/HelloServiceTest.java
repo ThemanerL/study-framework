@@ -8,6 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  * @author 李重辰
  * @date 2020/3/29 16:47
@@ -15,6 +20,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class HelloServiceTest {
+
+  @Autowired
+  DataSource dataSource;
+
   @Autowired
   ApplicationContext context;
 
@@ -22,5 +31,15 @@ public class HelloServiceTest {
   public void testHelloService() {
     boolean helloService = context.containsBean("helloService");
     Assert.assertTrue(helloService);
+  }
+
+  @Test
+  public void jdbcConnectTest() {
+    System.out.println(dataSource.getClass());
+    try (Connection connection = dataSource.getConnection()) {
+      System.out.print(connection.getSchema());
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }

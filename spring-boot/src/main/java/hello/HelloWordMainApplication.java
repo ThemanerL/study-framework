@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 
@@ -19,7 +20,7 @@ import java.util.Locale;
  * @date 2020/3/24 0:08
  */
 //@ImportResource(locations = {"classpath:beans.xml"})
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 public class HelloWordMainApplication {
   public static void main(String[] args) {
     // Spring应用程序启动起来
