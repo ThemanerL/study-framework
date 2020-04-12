@@ -1,5 +1,7 @@
 package hello.service;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +39,7 @@ public class HelloServiceTest {
   public void jdbcConnectTest() {
     System.out.println(dataSource.getClass());
     try (Connection connection = dataSource.getConnection()) {
+      System.out.print(connection.getAutoCommit());
       System.out.print(connection.getSchema());
     } catch (SQLException e) {
       e.printStackTrace();

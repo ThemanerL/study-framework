@@ -2,11 +2,34 @@ spring:
   profiles:
     active: dev
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    username: root
-    password: root
     url: jdbc:mysql://116.62.239.206:3306/edms
     driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT FROM PM_PRODUCT_INFO
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，‘wall’用于防火墙
+      filter:
+        stat:
+          enabled: true
+          db-type: mysql
+        wall:
+          enabled: true
+          db-type: mysql
+      max-pool-prepared-statement-per-connection-size: 20
+      use-global-data-source-stat: true
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 ---
 server:
   port: 8082

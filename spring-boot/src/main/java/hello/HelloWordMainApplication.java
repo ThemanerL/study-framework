@@ -1,5 +1,6 @@
 package hello;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -34,7 +35,7 @@ public class HelloWordMainApplication {
 
   private static class MyViewResolver implements ViewResolver {
     @Override
-    public View resolveViewName(String viewName, Locale locale) throws Exception {
+    public View resolveViewName(@NotNull String viewName, @NotNull Locale locale) {
       return null;
     }
   }
