@@ -1,6 +1,6 @@
-package hello.config;
+package edms.config;
 
-import hello.service.HelloService;
+import edms.service.HelloService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

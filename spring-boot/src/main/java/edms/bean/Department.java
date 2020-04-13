@@ -1,4 +1,4 @@
-package hello.bean;
+package edms.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

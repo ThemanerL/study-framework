@@ -1,4 +1,4 @@
-package hello.config;
+package edms.config;
 
 import com.alibaba.druid.support.http.ResourceServlet;
 import com.alibaba.druid.support.http.StatViewServlet;
