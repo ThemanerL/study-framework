@@ -28,9 +28,9 @@
         <javaTypeResolver>
             <property name="forceBigDecimal" value="true"/>
         </javaTypeResolver>
-        <javaModelGenerator targetPackage="edms.model" targetProject="src/main/java"/>
-        <sqlMapGenerator targetPackage="edms.mapper" targetProject="src/main/resources"/>
-        <javaClientGenerator targetPackage="edms.mapper" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="edms.model" targetProject="spring-boot/src/main/java"/>
+        <sqlMapGenerator targetPackage="edms.mapper" targetProject="spring-boot/src/main/resources"/>
+        <javaClientGenerator targetPackage="edms.mapper" targetProject="spring-boot/src/main/java"/>
         <table tableName="%">
             <columnOverride column="id" javaType="java.lang.Long"/>
             <ignoreColumn column="gmt_create"/>
