@@ -1,4 +1,4 @@
-package hello.bean;
+package bean.bean;
 
 import edms.bean.Employee;
 import org.junit.Test;

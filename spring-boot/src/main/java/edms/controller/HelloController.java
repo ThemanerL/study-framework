@@ -1,9 +1,12 @@
 package edms.controller;
 
+import edms.service.HelloService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -25,6 +28,15 @@ public class HelloController {
   @RequestMapping("/success")
   public String success(Map<String, Object> map) {
     map.put("hello", "thymeleaf demo");
+    return "success";
+  }
+
+  @Resource
+  HelloService helloService;
+
+  @RequestMapping(value = "/listProduct", method = RequestMethod.GET)
+  public String listPmProductInfo() {
+    helloService.testSelectByExample();
     return "success";
   }
 }
