@@ -14,6 +14,7 @@ import javax.validation.constraints.Email;
 /**
  * ConfigurationProperties 默认是从全局配置文件中读取配置
  * PropertySource 可以加载指定的配置文件
+ *
  * @author 李重辰
  * @date 2020/3/28 9:46
  */

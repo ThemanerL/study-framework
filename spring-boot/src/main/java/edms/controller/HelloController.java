@@ -23,7 +23,7 @@ public class HelloController {
    * classpath:/templates/success.html
    */
   @RequestMapping("/success")
-  public String success(Map<String, Object> map){
+  public String success(Map<String, Object> map) {
     map.put("hello", "thymeleaf demo");
     return "success";
   }

@@ -8,7 +8,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,14 +37,13 @@ public class DruidConfig {
   }
 
   /**
-   *  2、配置一个监控的filter
-   *
+   * 2、配置一个监控的filter
    */
-  public FilterRegistrationBean<WebStatFilter> webStatFilter(){
+  public FilterRegistrationBean<WebStatFilter> webStatFilter() {
     FilterRegistrationBean<WebStatFilter> registrationBean = new FilterRegistrationBean<>();
     registrationBean.setFilter(new WebStatFilter());
     registrationBean.setUrlPatterns(Collections.singletonList("/*"));
-    Map<String,String> params = new HashMap<>(16);
+    Map<String, String> params = new HashMap<>(16);
     params.put(WebStatFilter.PARAM_NAME_EXCLUSIONS, "*.js,*.css,/druid/*");
     registrationBean.setInitParameters(params);
     return registrationBean;
