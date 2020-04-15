@@ -1,12 +1,12 @@
 package edms.mapper;
 
+import org.mybatis.dynamic.sql.SqlColumn;
+import org.mybatis.dynamic.sql.SqlTable;
+
+import javax.annotation.Generated;
 import java.math.BigDecimal;
 import java.sql.JDBCType;
 import java.util.Date;
-import javax.annotation.Generated;
-
-import org.mybatis.dynamic.sql.SqlColumn;
-import org.mybatis.dynamic.sql.SqlTable;
 
 public final class OmOrderItemDynamicSqlSupport {
   @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order_item")
