@@ -36,31 +36,31 @@ import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
 @Mapper
 public interface PmProductInfoMapper {
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
-  BasicColumn[] selectList = BasicColumn.columnList(id, corpNo, brandNo, name, spec, price, unit, gmtCreate, gmtUpdate, isDeleted, imgs);
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
+  BasicColumn[] selectList = BasicColumn.columnList(id, corpNo, brandNo, name, spec, price, unit, gmtCreate, gmtUpdate, isDeleted, images);
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.91+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   @SelectProvider(type = SqlProviderAdapter.class, method = "select")
   long count(SelectStatementProvider selectStatement);
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.91+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   @DeleteProvider(type = SqlProviderAdapter.class, method = "delete")
   int delete(DeleteStatementProvider deleteStatement);
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.91+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   @InsertProvider(type = SqlProviderAdapter.class, method = "insert")
   int insert(InsertStatementProvider<PmProductInfo> insertStatement);
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.91+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   @InsertProvider(type = SqlProviderAdapter.class, method = "insertMultiple")
   int insertMultiple(MultiRowInsertStatementProvider<PmProductInfo> multipleInsertStatement);
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.91+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   @SelectProvider(type = SqlProviderAdapter.class, method = "select")
   @ResultMap("PmProductInfoResult")
   Optional<PmProductInfo> selectOne(SelectStatementProvider selectStatement);
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.91+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   @SelectProvider(type = SqlProviderAdapter.class, method = "select")
   @Results(id = "PmProductInfoResult", value = {
       @Result(column = "id", property = "id", jdbcType = JdbcType.BIGINT, id = true),
@@ -73,32 +73,32 @@ public interface PmProductInfoMapper {
       @Result(column = "gmt_create", property = "gmtCreate", jdbcType = JdbcType.TIMESTAMP),
       @Result(column = "gmt_update", property = "gmtUpdate", jdbcType = JdbcType.TIMESTAMP),
       @Result(column = "is_deleted", property = "isDeleted", jdbcType = JdbcType.TINYINT),
-      @Result(column = "imgs", property = "imgs", jdbcType = JdbcType.LONGVARCHAR)
+      @Result(column = "images", property = "images", jdbcType = JdbcType.LONGVARCHAR)
   })
   List<PmProductInfo> selectMany(SelectStatementProvider selectStatement);
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   @UpdateProvider(type = SqlProviderAdapter.class, method = "update")
   int update(UpdateStatementProvider updateStatement);
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default long count(CountDSLCompleter completer) {
     return MyBatis3Utils.countFrom(this::count, pmProductInfo, completer);
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default int delete(DeleteDSLCompleter completer) {
     return MyBatis3Utils.deleteFrom(this::delete, pmProductInfo, completer);
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default int deleteByPrimaryKey(Long id_) {
     return delete(c ->
         c.where(id, isEqualTo(id_))
     );
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default int insert(PmProductInfo record) {
     return MyBatis3Utils.insert(this::insert, record, pmProductInfo, c ->
         c.map(id).toProperty("id")
@@ -111,11 +111,11 @@ public interface PmProductInfoMapper {
             .map(gmtCreate).toProperty("gmtCreate")
             .map(gmtUpdate).toProperty("gmtUpdate")
             .map(isDeleted).toProperty("isDeleted")
-            .map(imgs).toProperty("imgs")
+            .map(images).toProperty("images")
     );
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default int insertMultiple(Collection<PmProductInfo> records) {
     return MyBatis3Utils.insertMultiple(this::insertMultiple, records, pmProductInfo, c ->
         c.map(id).toProperty("id")
@@ -128,11 +128,11 @@ public interface PmProductInfoMapper {
             .map(gmtCreate).toProperty("gmtCreate")
             .map(gmtUpdate).toProperty("gmtUpdate")
             .map(isDeleted).toProperty("isDeleted")
-            .map(imgs).toProperty("imgs")
+            .map(images).toProperty("images")
     );
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default int insertSelective(PmProductInfo record) {
     return MyBatis3Utils.insert(this::insert, record, pmProductInfo, c ->
         c.map(id).toPropertyWhenPresent("id", record::getId)
@@ -145,38 +145,38 @@ public interface PmProductInfoMapper {
             .map(gmtCreate).toPropertyWhenPresent("gmtCreate", record::getGmtCreate)
             .map(gmtUpdate).toPropertyWhenPresent("gmtUpdate", record::getGmtUpdate)
             .map(isDeleted).toPropertyWhenPresent("isDeleted", record::getIsDeleted)
-            .map(imgs).toPropertyWhenPresent("imgs", record::getImgs)
+            .map(images).toPropertyWhenPresent("images", record::getImages)
     );
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default Optional<PmProductInfo> selectOne(SelectDSLCompleter completer) {
     return MyBatis3Utils.selectOne(this::selectOne, selectList, pmProductInfo, completer);
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default List<PmProductInfo> select(SelectDSLCompleter completer) {
     return MyBatis3Utils.selectList(this::selectMany, selectList, pmProductInfo, completer);
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default List<PmProductInfo> selectDistinct(SelectDSLCompleter completer) {
     return MyBatis3Utils.selectDistinct(this::selectMany, selectList, pmProductInfo, completer);
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default Optional<PmProductInfo> selectByPrimaryKey(Long id_) {
     return selectOne(c ->
         c.where(id, isEqualTo(id_))
     );
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default int update(UpdateDSLCompleter completer) {
     return MyBatis3Utils.update(this::update, pmProductInfo, completer);
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   static UpdateDSL<UpdateModel> updateAllColumns(PmProductInfo record, UpdateDSL<UpdateModel> dsl) {
     return dsl.set(id).equalTo(record::getId)
         .set(corpNo).equalTo(record::getCorpNo)
@@ -188,10 +188,10 @@ public interface PmProductInfoMapper {
         .set(gmtCreate).equalTo(record::getGmtCreate)
         .set(gmtUpdate).equalTo(record::getGmtUpdate)
         .set(isDeleted).equalTo(record::getIsDeleted)
-        .set(imgs).equalTo(record::getImgs);
+        .set(images).equalTo(record::getImages);
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.911+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   static UpdateDSL<UpdateModel> updateSelectiveColumns(PmProductInfo record, UpdateDSL<UpdateModel> dsl) {
     return dsl.set(id).equalToWhenPresent(record::getId)
         .set(corpNo).equalToWhenPresent(record::getCorpNo)
@@ -203,10 +203,10 @@ public interface PmProductInfoMapper {
         .set(gmtCreate).equalToWhenPresent(record::getGmtCreate)
         .set(gmtUpdate).equalToWhenPresent(record::getGmtUpdate)
         .set(isDeleted).equalToWhenPresent(record::getIsDeleted)
-        .set(imgs).equalToWhenPresent(record::getImgs);
+        .set(images).equalToWhenPresent(record::getImages);
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.912+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default int updateByPrimaryKey(PmProductInfo record) {
     return update(c ->
         c.set(corpNo).equalTo(record::getCorpNo)
@@ -218,12 +218,12 @@ public interface PmProductInfoMapper {
             .set(gmtCreate).equalTo(record::getGmtCreate)
             .set(gmtUpdate).equalTo(record::getGmtUpdate)
             .set(isDeleted).equalTo(record::getIsDeleted)
-            .set(imgs).equalTo(record::getImgs)
+            .set(images).equalTo(record::getImages)
             .where(id, isEqualTo(record::getId))
     );
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.912+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   default int updateByPrimaryKeySelective(PmProductInfo record) {
     return update(c ->
         c.set(corpNo).equalToWhenPresent(record::getCorpNo)
@@ -235,7 +235,7 @@ public interface PmProductInfoMapper {
             .set(gmtCreate).equalToWhenPresent(record::getGmtCreate)
             .set(gmtUpdate).equalToWhenPresent(record::getGmtUpdate)
             .set(isDeleted).equalToWhenPresent(record::getIsDeleted)
-            .set(imgs).equalToWhenPresent(record::getImgs)
+            .set(images).equalToWhenPresent(record::getImages)
             .where(id, isEqualTo(record::getId))
     );
   }

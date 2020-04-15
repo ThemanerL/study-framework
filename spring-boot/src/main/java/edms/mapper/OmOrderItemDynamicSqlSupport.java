@@ -9,7 +9,7 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class OmOrderItemDynamicSqlSupport {
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source Table: om_order_item")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order_item")
   public static final OmOrderItem omOrderItem = new OmOrderItem();
 
   /**
@@ -61,7 +61,7 @@ public final class OmOrderItemDynamicSqlSupport {
    */
   public static final SqlColumn<Integer> isDeleted = omOrderItem.isDeleted;
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source Table: om_order_item")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order_item")
   public static final class OmOrderItem extends SqlTable {
     public final SqlColumn<Long> id = column("id", JDBCType.BIGINT);
 

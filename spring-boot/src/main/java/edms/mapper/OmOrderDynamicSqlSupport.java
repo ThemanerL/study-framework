@@ -1,15 +1,15 @@
 package edms.mapper;
 
-import org.mybatis.dynamic.sql.SqlColumn;
-import org.mybatis.dynamic.sql.SqlTable;
-
-import javax.annotation.Generated;
 import java.math.BigDecimal;
 import java.sql.JDBCType;
 import java.util.Date;
+import javax.annotation.Generated;
+
+import org.mybatis.dynamic.sql.SqlColumn;
+import org.mybatis.dynamic.sql.SqlTable;
 
 public final class OmOrderDynamicSqlSupport {
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.883+08:00", comments = "Source Table: om_order")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order")
   public static final OmOrder omOrder = new OmOrder();
 
   /**
@@ -40,7 +40,7 @@ public final class OmOrderDynamicSqlSupport {
    */
   public static final SqlColumn<Byte> isDeleted = omOrder.isDeleted;
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.885+08:00", comments = "Source Table: om_order")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order")
   public static final class OmOrder extends SqlTable {
     public final SqlColumn<Long> id = column("id", JDBCType.BIGINT);
 

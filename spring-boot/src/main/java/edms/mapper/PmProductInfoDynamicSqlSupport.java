@@ -9,7 +9,7 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class PmProductInfoDynamicSqlSupport {
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.909+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   public static final PmProductInfo pmProductInfo = new PmProductInfo();
 
   /**
@@ -59,9 +59,9 @@ public final class PmProductInfoDynamicSqlSupport {
   /**
    * 商品的详情图片
    */
-  public static final SqlColumn<String> imgs = pmProductInfo.imgs;
+  public static final SqlColumn<String> images = pmProductInfo.images;
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.909+08:00", comments = "Source Table: pm_product_info")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: pm_product_info")
   public static final class PmProductInfo extends SqlTable {
     public final SqlColumn<Long> id = column("id", JDBCType.BIGINT);
 
@@ -83,7 +83,7 @@ public final class PmProductInfoDynamicSqlSupport {
 
     public final SqlColumn<Byte> isDeleted = column("is_deleted", JDBCType.TINYINT);
 
-    public final SqlColumn<String> imgs = column("imgs", JDBCType.LONGVARCHAR);
+    public final SqlColumn<String> images = column("images", JDBCType.LONGVARCHAR);
 
     public PmProductInfo() {
       super("pm_product_info");

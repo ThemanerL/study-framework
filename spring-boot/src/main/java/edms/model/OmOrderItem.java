@@ -1,170 +1,181 @@
 package edms.model;
 
-import javax.annotation.Generated;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.annotation.Generated;
 
 /**
  * 订单明细表
  *
  * @author 李重辰
- * @date 2020/04/15 09:35
+ * @date 2020/04/15 10:34
  */
 public class OmOrderItem implements Serializable {
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source Table: om_order_item")
-  private static final long serialVersionUID = 1L;
   /**
    * 订单编号
    */
   private Long id;
+
   /**
    * 单身序号
    */
   private String it;
+
   /**
    * 商品编号
    */
   private Long productId;
+
   /**
    * 商品价格
    */
   private BigDecimal productPrice;
+
   /**
    * 商品数量
    */
   private Integer productQuantity;
+
   /**
    * 商品单位
    */
   private String productUnit;
+
   /**
    * 商品名称
    */
   private String productName;
+
   /**
    * 商品规格
    */
   private String productSpec;
+
   private Date gmtCreate;
+
   private Date gmtUpdate;
+
   /**
    * 是否被删除
    */
   private Integer isDeleted;
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.id")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order_item")
+  private static final long serialVersionUID = 1L;
+
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.id")
   public Long getId() {
     return id;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.id")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.id")
   public void setId(Long id) {
     this.id = id;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.it")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.it")
   public String getIt() {
     return it;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.it")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.it")
   public void setIt(String it) {
     this.it = it;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_id")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_id")
   public Long getProductId() {
     return productId;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_id")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_id")
   public void setProductId(Long productId) {
     this.productId = productId;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_price")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_price")
   public BigDecimal getProductPrice() {
     return productPrice;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_price")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_price")
   public void setProductPrice(BigDecimal productPrice) {
     this.productPrice = productPrice;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_quantity")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_quantity")
   public Integer getProductQuantity() {
     return productQuantity;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_quantity")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_quantity")
   public void setProductQuantity(Integer productQuantity) {
     this.productQuantity = productQuantity;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_unit")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_unit")
   public String getProductUnit() {
     return productUnit;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_unit")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_unit")
   public void setProductUnit(String productUnit) {
     this.productUnit = productUnit;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.904+08:00", comments = "Source field: om_order_item.product_name")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_name")
   public String getProductName() {
     return productName;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.product_name")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_name")
   public void setProductName(String productName) {
     this.productName = productName;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.product_spec")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_spec")
   public String getProductSpec() {
     return productSpec;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.product_spec")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.product_spec")
   public void setProductSpec(String productSpec) {
     this.productSpec = productSpec;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.gmt_create")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.gmt_create")
   public Date getGmtCreate() {
     return gmtCreate;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.gmt_create")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.gmt_create")
   public void setGmtCreate(Date gmtCreate) {
     this.gmtCreate = gmtCreate;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.gmt_update")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.gmt_update")
   public Date getGmtUpdate() {
     return gmtUpdate;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.gmt_update")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.gmt_update")
   public void setGmtUpdate(Date gmtUpdate) {
     this.gmtUpdate = gmtUpdate;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.is_deleted")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.is_deleted")
   public Integer getIsDeleted() {
     return isDeleted;
   }
 
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source field: om_order_item.is_deleted")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source field: om_order_item.is_deleted")
   public void setIsDeleted(Integer isDeleted) {
     this.isDeleted = isDeleted;
   }
 
   @Override
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source Table: om_order_item")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order_item")
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append(getClass().getSimpleName());
@@ -187,7 +198,7 @@ public class OmOrderItem implements Serializable {
   }
 
   @Override
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source Table: om_order_item")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order_item")
   public boolean equals(Object that) {
     if (this == that) {
       return true;
@@ -213,7 +224,7 @@ public class OmOrderItem implements Serializable {
   }
 
   @Override
-  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", date = "2020-04-15T09:35:54.905+08:00", comments = "Source Table: om_order_item")
+  @Generated(value = "org.mybatis.generator.api.MyBatisGenerator", comments = "Source Table: om_order_item")
   public int hashCode() {
     final int prime = 31;
     int result = 1;
