@@ -46,6 +46,9 @@ public class GeneratorID {
     System.out.println(l + START_TIME);
 
     System.out.println("最终生成效果：" + getId());
+
+    String s = Long.toBinaryString(MAX_SQL);
+    System.out.println(s);
   }
 
   private synchronized static long getId() {
@@ -83,6 +86,8 @@ public class GeneratorID {
     }
     // 如果上一个ID和这一个ID都在同一个毫秒内生成
     if (now == LAST_STAMP) {
+//      在下一行这种写法下，如果LAST_SQL + 1 = MAX_SQL，则LAST_SQL = 0;
+//      LAST_SEQ = (LAST_SEQ+1) & MAX_SQL;
       LAST_SEQ++;
       if (LAST_SEQ > MAX_SQL) {
         now = nextMillis(LAST_STAMP);
