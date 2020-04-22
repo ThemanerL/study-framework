@@ -1,7 +1,5 @@
 package hello.service;
 
-import lombok.extern.log4j.Log4j;
-import lombok.extern.log4j.Log4j2;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -23,7 +20,7 @@ import java.sql.SQLException;
 @SpringBootTest
 public class HelloServiceTest {
 
-  @Autowired
+  @Autowired(required = false)
   DataSource dataSource;
 
   @Autowired
