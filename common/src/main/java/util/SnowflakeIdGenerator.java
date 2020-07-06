@@ -34,22 +34,9 @@ public class SnowflakeIdGenerator {
    */
   private static final long START_TIME = 1420041600000L;
   /**
-   * 上次生成ID的时间截
-   */
-  private static long LAST_TIME_STAMP = -1L;
-  /**
    * 时间部分向左移动的位数 22
    */
   private static final int TIME_LEFT_BIT = 64 - 1 - TIME_LEN;
-
-  /**
-   * 自动获取数据中心id（可以手动定义 0-31之间的数）
-   */
-  private static final long DATA_ID = getDataId();
-  /**
-   * 自动机器id（可以手动定义 0-31之间的数）
-   */
-  private static final long WORK_ID = getWorkId();
   /**
    * 数据中心id最大值 31
    */
@@ -63,9 +50,17 @@ public class SnowflakeIdGenerator {
    */
   private static final int DATA_RANDOM = DATA_MAX_NUM + 1;
   /**
+   * 自动获取数据中心id（可以手动定义 0-31之间的数）
+   */
+  private static final long DATA_ID = getDataId();
+  /**
    * 随机获取机器id的参数 32
    */
   private static final int WORK_RANDOM = WORK_MAX_NUM + 1;
+  /**
+   * 自动机器id（可以手动定义 0-31之间的数）
+   */
+  private static final long WORK_ID = getWorkId();
   /**
    * 数据中心id左移位数 17
    */
@@ -74,15 +69,18 @@ public class SnowflakeIdGenerator {
    * 机器id左移位数 12
    */
   private static final int WORK_LEFT_BIT = DATA_LEFT_BIT - WORK_LEN;
-
-  /**
-   * 上一次的毫秒内序列值
-   */
-  private static long LAST_SEQ = 0L;
   /**
    * 毫秒内序列的最大值 4095
    */
   private static final long SEQ_MAX_NUM = ~(-1 << SEQ_LEN);
+  /**
+   * 上次生成ID的时间截
+   */
+  private static long LAST_TIME_STAMP = -1L;
+  /**
+   * 上一次的毫秒内序列值
+   */
+  private static long LAST_SEQ = 0L;
 
   public synchronized static long genId() {
     long now = System.currentTimeMillis();

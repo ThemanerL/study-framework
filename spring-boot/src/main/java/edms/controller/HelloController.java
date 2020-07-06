@@ -16,10 +16,18 @@ import java.util.Map;
 @Controller
 public class HelloController {
 
+  @Resource
+  HelloService helloService;
+
   @ResponseBody
   @RequestMapping("/hello")
   public String hello() {
     return "Hello World";
+  }
+
+  @RequestMapping({"/", "/index"})
+  public String index() {
+    return "index";
   }
 
   /**
@@ -30,9 +38,6 @@ public class HelloController {
     map.put("hello", "thymeleaf demo");
     return "success";
   }
-
-  @Resource
-  HelloService helloService;
 
   @RequestMapping(value = "/listProduct", method = RequestMethod.GET)
   public String listPmProductInfo() {
