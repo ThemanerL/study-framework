@@ -1,5 +1,6 @@
 package edms.component;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;
 
@@ -14,6 +15,8 @@ import java.util.Locale;
  * @date 2020/7/6 18:30
  */
 public class MyLocalResolver implements LocaleResolver {
+
+  @NotNull
   @Override
   public Locale resolveLocale(HttpServletRequest request) {
     String language = request.getParameter("l");
