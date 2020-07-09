@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -93,7 +93,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#">
+                        <a class="nav-link" href="http://getbootstrap.com/docs/4.0/examples/dashboard/#"
+                           th:href="@{/emps}">
                             <svg class="feather feather-users" fill="none" height="24" stroke="currentColor"
                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
                                  width="24" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +103,7 @@
                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
-                            Customers
+                            员工管理
                         </a>
                     </li>
                     <li class="nav-item">
