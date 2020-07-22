@@ -1,5 +1,7 @@
 package edms.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 /**
@@ -16,6 +18,7 @@ public class Employee {
    */
   private Integer gender;
   private Department department;
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date birth;
 
   public Employee(Integer id, String lastName, String email, Integer gender,

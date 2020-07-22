@@ -1,11 +1,13 @@
 package edms.controller;
 
+import edms.dao.DepartmentDao;
 import edms.dao.EmployeeDao;
+import edms.entities.Department;
 import edms.entities.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Collection;
 
@@ -15,8 +17,13 @@ import java.util.Collection;
  */
 @Controller
 public class EmployeeController {
-  @Autowired
-  EmployeeDao employeeDao;
+  final EmployeeDao employeeDao;
+  final DepartmentDao departmentDao;
+
+  public EmployeeController(EmployeeDao employeeDao, DepartmentDao departmentDao) {
+    this.employeeDao = employeeDao;
+    this.departmentDao = departmentDao;
+  }
 
   @GetMapping(value = "emps")
   public String list(Model model) {
@@ -24,5 +31,23 @@ public class EmployeeController {
     model.addAttribute("emps", employees);
     // 放在请求域中
     return "emp/list";
+  }
+
+  @GetMapping(value = "emp")
+  public String addPage(Model model) {
+    Collection<Department> departments = departmentDao.getDepartments();
+    model.addAttribute("departments", departments);
+    return "emp/add";
+  }
+
+  /**
+   * SpringMVC 自动将请求取参数和参数对象的属性进行一一绑定
+   * 要求请求参数的名字和javaBean入参的对象的属性名是一样的
+   */
+  @PostMapping(value = "emp")
+  public String addEmp(Employee employee) {
+    System.out.println("success");
+    // 斜杠代表是当前项目下
+    return "redriect:/emps";
   }
 }
