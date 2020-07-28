@@ -7,6 +7,7 @@ import edms.entities.Employee;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Collection;
@@ -48,6 +49,21 @@ public class EmployeeController {
   public String addEmp(Employee employee) {
     System.out.println("success");
     // 斜杠代表是当前项目下
-    return "redriect:/emps";
+    return "redirect:/emps";
+  }
+
+  /**
+   * 修改界面，显示当前员工
+   *
+   * @param id 将要修改的员工的编号
+   * @return 目标页面的名字
+   */
+  @GetMapping("/emp/{id}")
+  public String editEmp(@PathVariable("id") Integer id, Model model) {
+    Employee employee = employeeDao.get(id);
+    model.addAttribute("emp", employee);
+    Collection<Department> departments = departmentDao.getDepartments();
+    model.addAttribute("departments", departments);
+    return "emp/edit";
   }
 }

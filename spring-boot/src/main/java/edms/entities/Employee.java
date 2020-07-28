@@ -18,6 +18,9 @@ public class Employee {
    */
   private Integer gender;
   private Department department;
+  /**
+   * 对前台传入的日期格式进行格式化，可以在实体类的属性上使用DateTimeFormat进行设置，或者在SpringBoot的配置文件中进行配置
+   */
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date birth;
 
