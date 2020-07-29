@@ -6,9 +6,11 @@ import edms.entities.Department;
 import edms.entities.Employee;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Collection;
 
@@ -65,5 +67,23 @@ public class EmployeeController {
     Collection<Department> departments = departmentDao.getDepartments();
     model.addAttribute("departments", departments);
     return "emp/edit";
+  }
+
+  /**
+   * SpringMVC 自动将请求取参数和参数对象的属性进行一一绑定
+   * 要求请求参数的名字和javaBean入参的对象的属性名是一样的
+   */
+  @PutMapping(value = "emp")
+  public String editEmp(Employee employee) {
+    System.out.println("修改后的员工数据" + employee);
+    employeeDao.save(employee);
+    // 斜杠代表是当前项目下
+    return "redirect:/emps";
+  }
+
+  @DeleteMapping(value = "emp/{id}")
+  public String deleteEmp(@PathVariable("id") Integer id) {
+    employeeDao.delete(id);
+    return "redirect:/emps";
   }
 }

@@ -73,9 +73,12 @@
                         <td th:text="${emp.department.departmentName}"></td>
                         <td th:text="${#dates.format(emp.birth,'yyyy/MM/dd HH:mm')}"></td>
                         <td>
-                            <a class="btn btn-sm btn-primary" th:href="@{/emp/}+${emp.id}"
+                            <a class="btn btn-sm btn-primary" th:href="@{/emp/} + ${emp.id}"
                                th:text="#{list.button.modify}"></a>
-                            <a class="btn btn-sm btn-danger" th:text="#{list.button.delete}"></a>
+                            <form th:action="@{/emp/} + ${emp.id}" th:method="delete">
+                                <button class="btn btn-sm btn-danger" th:text="#{list.button.delete}"
+                                        type="submit"></button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
