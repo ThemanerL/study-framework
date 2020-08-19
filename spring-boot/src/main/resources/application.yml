@@ -31,17 +31,17 @@ spring:
       use-global-data-source-stat: true
       connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
 ---
-server:
-  port: 8082
 spring:
   profiles: beta
----
 server:
-  port: 8083
+  port: 8082
+---
 spring:
   profiles: prod
----
 server:
-  port: 80
+  port: 8083
+---
 spring:
   profiles: dev
+server:
+  port: 8081
