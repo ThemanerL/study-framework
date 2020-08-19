@@ -1,9 +1,11 @@
 package edms.controller;
 
+import edms.exception.UserNotExistException;
 import edms.service.HelloService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -21,7 +23,11 @@ public class HelloController {
 
   @ResponseBody
   @RequestMapping("/hello")
-  public String hello() {
+  public String hello(@RequestParam("user") String user) {
+    String aaa = "aaa";
+    if (aaa.equals(user)) {
+      throw new UserNotExistException();
+    }
     return "Hello World";
   }
 
