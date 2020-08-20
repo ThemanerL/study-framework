@@ -1,7 +1,9 @@
 package edms.config;
 
+import edms.component.GetCorpNoHandlerFilter;
 import edms.component.LoginHandlerInterceptor;
 import edms.component.MyLocalResolver;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
@@ -9,6 +11,9 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 李重辰
@@ -34,7 +39,10 @@ public class MvcConfig implements WebMvcConfigurer {
       public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").
             excludePathPatterns("index", "/", "/user/login", "/index", "/static/**", "/webjars/**");
+//        registry.addInterceptor(new GetCorpNoHandlerInterceptor()).addPathPatterns("/**").
+//            excludePathPatterns("index", "/", "/user/login", "/index", "/static/**", "/webjars/**");
       }
+
     };
   }
 
@@ -51,5 +59,17 @@ public class MvcConfig implements WebMvcConfigurer {
   @Bean
   public LocaleResolver localeResolver() {
     return new MyLocalResolver();
+  }
+
+  @Bean
+  public FilterRegistrationBean<GetCorpNoHandlerFilter> getCorpNoHandlerFilter() {
+    FilterRegistrationBean<GetCorpNoHandlerFilter> registrationBean = new FilterRegistrationBean<>();
+    GetCorpNoHandlerFilter timeFilter = new GetCorpNoHandlerFilter();
+    registrationBean.setFilter(timeFilter);
+    List<String> urls = new ArrayList<>();
+    //所有请求都过滤，指定请求
+    urls.add("/*");
+    registrationBean.setUrlPatterns(urls);
+    return registrationBean;
   }
 }

@@ -3,6 +3,7 @@ package edms.controller;
 import edms.exception.UserNotExistException;
 import edms.service.HelloService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,8 +19,13 @@ import java.util.Map;
 @Controller
 public class HelloController {
 
+  String corpNo;
   @Resource
   HelloService helloService;
+
+  public void setCorpNo(String corpNo) {
+    this.corpNo = corpNo;
+  }
 
   @ResponseBody
   @RequestMapping("/hello")
@@ -40,8 +46,11 @@ public class HelloController {
    * classpath:/templates/success.html
    */
   @RequestMapping("/success")
-  public String success(Map<String, Object> map) {
+  public String success(@RequestAttribute("CorpNo_") String corpNo, Map<String, Object> map) {
+    System.out.println(corpNo);
     map.put("hello", "thymeleaf demo");
+    map.put("corpNo", corpNo);
+    map.put("HandleCorpNo", Handle.corpNo.toString());
     return "success";
   }
 
