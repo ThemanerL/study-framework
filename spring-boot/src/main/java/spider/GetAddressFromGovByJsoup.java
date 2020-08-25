@@ -97,9 +97,9 @@ public class GetAddressFromGovByJsoup {
     //字符集信息提取
     String charset = charsetDocument.select("meta[http-equiv=Content-Type]").attr("content").split("=")[1];
     //根据字符集重新编码成正确的
-    String Ori_Entity = new String(bytes, charset);
-    //转换为统一的utf-8
-    String entity = new String(Ori_Entity.getBytes(), targetCharset);
+    String originEntity = new String(bytes, charset);
+    //转换为统一的utf-8起源
+    String entity = new String(originEntity.getBytes(), targetCharset);
     return Jsoup.parse(entity);
   }
 
@@ -113,31 +113,30 @@ public class GetAddressFromGovByJsoup {
     Elements cityList = document.select(".citytr td:nth-child(2) a");
     Elements countryList = document.select(".countytr td:nth-child(2) a");
     Elements townList = document.select(".towntr td:nth-child(2) a");
-    Elements addressList = new Elements();
     if (!provinceList.isEmpty()) {
-      addressList = provinceList;
+      return provinceList;
     }
     if (!cityList.isEmpty()) {
-      addressList = cityList;
+      return cityList;
     }
     if (!countryList.isEmpty()) {
-      addressList = countryList;
+      return countryList;
     }
     if (!townList.isEmpty()) {
-      addressList = townList;
+      return townList;
     }
-    return addressList;
+    throw new RuntimeException("当前页面不含有目标元素");
   }
 
   private void setAreaName(String areaName) {
-    if (StringUtils.isEmpty(address.area1)) {
-      address.setArea1(areaName);
-    } else if (StringUtils.isEmpty(address.area2)) {
-      address.setArea2(areaName);
-    } else if (StringUtils.isEmpty(address.area3)) {
-      address.setArea3(areaName);
-    } else if (StringUtils.isEmpty(address.area4)) {
-      address.setArea4(areaName);
+    if (StringUtils.isEmpty(address.province)) {
+      address.setProvince(areaName);
+    } else if (StringUtils.isEmpty(address.city)) {
+      address.setCity(areaName);
+    } else if (StringUtils.isEmpty(address.county)) {
+      address.setCounty(areaName);
+    } else if (StringUtils.isEmpty(address.town)) {
+      address.setTown(areaName);
     }
   }
 
@@ -149,33 +148,26 @@ public class GetAddressFromGovByJsoup {
 @Data
 @NoArgsConstructor
 class AddressRecursion {
-  String area1 = "";
-  String area2 = "";
-  String area3 = "";
-  String area4 = "";
-
-  void clear() {
-    area1 = "";
-    area2 = "";
-    area3 = "";
-    area4 = "";
-  }
+  String province = "";
+  String city = "";
+  String county = "";
+  String town = "";
 
   void clearOnce() {
-    if (!StringUtils.isEmpty(area4)) {
-      area4 = "";
+    if (!StringUtils.isEmpty(town)) {
+      town = "";
       return;
     }
-    if (!StringUtils.isEmpty(area3)) {
-      area3 = "";
+    if (!StringUtils.isEmpty(county)) {
+      county = "";
       return;
     }
-    if (!StringUtils.isEmpty(area2)) {
-      area2 = "";
+    if (!StringUtils.isEmpty(city)) {
+      city = "";
       return;
     }
-    if (!StringUtils.isEmpty(area1)) {
-      area1 = "";
+    if (!StringUtils.isEmpty(province)) {
+      province = "";
     }
   }
 }
