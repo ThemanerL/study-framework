@@ -3,6 +3,8 @@ package edms.config;
 import edms.component.GetCorpNoHandlerFilter;
 import edms.component.LoginHandlerInterceptor;
 import edms.component.MyLocalResolver;
+import org.springframework.boot.web.server.ConfigurableWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +23,19 @@ import java.util.List;
  */
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+
+  @Bean
+  public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
+    return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>() {
+      /**
+       * 定制嵌入式的Servlet容器
+       */
+      @Override
+      public void customize(ConfigurableWebServerFactory factory) {
+        factory.setPort(8090);
+      }
+    };
+  }
 
   /**
    * 可以使用这种方式将index映射到模板引擎解析的页面中
