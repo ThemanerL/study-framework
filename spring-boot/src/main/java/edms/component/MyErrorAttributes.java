@@ -19,6 +19,7 @@ public class MyErrorAttributes extends DefaultErrorAttributes {
     Map<String, Object> errorAttributesMap = super.getErrorAttributes(webRequest, includeStackTrace);
     errorAttributesMap.put("dad", "lzc");
 
+    @SuppressWarnings("unchecked")
     Map<String, Object> additionalInfo = (Map<String, Object>) webRequest.getAttribute("additionalInfo", SCOPE_REQUEST);
     errorAttributesMap.put("additionalInfo", additionalInfo);
     return errorAttributesMap;
