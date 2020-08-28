@@ -1,8 +1,8 @@
 package edms.config;
 
-import edms.servlet.MyFilter;
-import edms.servlet.MyListener;
-import edms.servlet.MyServlet;
+import edms.tomcat.filter.MyFilter;
+import edms.tomcat.listener.MyListener;
+import edms.tomcat.servlet.MyServlet;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -23,17 +23,17 @@ public class MyServerConfig {
    */
   @Bean
   public ServletRegistrationBean<MyServlet> myServlet() {
-    return new ServletRegistrationBean<MyServlet>(new MyServlet(), "/MyServlet");
+    return new ServletRegistrationBean<>(new MyServlet(), "/MyServlet");
   }
 
   @Bean
   public FilterRegistrationBean<MyFilter> myFilter() {
-    return new FilterRegistrationBean<MyFilter>(new MyFilter());
+    return new FilterRegistrationBean<>(new MyFilter());
   }
 
   @Bean
   public ServletListenerRegistrationBean<MyListener> myListener() {
-    return new ServletListenerRegistrationBean<MyListener>(new MyListener());
+    return new ServletListenerRegistrationBean<>(new MyListener());
   }
 
   /**

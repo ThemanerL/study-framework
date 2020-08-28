@@ -1,4 +1,4 @@
-package edms.servlet;
+package edms.tomcat.filter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

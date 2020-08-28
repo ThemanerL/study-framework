@@ -1,4 +1,4 @@
-package edms.servlet;
+package edms.tomcat.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +11,11 @@ import java.io.IOException;
  * @date 2020/8/26 23:47
  */
 public class MyServlet extends HttpServlet {
+
+  @Override
+  public void init() throws ServletException {
+    super.init();
+  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
