@@ -1,4 +1,4 @@
-package hello.service;
+package edms.service;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 /**
  * @author 李重辰
- * @date 2020/3/29 16:47
+ * @date 2020/8/30 22:51
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
