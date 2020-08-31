@@ -1,6 +1,6 @@
 package edms.config;
 
-import edms.component.GetCorpNoHandlerFilter;
+import edms.component.mimrc.GetCorpNoHandlerFilter;
 import edms.component.LoginHandlerInterceptor;
 import edms.component.MyLocalResolver;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

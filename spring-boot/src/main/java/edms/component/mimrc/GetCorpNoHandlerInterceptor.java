@@ -1,4 +1,4 @@
-package edms.component;
+package edms.component.mimrc;
 
 import edms.controller.Handle;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 【为华软测试】
  * 获取URL中的特定参数，并且将值带到Controller中
  *
  * @author 李重辰

@@ -1,4 +1,4 @@
-package edms.component;
+package edms.component.mimrc;
 
 import edms.controller.Handle;
 
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
+ * 【为华软测试】
  * @author 李重辰
  * @date 2020/8/20 23:33
  */
