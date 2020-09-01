@@ -30,6 +30,9 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
       use-global-data-source-stat: true
       connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+mybatis:
+  #  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
 ---
 spring:
   profiles: beta
