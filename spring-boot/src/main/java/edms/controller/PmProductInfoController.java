@@ -1,6 +1,6 @@
 package edms.controller;
 
-import edms.mapper.PmProductInfoSimpleMapper;
+import edms.mapper.PmProductInfoMapper;
 import edms.model.PmProductInfo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +16,16 @@ import javax.annotation.Resource;
 public class PmProductInfoController {
 
   @Resource
-  PmProductInfoSimpleMapper mapper;
+  PmProductInfoMapper mapper;
 
   @GetMapping("/productInfo/{id}")
-  public PmProductInfo getPmProductInfoById(@PathVariable("id") Integer id) {
-    return mapper.getPmProductById(id);
+  public PmProductInfo getPmProductInfoById(@PathVariable("id") Long id) {
+    return mapper.selectByPrimaryKey(id);
   }
 
   @GetMapping("/productInfo")
   public PmProductInfo insertPmProductInfo(PmProductInfo pmProductInfo) {
-    mapper.insertPmProduct(pmProductInfo);
+    mapper.insert(pmProductInfo);
     return pmProductInfo;
   }
 }
