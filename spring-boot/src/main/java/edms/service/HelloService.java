@@ -4,7 +4,6 @@ import edms.mapper.PmProductInfoMapper;
 import edms.model.PmProductInfo;
 import edms.model.PmProductInfoExample;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -13,7 +12,6 @@ import java.util.List;
  */
 public class HelloService {
 
-  @Resource
   private PmProductInfoMapper mapper;
 
   public List<PmProductInfo> testSelectByExample() {
