@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edms.mapper.PmProductInfoSimpleMapper">
-    <select id="getPmProductById" resultType="edms.model.PmProductInfo">
-        select * from pm_product_info where id = #{id}
-    </select>
-</mapper>
