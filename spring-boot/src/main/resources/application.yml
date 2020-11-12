@@ -2,10 +2,10 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:mysql://116.62.239.206:3306/edms
+    url: jdbc:mysql://rm-bp1640cfjq1zz4141to.mysql.rds.aliyuncs.com:3306/edms
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
+    username: edms
+    password: XpvqMERssDCYf5p0
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 5
